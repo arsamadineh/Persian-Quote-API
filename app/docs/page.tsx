@@ -115,7 +115,7 @@ export default function DocsPage() {
                 <CardContent>
                   <p className="mb-4">برای دریافت یک شعر تصادفی:</p>
                   <div className="bg-muted p-4 rounded-lg" dir="ltr">
-                    <code className="text-sm">curl https://your-domain.com/api/quotes?random=true&limit=1</code>
+                    <code className="text-sm">curl https://pq.arsamadineh.ir/api/quotes?random=true&limit=1</code>
                   </div>
                 </CardContent>
               </Card>
@@ -448,7 +448,7 @@ import json
 
 # دریافت شعر تصادفی
 def get_random_quote():
-    url = "https://your-domain.com/api/quotes"
+    url = "https://pq.arsamadineh.ir/api/quotes"
     params = {"random": "true", "limit": 1}
     
     response = requests.get(url, params=params)
@@ -461,7 +461,7 @@ def get_random_quote():
 
 # جستجو در اشعار
 def search_quotes(query):
-    url = "https://your-domain.com/api/quotes/search"
+    url = "https://pq.arsamadineh.ir/api/quotes/search"
     params = {"q": query, "limit": 10}
     
     response = requests.get(url, params=params)
@@ -481,7 +481,7 @@ def search_quotes(query):
                         <code className="text-sm whitespace-pre-wrap">{`<?php
 // دریافت شعر تصادفی
 function getRandomQuote() {
-    $url = "https://your-domain.com/api/quotes?random=true&limit=1";
+    $url = "https://pq.arsamadineh.ir/api/quotes?random=true&limit=1";
     $response = file_get_contents($url);
     $data = json_decode($response, true);
     
@@ -494,7 +494,7 @@ function getRandomQuote() {
 
 // جستجو در اشعار
 function searchQuotes($query) {
-    $url = "https://your-domain.com/api/quotes/search?q=" . urlencode($query);
+    $url = "https://pq.arsamadineh.ir/api/quotes/search?q=" . urlencode($query);
     $response = file_get_contents($url);
     $data = json_decode($response, true);
     
@@ -514,19 +514,19 @@ function searchQuotes($query) {
                     <CardContent>
                       <div className="bg-muted p-4 rounded-lg" dir="ltr">
                         <code className="text-sm whitespace-pre-wrap">{`# دریافت شعر تصادفی
-curl "https://your-domain.com/api/quotes?random=true&limit=1"
+curl "https://pq.arsamadineh.ir/api/quotes?random=true&limit=1"
 
 # دریافت اشعار حافظ
-curl "https://your-domain.com/api/quotes/حافظ%20شیرازی"
+curl "https://pq.arsamadineh.ir/api/quotes/حافظ%20شیرازی"
 
 # جستجو در اشعار
-curl "https://your-domain.com/api/quotes/search?q=عشق&limit=5"
+curl "https://pq.arsamadineh.ir/api/quotes/search?q=عشق&limit=5"
 
 # دریافت فهرست شاعران
-curl "https://your-domain.com/api/poets?stats=true"
+curl "https://pq.arsamadineh.ir/api/poets?stats=true"
 
 # دریافت دسته‌بندی‌ها
-curl "https://your-domain.com/api/categories"`}</code>
+curl "https://pq.arsamadineh.ir/api/categories"`}</code>
                       </div>
                     </CardContent>
                   </Card>
