@@ -1,6 +1,5 @@
 # API نقل‌قول‌های فارسی
 
-[![مستقر شده روی Vercel](https://img.shields.io/badge/مستقر%20شده%20روی-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/arsamaa29-gmailcoms-projects/v0-persian-quote-api)
 [![ساخته شده با Next.js](https://img.shields.io/badge/ساخته%20شده%20با-Next.js-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
@@ -170,16 +169,9 @@ fetch('/api/quotes/search?q=عشق')
 - GitHub: [@arsamadineh](https://github.com/arsamadineh)
 - ایمیل: contact@arsamadineh.ir
 
-## 🔗 لینک‌های مفید
-
-- [مستندات کامل](https://persian-quote-api.vercel.app/docs)
-- [نمونه‌های زنده](https://persian-quote-api.vercel.app/examples)
-- [کارت‌های قابل جاسازی](https://persian-quote-api.vercel.app/embed)
-- [وب‌سایت پروژه](https://persian-quote-api.vercel.app)
-
 ---
 
 <div align="center">
   <p>ساخته شده با ❤️ برای زبان زیبای فارسی</p>
-  <p>© 2024 آرسام آدینه. تمامی حقوق محفوظ است.</p>
+  <p>© 2025 آرسام آدینه. تمامی حقوق محفوظ است.</p>
 </div>

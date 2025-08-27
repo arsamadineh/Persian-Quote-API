@@ -256,32 +256,6 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h5 className="font-semibold mb-4">لینک‌های مفید</h5>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>
-                  <Link href="/docs" className="hover:text-primary transition-colors">
-                    مستندات API
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/examples" className="hover:text-primary transition-colors">
-                    نمونه‌های کاربردی
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/embed" className="hover:text-primary transition-colors">
-                    ساخت ویجت
-                  </Link>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    دسته‌بندی‌ها
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
               <h5 className="font-semibold mb-4">پشتیبانی</h5>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
@@ -305,7 +279,7 @@ export default function HomePage() {
 
           <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
             <p className="flex items-center justify-center gap-2">
-              <span>© ۱۴۰۳ API اشعار فارسی. تمامی حقوق محفوظ است.</span>
+              <span>© ۱۴۰۴ API اشعار فارسی. تمامی حقوق محفوظ است.</span>
               <span className="text-primary">❦</span>
             </p>
           </div>
