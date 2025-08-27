@@ -1,0 +1,493 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Updated color tokens for Persian poetry website with warm golden amber and elegant neutrals */
+  --background: oklch(1 0 0); /* Pure white */
+  --foreground: oklch(0.25 0 0); /* Deep slate gray #374151 */
+  --card: oklch(0.98 0.02 85); /* Soft cream #fefce8 */
+  --card-foreground: oklch(0.25 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0 0);
+  --primary: oklch(0.65 0.15 65); /* Warm golden amber #d97706 */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.98 0.02 85); /* Soft cream */
+  --secondary-foreground: oklch(0.25 0 0);
+  --muted: oklch(0.98 0.02 85);
+  --muted-foreground: oklch(0.25 0 0);
+  --accent: oklch(0.65 0.15 65); /* Golden amber accent */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0 0); /* Light gray borders */
+  --input: oklch(0.97 0 0); /* Light input background */
+  --ring: oklch(0.65 0.15 65 / 0.3); /* Golden amber ring with transparency */
+  --chart-1: oklch(0.65 0.15 65);
+  --chart-2: oklch(0.55 0.15 200);
+  --chart-3: oklch(0.35 0.1 200);
+  --chart-4: oklch(0.98 0.02 85);
+  --chart-5: oklch(0.25 0 0);
+  --radius: 0.5rem;
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.25 0 0);
+  --sidebar-primary: oklch(0.65 0.15 65);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.98 0.02 85);
+  --sidebar-accent-foreground: oklch(0.25 0 0);
+  --sidebar-border: oklch(0.92 0 0);
+  --sidebar-ring: oklch(0.65 0.15 65 / 0.3);
+  --font-vazirmatn: "Vazirmatn";
+}
+
+.dark {
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.08 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.7 0.15 65);
+  --primary-foreground: oklch(0.08 0 0);
+  --secondary: oklch(0.15 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.15 0 0);
+  --muted-foreground: oklch(0.6 0 0);
+  --accent: oklch(0.7 0.15 65);
+  --accent-foreground: oklch(0.08 0 0);
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: oklch(0.95 0 0);
+  --border: oklch(0.15 0 0);
+  --input: oklch(0.15 0 0);
+  --ring: oklch(0.7 0.15 65 / 0.3);
+  --chart-1: oklch(0.7 0.15 65);
+  --chart-2: oklch(0.6 0.15 200);
+  --chart-3: oklch(0.4 0.1 200);
+  --chart-4: oklch(0.15 0 0);
+  --chart-5: oklch(0.95 0 0);
+  --sidebar: oklch(0.08 0 0);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.7 0.15 65);
+  --sidebar-primary-foreground: oklch(0.08 0 0);
+  --sidebar-accent: oklch(0.15 0 0);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.15 0 0);
+  --sidebar-ring: oklch(0.7 0.15 65 / 0.3);
+  --font-vazirmatn: "Vazirmatn";
+}
+
+@theme inline {
+  /* Updated font configuration to use Vazirmatn as primary font */
+  --font-sans: var(--font-vazirmatn), "Vazirmatn", "Tahoma", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Ensure Vazirmatn font is applied to body */
+    font-family: var(--font-vazirmatn), "Vazirmatn", "Tahoma", sans-serif;
+  }
+
+  /* Enhanced RTL support and Persian typography styles */
+  .rtl {
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* Added LTR support for English content */
+  .ltr {
+    direction: ltr;
+    text-align: left;
+  }
+
+  /* LTR text alignment utilities */
+  .ltr\:text-left {
+    text-align: left !important;
+  }
+
+  .ltr\:text-right {
+    text-align: right !important;
+  }
+
+  /* Code block styling for LTR content */
+  pre[dir="ltr"],
+  code[dir="ltr"],
+  .ltr pre,
+  .ltr code {
+    direction: ltr;
+    text-align: left;
+    font-family: var(--font-mono), "Courier New", monospace;
+  }
+
+  /* API endpoint and URL styling */
+  .api-endpoint {
+    direction: ltr;
+    text-align: left;
+    font-family: var(--font-mono), monospace;
+    background: var(--muted);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  /* JSON response styling */
+  .json-response {
+    direction: ltr;
+    text-align: left;
+    font-family: var(--font-mono), monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  /* Mixed content containers */
+  .mixed-content {
+    /* Allow both RTL and LTR content to coexist */
+  }
+
+  .mixed-content .persian-content {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .mixed-content .english-content {
+    direction: ltr;
+    text-align: left;
+  }
+
+  .persian-text {
+    /* Updated Persian text to use Vazirmatn font variable */
+    font-family: var(--font-vazirmatn), "Vazirmatn", "Tahoma", sans-serif;
+    line-height: 1.9;
+    letter-spacing: 0.01em;
+  }
+
+  /* Added font-vazirmatn utility class */
+  .font-vazirmatn {
+    font-family: var(--font-vazirmatn), "Vazirmatn", "Tahoma", sans-serif;
+  }
+
+  /* Enhanced quote card styling with Persian calligraphy inspiration */
+  .quote-card {
+    background: linear-gradient(135deg, var(--card) 0%, var(--background) 100%);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, transparent 70%);
+    opacity: 0.1;
+    border-radius: 0 0 0 100%;
+  }
+
+  .quote-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(315deg, var(--accent) 0%, transparent 70%);
+    opacity: 0.08;
+    border-radius: 0 100% 0 0;
+  }
+
+  /* Persian calligraphy-inspired decorative elements */
+  .decorative-border {
+    border-image: linear-gradient(45deg, var(--primary), var(--accent)) 1;
+    position: relative;
+  }
+
+  .decorative-border::before {
+    content: "❦";
+    position: absolute;
+    top: -8px;
+    right: 50%;
+    transform: translateX(50%);
+    background: var(--background);
+    padding: 0 8px;
+    color: var(--primary);
+    font-size: 16px;
+  }
+
+  /* Enhanced Persian quote styling */
+  .persian-quote {
+    font-size: 1.25rem;
+    line-height: 2;
+    text-align: center;
+    color: var(--foreground);
+    font-weight: 500;
+    position: relative;
+    padding: 1rem 0;
+  }
+
+  .persian-quote::before,
+  .persian-quote::after {
+    content: "❝";
+    font-size: 2rem;
+    color: var(--primary);
+    opacity: 0.3;
+    position: absolute;
+    font-family: serif;
+  }
+
+  .persian-quote::before {
+    top: -0.5rem;
+    right: -0.5rem;
+  }
+
+  .persian-quote::after {
+    content: "❞";
+    bottom: -0.5rem;
+    left: -0.5rem;
+  }
+
+  /* Persian poet attribution styling */
+  .poet-attribution {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 1rem;
+    position: relative;
+  }
+
+  .poet-attribution::before {
+    content: "◆";
+    margin-left: 0.5rem;
+    opacity: 0.6;
+    font-size: 0.8rem;
+  }
+
+  /* Enhanced hero section with Persian patterns */
+  .hero-pattern {
+    background-image: radial-gradient(circle at 25% 25%, var(--primary) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, var(--accent) 0%, transparent 50%);
+    background-size: 100px 100px;
+    background-position: 0 0, 50px 50px;
+    opacity: 0.03;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+
+  /* Improved button styling for Persian interface */
+  .persian-button {
+    font-family: "Vazirmatn", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 0.3s ease;
+  }
+
+  .persian-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.25);
+  }
+
+  /* Enhanced card hover effects */
+  .feature-card {
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.15);
+    border-color: var(--primary);
+  }
+
+  /* Persian number styling */
+  .persian-numbers {
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Improved scrollbar for RTL */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--muted);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+
+  /* Enhanced focus styles for accessibility */
+  .rtl *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Improved text selection for Persian text */
+  .persian-text::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  /* Loading animation with Persian aesthetic */
+  .persian-loading {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--muted);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: persian-spin 1s ease-in-out infinite;
+  }
+
+  @keyframes persian-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Enhanced responsive typography for Persian text */
+  @media (max-width: 768px) {
+    .persian-text {
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .persian-quote {
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .persian-text {
+      line-height: 1.7;
+      font-size: 0.9rem;
+    }
+
+    .persian-quote {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+  }
+
+  /* Added code syntax highlighting and formatting */
+  .code-block {
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .code-header {
+    background: var(--muted-foreground);
+    background-opacity: 0.1;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .code-content {
+    padding: 1rem;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    direction: ltr;
+    text-align: left;
+    overflow-x: auto;
+  }
+
+  /* Language-specific code styling */
+  .language-json {
+    color: var(--foreground);
+  }
+
+  .language-javascript,
+  .language-jsx,
+  .language-vue {
+    color: var(--foreground);
+  }
+
+  /* API documentation styling */
+  .api-docs {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .api-docs .code-example {
+    direction: ltr;
+    text-align: left;
+    margin: 1rem 0;
+  }
+
+  .api-docs .endpoint-url {
+    direction: ltr;
+    text-align: left;
+    font-family: var(--font-mono), monospace;
+    background: var(--muted);
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+}
