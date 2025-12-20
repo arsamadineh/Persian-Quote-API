@@ -1,15 +1,19 @@
+"use client"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { BookOpen, Code, Heart, Search, Star, Users } from "lucide-react"
+import { BookOpen, Code, Heart, Menu, Search, Star, Users } from "lucide-react"
 import Link from "next/link"
 
 export default function HomePage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 relative">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-lg">
@@ -20,57 +24,95 @@ export default function HomePage() {
                 <p className="text-sm text-muted-foreground">Persian Quotes API</p>
               </div>
             </div>
-            <nav className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-4">
               <Link href="/docs" className="text-foreground hover:text-primary transition-colors font-medium">
                 مستندات
               </Link>
               <Link href="/examples" className="text-foreground hover:text-primary transition-colors font-medium">
                 نمونه‌ها
               </Link>
-              <Button variant="outline" size="sm" className="persian-button bg-transparent">
-                <Code className="w-4 h-4 ml-2" />
-                GitHub
-              </Button>
+              <a href="https://github.com/arsamadineh/Persian-Quote-API" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm" className="persian-button bg-transparent">
+                  <Code className="w-4 h-4 ml-2" />
+                  GitHub
+                </Button>
+              </a>
             </nav>
+            <div className="md:hidden">
+              <Button variant="outline" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </div>
           </div>
+          {isMenuOpen && (
+            <div className="md:hidden absolute top-full left-0 w-full bg-card/95 backdrop-blur-sm shadow-lg">
+              <nav className="flex flex-col items-center gap-4 py-6">
+                <Link
+                  href="/docs"
+                  className="text-foreground hover:text-primary transition-colors font-medium text-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  مستندات
+                </Link>
+                <Link
+                  href="/examples"
+                  className="text-foreground hover:text-primary transition-colors font-medium text-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  نمونه‌ها
+                </Link>
+                <a href="https://github.com/arsamadineh/Persian-Quote-API" target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="sm" className="persian-button bg-transparent mt-2">
+                    <Code className="w-4 h-4 ml-2" />
+                    GitHub
+                  </Button>
+                </a>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4 relative overflow-hidden">
+      <section className="py-16 md:py-20 px-4 relative overflow-hidden">
         <div className="hero-pattern"></div>
         <div className="container mx-auto text-center max-w-4xl relative z-10">
           <div className="mb-8">
             <Badge variant="secondary" className="mb-4 text-sm px-4 py-2 shadow-sm">
               🌟 رایگان و متن‌باز
             </Badge>
-            <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
               گنجینه‌ای از
               <span className="text-primary block mt-2 relative">
                 اشعار فارسی
                 <div className="absolute -bottom-2 right-1/2 transform translate-x-1/2 w-32 h-1 bg-gradient-to-r from-primary to-accent rounded-full opacity-30"></div>
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
               دسترسی آسان به هزاران بیت از اشعار بزرگان ادب فارسی شامل مولانا، حافظ، سعدی، فردوسی و دیگر شاعران بزرگ
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="text-lg px-8 py-6 persian-button shadow-lg">
+            <Button size="lg" className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6 persian-button shadow-lg">
               <BookOpen className="w-5 h-5 ml-2" />
               شروع کنید
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6 persian-button bg-transparent">
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6 persian-button bg-transparent"
+            >
               <Code className="w-5 h-5 ml-2" />
               مشاهده مستندات
             </Button>
           </div>
 
           {/* Sample Quote Card */}
-          <Card className="quote-card max-w-2xl mx-auto p-8 text-center">
+          <Card className="quote-card max-w-2xl mx-auto p-6 md:p-8 text-center">
             <CardContent className="pt-6">
-              <blockquote className="persian-quote text-2xl md:text-3xl font-semibold text-foreground leading-relaxed mb-4">
+              <blockquote className="persian-quote text-xl md:text-2xl lg:text-3xl font-semibold text-foreground leading-relaxed mb-4">
                 عاشقان مرده‌اند در عشق زنده
                 <br />
                 تا ابد در دل جانان پاینده
@@ -92,7 +134,7 @@ export default function HomePage() {
             <div className="decorative-border w-24 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="feature-card text-center p-6 hover:shadow-lg transition-all duration-300">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4 shadow-sm">
@@ -199,7 +241,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <pre className="bg-muted p-4 rounded-lg text-sm overflow-x-auto shadow-inner" dir="ltr">
-                  <code>{`GET /api/quotes?random=true&limit=1
+                  <code className="whitespace-pre-wrap">{`GET /api/quotes?random=true&limit=1
 
 {
   "success": true,
@@ -224,7 +266,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <pre className="bg-muted p-4 rounded-lg text-sm overflow-x-auto shadow-inner" dir="ltr">
-                  <code>{`GET /api/quotes/search?q=عشق&limit=5
+                  <code className="whitespace-pre-wrap">{`GET /api/quotes/search?q=عشق&limit=5
 
 {
   "success": true,
@@ -242,9 +284,9 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-border bg-muted/30 py-12 px-4">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
             <div>
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-sm">
                   <BookOpen className="w-5 h-5 text-primary-foreground" />
                 </div>
@@ -259,17 +301,32 @@ export default function HomePage() {
               <h5 className="font-semibold mb-4">پشتیبانی</h5>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
-                  <a href="#" className="hover:text-primary transition-colors">
+                  <a
+                    href="https://github.com/arsamadineh/Persian-Quote-API"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
                     GitHub
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition-colors">
+                  <a
+                    href="https://github.com/arsamadineh/Persian-Quote-API/issues"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
                     مسائل و پیشنهادات
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition-colors">
+                  <a
+                    href="https://github.com/arsamadineh/Persian-Quote-API/blob/main/CONTRIBUTING.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
                     راهنمای مشارکت
                   </a>
                 </li>
