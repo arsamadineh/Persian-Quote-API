@@ -1,17 +1,20 @@
+"use client"
+import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { BookOpen, ExternalLink, Info, Zap } from "lucide-react"
+import { BookOpen, ExternalLink, Info, Menu, Zap } from "lucide-react"
 import Link from "next/link"
 
 export default function DocsPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 relative">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
@@ -22,26 +25,78 @@ export default function DocsPage() {
                 <p className="text-sm text-muted-foreground">مستندات API</p>
               </div>
             </Link>
-            <nav className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-4">
               <Link href="/" className="text-foreground hover:text-primary transition-colors">
                 خانه
               </Link>
               <Link href="/examples" className="text-foreground hover:text-primary transition-colors">
                 نمونه‌ها
               </Link>
-              <Button variant="outline" size="sm">
-                <ExternalLink className="w-4 h-4 ml-2" />
-                GitHub
-              </Button>
+              <a href="https://github.com/arsamadineh/Persian-Quote-API" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm">
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                  GitHub
+                </Button>
+              </a>
             </nav>
+            <div className="md:hidden">
+              <Button variant="outline" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </div>
           </div>
+          {isMenuOpen && (
+            <div className="md:hidden absolute top-full left-0 w-full bg-card/95 backdrop-blur-sm shadow-lg">
+              <nav className="flex flex-col items-center gap-4 py-6">
+                <Link href="/" className="text-foreground hover:text-primary transition-colors text-lg">
+                  خانه
+                </Link>
+                <Link href="/examples" className="text-foreground hover:text-primary transition-colors text-lg">
+                  نمونه‌ها
+                </Link>
+                <a
+                  href="https://github.com/arsamadineh/Persian-Quote-API"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2"
+                >
+                  <Button variant="outline" size="sm">
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                    GitHub
+                  </Button>
+                </a>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="lg:hidden mb-6">
+          <select
+            className="w-full p-3 rounded-lg border bg-card text-foreground"
+            onChange={(e) => {
+              const element = document.getElementById(e.target.value)
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth" })
+              }
+            }}
+          >
+            <option value="overview">معرفی کلی</option>
+            <option value="authentication">احراز هویت</option>
+            <option value="endpoints">نقاط پایانی API</option>
+            <option value="quotes">• دریافت اشعار</option>
+            <option value="poets">• شاعران</option>
+            <option value="categories">• دسته‌بندی‌ها</option>
+            <option value="search">• جستجو</option>
+            <option value="errors">مدیریت خطاها</option>
+            <option value="examples">نمونه‌های کاربردی</option>
+          </select>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar Navigation */}
-          <div className="lg:col-span-1">
+          <div className="hidden lg:block lg:col-span-1">
             <div className="sticky top-24 space-y-4">
               <Card className="p-4">
                 <h3 className="font-semibold mb-3">فهرست مطالب</h3>
@@ -85,37 +140,39 @@ export default function DocsPage() {
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3 space-y-8">
+          <div className="col-span-1 lg:col-span-3 space-y-8">
             {/* Overview */}
             <section id="overview">
               <div className="mb-6">
                 <Badge variant="secondary" className="mb-4">
                   نسخه ۱.۰
                 </Badge>
-                <h1 className="text-4xl font-bold text-foreground mb-4">مستندات API اشعار فارسی</h1>
-                <p className="text-xl text-muted-foreground leading-relaxed">
+                <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">مستندات API اشعار فارسی</h1>
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                   API رایگان و متن‌باز برای دسترسی به گنجینه‌ای از اشعار شاعران بزرگ فارسی
                 </p>
               </div>
 
               <Alert className="mb-6">
                 <Info className="h-4 w-4" />
-                <AlertDescription className="text-base">
+                <AlertDescription className="text-sm md:text-base">
                   این API کاملاً رایگان است و نیازی به ثبت‌نام یا کلید API ندارد. فقط کافی است درخواست‌های HTTP ارسال کنید.
                 </AlertDescription>
               </Alert>
 
-              <Card className="p-6">
+              <Card className="p-4 md:p-6">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
                     <Zap className="w-5 h-5 text-primary" />
                     شروع سریع
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="mb-4">برای دریافت یک شعر تصادفی:</p>
-                  <div className="bg-muted p-4 rounded-lg" dir="ltr">
-                    <code className="text-sm">curl https://pq.arsamadineh.ir/api/quotes?random=true&limit=1</code>
+                  <p className="mb-4 text-sm md:text-base">برای دریافت یک شعر تصادفی:</p>
+                  <div className="bg-muted p-3 md:p-4 rounded-lg overflow-x-auto" dir="ltr">
+                    <code className="text-xs md:text-sm">
+                      curl https://pq.arsamadineh.ir/api/quotes?random=true&limit=1
+                    </code>
                   </div>
                 </CardContent>
               </Card>

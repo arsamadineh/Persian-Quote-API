@@ -10,10 +10,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { QuoteWidget } from "@/components/quote-cards/quote-widget"
-import { BookOpen, Code, Play, RefreshCw, Search, Users, Heart, Sparkles } from "lucide-react"
+import { BookOpen, Code, Play, RefreshCw, Search, Users, Heart, Sparkles, Menu } from "lucide-react"
 import Link from "next/link"
 
 export default function ExamplesPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [apiResponse, setApiResponse] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
@@ -55,7 +56,7 @@ export default function ExamplesPage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 relative">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
@@ -66,7 +67,7 @@ export default function ExamplesPage() {
                 <p className="text-sm text-muted-foreground">نمونه‌های کاربردی</p>
               </div>
             </Link>
-            <nav className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-4">
               <Link href="/" className="text-foreground hover:text-primary transition-colors">
                 خانه
               </Link>
@@ -76,20 +77,58 @@ export default function ExamplesPage() {
               <Link href="/embed" className="text-foreground hover:text-primary transition-colors">
                 ویجت
               </Link>
+              <a href="https://github.com/arsamadineh/Persian-Quote-API" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm">
+                  <Code className="w-4 h-4 ml-2" />
+                  GitHub
+                </Button>
+              </a>
             </nav>
+            <div className="md:hidden">
+              <Button variant="outline" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </div>
           </div>
+          {isMenuOpen && (
+            <div className="md:hidden absolute top-full left-0 w-full bg-card/95 backdrop-blur-sm shadow-lg">
+              <nav className="flex flex-col items-center gap-4 py-6">
+                <Link href="/" className="text-foreground hover:text-primary transition-colors text-lg">
+                  خانه
+                </Link>
+                <Link href="/docs" className="text-foreground hover:text-primary transition-colors text-lg">
+                  مستندات
+                </Link>
+                <Link href="/embed" className="text-foreground hover:text-primary transition-colors text-lg">
+                  ویجت
+                </Link>
+                <a
+                  href="https://github.com/arsamadineh/Persian-Quote-API"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2"
+                >
+                  <Button variant="outline" size="sm">
+                    <Code className="w-4 h-4 ml-2" />
+                    GitHub
+                  </Button>
+                </a>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-4">نمونه‌های کاربردی و تست زنده</h1>
-          <p className="text-xl text-muted-foreground">
+        <div className="mb-8 text-center md:text-right">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">نمونه‌های کاربردی و تست زنده</h1>
+          <p className="text-lg md:text-xl text-muted-foreground">
             API را به صورت تعاملی تست کنید و نمونه‌های مختلف استفاده را مشاهده کنید
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Interactive API Tester */}
           <div className="space-y-6">
             <Card>
