@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { BookOpen, Code, Heart, Menu, Search, Star, Users } from "lucide-react"
 import Link from "next/link"
+import { ContentDiscovery } from "@/components/ContentDiscovery"
 
 export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -110,7 +111,7 @@ export default function HomePage() {
           </div>
 
           {/* Sample Quote Card */}
-          <Card className="quote-card max-w-2xl mx-auto p-6 md:p-8 text-center">
+          <Card className="quote-card max-w-2xl mx-auto p-6 md:p-8 text-center mb-12">
             <CardContent className="pt-6">
               <blockquote className="persian-quote text-xl md:text-2xl lg:text-3xl font-semibold text-foreground leading-relaxed mb-4">
                 عاشقان مرده‌اند در عشق زنده
@@ -120,6 +121,9 @@ export default function HomePage() {
               <footer className="poet-attribution">مولانا جلال‌الدین رومی</footer>
             </CardContent>
           </Card>
+
+          {/* Content Discovery Component */}
+          <ContentDiscovery />
         </div>
       </section>
 
