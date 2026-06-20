@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { TypographyCanvas } from "@/components/typography-canvas"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -279,6 +280,15 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
+          {/* Typography Canvas Section */}
+          <section id="typography-canvas" className="w-full max-w-6xl mx-auto mb-20 px-4 md:px-0 mt-20">
+            <div className="flex flex-col items-center gap-4 text-center mb-8">
+              <h2 className="text-3xl font-bold font-vazirmatn">بوم تایپوگرافی پیشرفته</h2>
+              <p className="text-muted-foreground text-lg font-serif">Advanced Typography Canvas</p>
+            </div>
+            <TypographyCanvas />
+          </section>
+
       </section>
 
       {/* Footer */}
