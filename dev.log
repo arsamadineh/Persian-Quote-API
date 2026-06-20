@@ -1,0 +1,13 @@
+
+> my-v0-project@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.2.8
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 15.9s (3230 modules)
+ GET /dashboard 200 in 16814ms
