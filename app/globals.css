@@ -42,38 +42,38 @@
 }
 
 .dark {
-  --background: oklch(0.08 0 0);
+  --background: #0B0B0C;
   --foreground: oklch(0.95 0 0);
-  --card: oklch(0.12 0 0);
+  --card: rgba(11, 11, 12, 0.4);
   --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.08 0 0);
+  --popover: #0B0B0C;
   --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.7 0.15 65);
-  --primary-foreground: oklch(0.08 0 0);
+  --primary: #FF6B35;
+  --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.15 0 0);
   --secondary-foreground: oklch(0.95 0 0);
   --muted: oklch(0.15 0 0);
   --muted-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.7 0.15 65);
-  --accent-foreground: oklch(0.08 0 0);
+  --accent: #FF6B35;
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.5 0.2 25);
   --destructive-foreground: oklch(0.95 0 0);
-  --border: oklch(0.15 0 0);
+  --border: rgba(255, 255, 255, 0.1);
   --input: oklch(0.15 0 0);
-  --ring: oklch(0.7 0.15 65 / 0.3);
-  --chart-1: oklch(0.7 0.15 65);
+  --ring: #FF6B35;
+  --chart-1: #FF6B35;
   --chart-2: oklch(0.6 0.15 200);
   --chart-3: oklch(0.4 0.1 200);
   --chart-4: oklch(0.15 0 0);
   --chart-5: oklch(0.95 0 0);
-  --sidebar: oklch(0.08 0 0);
+  --sidebar: #0B0B0C;
   --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.7 0.15 65);
-  --sidebar-primary-foreground: oklch(0.08 0 0);
+  --sidebar-primary: #FF6B35;
+  --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.15 0 0);
   --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.15 0 0);
-  --sidebar-ring: oklch(0.7 0.15 65 / 0.3);
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #FF6B35;
   --font-vazirmatn: "Vazirmatn";
 }
 
@@ -209,7 +209,9 @@
 
   /* Enhanced quote card styling with Persian calligraphy inspiration */
   .quote-card {
-    background: linear-gradient(135deg, var(--card) 0%, var(--background) 100%);
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
     position: relative;
@@ -337,6 +339,9 @@
 
   /* Enhanced card hover effects */
   .feature-card {
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: all 0.3s ease;
     border: 1px solid var(--border);
   }

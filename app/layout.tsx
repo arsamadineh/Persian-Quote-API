@@ -24,14 +24,20 @@ export const metadata: Metadata = {
   },
 }
 
+import { LayoutFramework } from "@/components/layout/Framework"
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fa" dir="rtl" className="rtl">
-      <body className={`${vazirmatn.variable} font-vazirmatn persian-text antialiased`}>{children}</body>
+    <html lang="fa" dir="rtl" className="rtl dark">
+      <body className={`${vazirmatn.variable} font-vazirmatn persian-text antialiased bg-[#0B0B0C] text-white`}>
+        <LayoutFramework>
+          {children}
+        </LayoutFramework>
+      </body>
     </html>
   )
 }
