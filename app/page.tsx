@@ -32,6 +32,9 @@ export default function HomePage() {
               <Link href="/examples" className="text-foreground hover:text-primary transition-colors font-medium">
                 نمونه‌ها
               </Link>
+              <Link href="/contribute" className="text-foreground hover:text-primary transition-colors font-medium">
+                مشارکت
+              </Link>
               <a href="https://github.com/arsamadineh/Persian-Quote-API" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="sm" className="persian-button bg-transparent">
                   <Code className="w-4 h-4 ml-2" />
@@ -108,6 +111,16 @@ export default function HomePage() {
               <Code className="w-5 h-5 ml-2" />
               مشاهده مستندات
             </Button>
+            <Link href="/contribute">
+              <Button
+                variant="outline"
+                size="lg"
+                className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6 persian-button bg-transparent border-primary/30 hover:bg-primary/10"
+              >
+                <Heart className="w-5 h-5 ml-2 text-primary" />
+                مشارکت در افزودن اشعار
+              </Button>
+            </Link>
           </div>
 
           {/* Sample Quote Card */}
