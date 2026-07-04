@@ -98,21 +98,24 @@ export async function GET(request: NextRequest) {
 
     let poetsWithStats = poets
 
-    // If stats requested, get quote counts for each poet
+    // If stats requested, get quote counts for each poet efficiently
     if (includeStats && poets) {
-      poetsWithStats = await Promise.all(
-        poets.map(async (poet) => {
-          const { count } = await supabase
-            .from("persian_quotes")
-            .select("*", { count: "exact", head: true })
-            .eq("poet", poet.name_persian)
+      // Instead of N queries, make 1 query to get all poets
+      const { data: quotesData } = await supabase
+        .from("persian_quotes")
+        .select("poet")
 
-          return {
-            ...poet,
-            quote_count: count || 0,
-          }
-        }),
-      )
+      const poetCounts = (quotesData || []).reduce((acc: Record<string, number>, quote: any) => {
+        if (quote.poet) {
+          acc[quote.poet] = (acc[quote.poet] || 0) + 1
+        }
+        return acc
+      }, {})
+
+      poetsWithStats = poets.map((poet) => ({
+        ...poet,
+        quote_count: poetCounts[poet.name_persian] || 0,
+      }))
     }
 
     return NextResponse.json(
