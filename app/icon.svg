@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Creative Persian Quotes favicon · no background · currentColor adapts to theme -->
+  <!-- A stylized "p" + "q" mark representing persian quotes, with a vermillion accent dot above -->
+  <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.5" fill="none">
+    <!-- "p" — descending hook on the left -->
+    <path d="M 24 46 L 24 22" />
+    <path d="M 24 32 C 24 22 38 22 38 32 C 38 40 24 40 24 40" />
+    <!-- "q" — descending hook on the right -->
+    <path d="M 40 18 L 40 42" />
+    <path d="M 40 32 C 40 40 26 40 26 32 C 26 24 40 24 40 24" />
+  </g>
+  <!-- A small accent dot — Persian-script inspired diacritic -->
+  <circle cx="32" cy="14" r="2.6" fill="currentColor" />
+</svg>

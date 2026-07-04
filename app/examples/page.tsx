@@ -21,13 +21,16 @@ export default function ExamplesPage() {
   const [selectedCategory, setSelectedCategory] = useState("")
   const [poets, setPoets] = useState<any[]>([])
   const [categories, setCategories] = useState<any[]>([])
+  const [hafezId, setHafezId] = useState("")
+  const [hafezSearch, setHafezSearch] = useState("")
+  const [sherenoPoet, setSherenoPoet] = useState("")
+  const [sherenoTitle, setSherenoTitle] = useState("")
+  const [nonpoetryAuthor, setNonpoetryAuthor] = useState("")
 
   useEffect(() => {
-    // Load poets and categories
     Promise.all([fetch("/api/poets"), fetch("/api/categories")]).then(async ([poetsRes, categoriesRes]) => {
       const poetsData = await poetsRes.json()
       const categoriesData = await categoriesRes.json()
-
       if (poetsData.success) setPoets(poetsData.data)
       if (categoriesData.success) setCategories(categoriesData.data)
     })
@@ -40,7 +43,6 @@ export default function ExamplesPage() {
       Object.entries(params).forEach(([key, value]) => {
         if (value) url.searchParams.set(key, value)
       })
-
       const response = await fetch(url.toString())
       const data = await response.json()
       setApiResponse({ endpoint: url.toString(), data, status: response.status })
@@ -53,239 +55,286 @@ export default function ExamplesPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-4">نمونه‌های کاربردی و تست زنده</h1>
-          <p className="text-xl text-muted-foreground">
+      <div className="container mx-auto px-4 py-8 max-w-5xl">
+        {/* Header */}
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">نمونه‌های کاربردی و تست زنده</h1>
+          <p className="text-base md:text-xl text-muted-foreground">
             API را به صورت تعاملی تست کنید و نمونه‌های مختلف استفاده را مشاهده کنید
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Interactive API Tester */}
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Play className="w-5 h-5 text-primary" />
-                  تست تعاملی API
-                </CardTitle>
-                <CardDescription>API را به صورت زنده تست کنید و نتایج را مشاهده کنید</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <Tabs defaultValue="random" className="w-full">
-                  <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="random">تصادفی</TabsTrigger>
-                    <TabsTrigger value="poet">شاعر</TabsTrigger>
-                    <TabsTrigger value="category">دسته</TabsTrigger>
-                    <TabsTrigger value="search">جستجو</TabsTrigger>
-                  </TabsList>
+        {/* Section 1: Widget Examples */}
+        <section className="mb-12">
+          <div className="flex items-center gap-2 mb-6">
+            <Sparkles className="w-6 h-6 text-primary" />
+            <h2 className="text-2xl font-bold text-foreground">ویجت‌های آماده</h2>
+          </div>
+          <Card>
+            <CardContent className="pt-6">
+              <Tabs defaultValue="elegant" className="w-full">
+                <TabsList className="grid w-full grid-cols-3 mb-6">
+                  <TabsTrigger value="elegant">شیک</TabsTrigger>
+                  <TabsTrigger value="minimal">مینیمال</TabsTrigger>
+                  <TabsTrigger value="classic">کلاسیک</TabsTrigger>
+                </TabsList>
+                <TabsContent value="elegant">
+                  <QuoteWidget theme="elegant" size="medium" showEnglish={false} />
+                </TabsContent>
+                <TabsContent value="minimal">
+                  <QuoteWidget theme="minimal" size="small" showEnglish={true} />
+                </TabsContent>
+                <TabsContent value="classic">
+                  <QuoteWidget theme="classic" size="large" showEnglish={false} />
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+        </section>
 
-                  <TabsContent value="random" className="space-y-4">
-                    <div className="space-y-4">
-                      <p className="text-sm text-muted-foreground">دریافت اشعار تصادفی از تمام شاعران</p>
-                      <Button
-                        onClick={() => testApiCall("/api/quotes", { random: "true", limit: "3" })}
-                        disabled={loading}
-                        className="w-full"
-                      >
-                        {loading ? (
-                          <RefreshCw className="w-4 h-4 animate-spin ml-2" />
-                        ) : (
-                          <Play className="w-4 h-4 ml-2" />
-                        )}
-                        دریافت 3 شعر تصادفی
-                      </Button>
-                    </div>
-                  </TabsContent>
+        {/* Section 2: API Tester */}
+        <section className="mb-12">
+          <div className="flex items-center gap-2 mb-6">
+            <Play className="w-6 h-6 text-primary" />
+            <h2 className="text-2xl font-bold text-foreground">تست تعاملی API</h2>
+          </div>
+          <Card>
+            <CardContent className="pt-6">
+              <Tabs defaultValue="random" className="w-full">
+                <TabsList className="flex w-full overflow-x-auto mb-6">
+                  <TabsTrigger value="random" className="flex-none">تصادفی</TabsTrigger>
+                  <TabsTrigger value="poet" className="flex-none">شاعر</TabsTrigger>
+                  <TabsTrigger value="category" className="flex-none">دسته</TabsTrigger>
+                  <TabsTrigger value="search" className="flex-none">جستجو</TabsTrigger>
+                  <TabsTrigger value="hafez" className="flex-none">حافظ</TabsTrigger>
+                  <TabsTrigger value="shereno" className="flex-none">شعر نو</TabsTrigger>
+                  <TabsTrigger value="nonpoetry" className="flex-none">بزرگان</TabsTrigger>
+                </TabsList>
 
-                  <TabsContent value="poet" className="space-y-4">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label>انتخاب شاعر</Label>
-                        <Select value={selectedPoet} onValueChange={setSelectedPoet}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="شاعر مورد نظر را انتخاب کنید" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {poets.map((poet) => (
-                              <SelectItem key={poet.id} value={poet.name_persian}>
-                                {poet.name_persian}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <Button
-                        onClick={() => testApiCall(`/api/quotes/${encodeURIComponent(selectedPoet)}`, { limit: "5" })}
-                        disabled={loading || !selectedPoet}
-                        className="w-full"
-                      >
-                        {loading ? (
-                          <RefreshCw className="w-4 h-4 animate-spin ml-2" />
-                        ) : (
-                          <Users className="w-4 h-4 ml-2" />
-                        )}
-                        دریافت اشعار {selectedPoet}
-                      </Button>
-                    </div>
-                  </TabsContent>
+                <TabsContent value="random" className="space-y-4">
+                  <p className="text-sm text-muted-foreground">دریافت اشعار تصادفی از تمام شاعران</p>
+                  <Button
+                    onClick={() => testApiCall("/api/quotes", { random: "true", limit: "3" })}
+                    disabled={loading}
+                    className="w-full"
+                  >
+                    {loading ? <RefreshCw className="w-4 h-4 animate-spin ml-2" /> : <Play className="w-4 h-4 ml-2" />}
+                    دریافت 3 شعر تصادفی
+                  </Button>
+                </TabsContent>
 
-                  <TabsContent value="category" className="space-y-4">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label>انتخاب دسته‌بندی</Label>
-                        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="دسته‌بندی مورد نظر را انتخاب کنید" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {categories.map((category) => (
-                              <SelectItem key={category.id} value={category.name_persian}>
-                                {category.name_persian}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <Button
-                        onClick={() =>
-                          testApiCall(`/api/quotes/category/${encodeURIComponent(selectedCategory)}`, { limit: "5" })
-                        }
-                        disabled={loading || !selectedCategory}
-                        className="w-full"
-                      >
-                        {loading ? (
-                          <RefreshCw className="w-4 h-4 animate-spin ml-2" />
-                        ) : (
-                          <Heart className="w-4 h-4 ml-2" />
-                        )}
-                        دریافت اشعار {selectedCategory}
-                      </Button>
-                    </div>
-                  </TabsContent>
+                <TabsContent value="poet" className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>انتخاب شاعر</Label>
+                    <Select value={selectedPoet} onValueChange={setSelectedPoet}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="شاعر مورد نظر را انتخاب کنید" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {poets.map((poet) => (
+                          <SelectItem key={poet.id} value={poet.name_persian}>
+                            {poet.name_persian}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Button
+                    onClick={() => testApiCall(`/api/quotes/${encodeURIComponent(selectedPoet)}`, { limit: "5" })}
+                    disabled={loading || !selectedPoet}
+                    className="w-full"
+                  >
+                    {loading ? <RefreshCw className="w-4 h-4 animate-spin ml-2" /> : <Users className="w-4 h-4 ml-2" />}
+                    دریافت اشعار {selectedPoet}
+                  </Button>
+                </TabsContent>
 
-                  <TabsContent value="search" className="space-y-4">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label>کلمه یا عبارت جستجو</Label>
-                        <Input
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          placeholder="مثال: عشق، زندگی، دوستی"
-                        />
-                      </div>
-                      <Button
-                        onClick={() => testApiCall("/api/quotes/search", { q: searchQuery, limit: "5" })}
-                        disabled={loading || !searchQuery.trim()}
-                        className="w-full"
-                      >
-                        {loading ? (
-                          <RefreshCw className="w-4 h-4 animate-spin ml-2" />
-                        ) : (
-                          <Search className="w-4 h-4 ml-2" />
-                        )}
-                        جستجو در اشعار
-                      </Button>
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
+                <TabsContent value="category" className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>انتخاب دسته‌بندی</Label>
+                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="دسته‌بندی مورد نظر را انتخاب کنید" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.map((category) => (
+                          <SelectItem key={category.id} value={category.name_persian}>
+                            {category.name_persian}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Button
+                    onClick={() => testApiCall(`/api/quotes/category/${encodeURIComponent(selectedCategory)}`, { limit: "5" })}
+                    disabled={loading || !selectedCategory}
+                    className="w-full"
+                  >
+                    {loading ? <RefreshCw className="w-4 h-4 animate-spin ml-2" /> : <Heart className="w-4 h-4 ml-2" />}
+                    دریافت اشعار {selectedCategory}
+                  </Button>
+                </TabsContent>
 
-            {/* API Response Display */}
-            {apiResponse && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Code className="w-5 h-5 text-primary" />
-                    پاسخ API
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                      <Badge variant={apiResponse.status === 200 ? "default" : "destructive"}>
-                        {apiResponse.status || "خطا"}
-                      </Badge>
-                      <span className="text-sm text-muted-foreground font-mono ltr:text-left" dir="ltr">
-                        {apiResponse.endpoint}
-                      </span>
+                <TabsContent value="search" className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>کلمه یا عبارت جستجو</Label>
+                    <Input
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="مثال: عشق، زندگی، دوستی"
+                    />
+                  </div>
+                  <Button
+                    onClick={() => testApiCall("/api/quotes/search", { q: searchQuery, limit: "5" })}
+                    disabled={loading || !searchQuery.trim()}
+                    className="w-full"
+                  >
+                    {loading ? <RefreshCw className="w-4 h-4 animate-spin ml-2" /> : <Search className="w-4 h-4 ml-2" />}
+                    جستجو در اشعار
+                  </Button>
+                </TabsContent>
+
+                <TabsContent value="hafez" className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>شماره غزل (1 تا 497)</Label>
+                      <Input
+                        type="number"
+                        min="1"
+                        max="497"
+                        value={hafezId}
+                        onChange={(e) => setHafezId(e.target.value)}
+                        placeholder="مثال: 1"
+                      />
                     </div>
-                    <div className="bg-muted rounded-lg overflow-hidden">
-                      <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border">
-                        <span className="text-xs font-medium text-muted-foreground">JSON Response</span>
-                      </div>
-                      <pre className="p-4 text-sm overflow-x-auto max-h-96 ltr:text-left" dir="ltr">
-                        <code className="language-json">
-                          {JSON.stringify(apiResponse.data || apiResponse.error, null, 2)}
-                        </code>
-                      </pre>
+                    <div className="space-y-2">
+                      <Label>جستجو در مصرع‌ها</Label>
+                      <Input
+                        value={hafezSearch}
+                        onChange={(e) => setHafezSearch(e.target.value)}
+                        placeholder="مثال: ساقی"
+                      />
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
+                  <Button
+                    onClick={() => testApiCall("/api/quotes/hafez", { id: hafezId, q: hafezSearch, limit: "5" })}
+                    disabled={loading}
+                    className="w-full"
+                  >
+                    {loading ? <RefreshCw className="w-4 h-4 animate-spin ml-2" /> : <Play className="w-4 h-4 ml-2" />}
+                    دریافت غزل حافظ
+                  </Button>
+                </TabsContent>
 
-          {/* Live Examples */}
-          <div className="space-y-6">
-            {/* Widget Examples */}
-            <Card>
+                <TabsContent value="shereno" className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>شاعر (فیلتر)</Label>
+                      <Input
+                        value={sherenoPoet}
+                        onChange={(e) => setSherenoPoet(e.target.value)}
+                        placeholder="مثال: نیما یوشیج"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>عنوان شعر</Label>
+                      <Input
+                        value={sherenoTitle}
+                        onChange={(e) => setSherenoTitle(e.target.value)}
+                        placeholder="مثال: قایق"
+                      />
+                    </div>
+                  </div>
+                  <Button
+                    onClick={() => testApiCall("/api/quotes/shereno", { poet: sherenoPoet, title: sherenoTitle, limit: "3" })}
+                    disabled={loading}
+                    className="w-full"
+                  >
+                    {loading ? <RefreshCw className="w-4 h-4 animate-spin ml-2" /> : <Play className="w-4 h-4 ml-2" />}
+                    دریافت شعر نو
+                  </Button>
+                </TabsContent>
+
+                <TabsContent value="nonpoetry" className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>گوینده (نویسنده/اندیشمند)</Label>
+                    <Input
+                      value={nonpoetryAuthor}
+                      onChange={(e) => setNonpoetryAuthor(e.target.value)}
+                      placeholder="مثال: انیشتین، ایلان ماسک"
+                    />
+                  </div>
+                  <Button
+                    onClick={() => testApiCall("/api/quotes/non-poetry", { author: nonpoetryAuthor, limit: "5" })}
+                    disabled={loading}
+                    className="w-full"
+                  >
+                    {loading ? <RefreshCw className="w-4 h-4 animate-spin ml-2" /> : <Play className="w-4 h-4 ml-2" />}
+                    دریافت سخنان بزرگان
+                  </Button>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+
+          {/* API Response */}
+          {apiResponse && (
+            <Card className="mt-6">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-primary" />
-                  نمونه ویجت‌ها
+                  <Code className="w-5 h-5 text-primary" />
+                  پاسخ API
                 </CardTitle>
-                <CardDescription>ویجت‌های مختلف با قالب‌های متنوع</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <Tabs defaultValue="elegant" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="elegant">شیک</TabsTrigger>
-                    <TabsTrigger value="minimal">مینیمال</TabsTrigger>
-                    <TabsTrigger value="classic">کلاسیک</TabsTrigger>
-                  </TabsList>
-
-                  <TabsContent value="elegant">
-                    <QuoteWidget theme="elegant" size="medium" showEnglish={false} />
-                  </TabsContent>
-
-                  <TabsContent value="minimal">
-                    <QuoteWidget theme="minimal" size="small" showEnglish={true} />
-                  </TabsContent>
-
-                  <TabsContent value="classic">
-                    <QuoteWidget theme="classic" size="large" showEnglish={false} />
-                  </TabsContent>
-                </Tabs>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Badge variant={apiResponse.status === 200 ? "default" : "destructive"}>
+                      {apiResponse.status || "خطا"}
+                    </Badge>
+                    <span className="text-sm text-muted-foreground font-mono ltr:text-left" dir="ltr">
+                      {apiResponse.endpoint}
+                    </span>
+                  </div>
+                  <div className="bg-muted rounded-lg overflow-hidden">
+                    <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border">
+                      <span className="text-xs font-medium text-muted-foreground">JSON Response</span>
+                    </div>
+                    <pre className="p-4 text-sm overflow-x-auto max-h-96 ltr:text-left" dir="ltr">
+                      <code className="language-json">
+                        {JSON.stringify(apiResponse.data || apiResponse.error, null, 2)}
+                      </code>
+                    </pre>
+                  </div>
+                </div>
               </CardContent>
             </Card>
+          )}
+        </section>
 
-            {/* Integration Examples */}
-            <Card>
-              <CardHeader>
-                <CardTitle>نمونه‌های ادغام</CardTitle>
-                <CardDescription>نحوه استفاده در پلتفرم‌های مختلف</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <Tabs defaultValue="react" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="react">React</TabsTrigger>
-                    <TabsTrigger value="vue">Vue.js</TabsTrigger>
-                    <TabsTrigger value="vanilla">JavaScript</TabsTrigger>
-                  </TabsList>
+        {/* Section 3: Integration Examples */}
+        <section className="mb-12">
+          <div className="flex items-center gap-2 mb-6">
+            <Code className="w-6 h-6 text-primary" />
+            <h2 className="text-2xl font-bold text-foreground">نمونه کد</h2>
+          </div>
+          <Card>
+            <CardContent className="pt-6">
+              <Tabs defaultValue="react" className="w-full">
+                <TabsList className="grid w-full grid-cols-3 mb-6">
+                  <TabsTrigger value="react">React</TabsTrigger>
+                  <TabsTrigger value="vue">Vue.js</TabsTrigger>
+                  <TabsTrigger value="vanilla">JavaScript</TabsTrigger>
+                </TabsList>
 
-                  <TabsContent value="react" className="space-y-4">
-                    <div className="bg-muted rounded-lg overflow-hidden">
-                      <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border flex items-center justify-between">
-                        <span className="text-xs font-medium text-muted-foreground">React Component</span>
-                        <Badge variant="outline" className="text-xs">
-                          JSX
-                        </Badge>
-                      </div>
-                      <pre className="p-4 text-sm overflow-x-auto ltr:text-left" dir="ltr">
-                        <code className="language-jsx">{`import { useState, useEffect } from 'react';
+                <TabsContent value="react">
+                  <div className="bg-muted rounded-lg overflow-hidden">
+                    <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border flex items-center justify-between">
+                      <span className="text-xs font-medium text-muted-foreground">React Component</span>
+                      <Badge variant="outline" className="text-xs">JSX</Badge>
+                    </div>
+                    <pre className="p-4 text-sm overflow-x-auto ltr:text-left" dir="ltr">
+                      <code className="language-jsx">{`import { useState, useEffect } from 'react';
 
 function PersianQuote() {
   const [quote, setQuote] = useState(null);
@@ -309,20 +358,18 @@ function PersianQuote() {
     </div>
   );
 }`}</code>
-                      </pre>
-                    </div>
-                  </TabsContent>
+                    </pre>
+                  </div>
+                </TabsContent>
 
-                  <TabsContent value="vue" className="space-y-4">
-                    <div className="bg-muted rounded-lg overflow-hidden">
-                      <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border flex items-center justify-between">
-                        <span className="text-xs font-medium text-muted-foreground">Vue.js Component</span>
-                        <Badge variant="outline" className="text-xs">
-                          Vue
-                        </Badge>
-                      </div>
-                      <pre className="p-4 text-sm overflow-x-auto ltr:text-left" dir="ltr">
-                        <code className="language-vue">{`<template>
+                <TabsContent value="vue">
+                  <div className="bg-muted rounded-lg overflow-hidden">
+                    <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border flex items-center justify-between">
+                      <span className="text-xs font-medium text-muted-foreground">Vue.js Component</span>
+                      <Badge variant="outline" className="text-xs">Vue</Badge>
+                    </div>
+                    <pre className="p-4 text-sm overflow-x-auto ltr:text-left" dir="ltr">
+                      <code className="language-vue">{`<template>
   <div v-if="quote" class="quote-card">
     <blockquote>{{ quote.text_persian }}</blockquote>
     <cite>— {{ quote.poet }}</cite>
@@ -346,20 +393,18 @@ export default {
   }
 }
 </script>`}</code>
-                      </pre>
-                    </div>
-                  </TabsContent>
+                    </pre>
+                  </div>
+                </TabsContent>
 
-                  <TabsContent value="vanilla" className="space-y-4">
-                    <div className="bg-muted rounded-lg overflow-hidden">
-                      <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border flex items-center justify-between">
-                        <span className="text-xs font-medium text-muted-foreground">Vanilla JavaScript</span>
-                        <Badge variant="outline" className="text-xs">
-                          JS
-                        </Badge>
-                      </div>
-                      <pre className="p-4 text-sm overflow-x-auto ltr:text-left" dir="ltr">
-                        <code className="language-javascript">{`async function loadPersianQuote() {
+                <TabsContent value="vanilla">
+                  <div className="bg-muted rounded-lg overflow-hidden">
+                    <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border flex items-center justify-between">
+                      <span className="text-xs font-medium text-muted-foreground">Vanilla JavaScript</span>
+                      <Badge variant="outline" className="text-xs">JS</Badge>
+                    </div>
+                    <pre className="p-4 text-sm overflow-x-auto ltr:text-left" dir="ltr">
+                      <code className="language-javascript">{`async function loadPersianQuote() {
   try {
     const response = await fetch('/api/quotes?random=true&limit=1');
     const data = await response.json();
@@ -374,67 +419,23 @@ export default {
   }
 }
 
-// بارگذاری شعر هنگام لود صفحه
 document.addEventListener('DOMContentLoaded', loadPersianQuote);`}</code>
-                      </pre>
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
-
-            {/* Use Cases */}
-            <Card>
-              <CardHeader>
-                <CardTitle>موارد استفاده</CardTitle>
-                <CardDescription>ایده‌هایی برای استفاده از API</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid gap-4">
-                  <div className="p-4 border border-border rounded-lg">
-                    <h4 className="font-semibold mb-2">وبلاگ ادبی</h4>
-                    <p className="text-sm text-muted-foreground mb-2">نمایش شعر روز در سایدبار یا انتهای مطالب</p>
-                    <Badge variant="secondary" className="text-xs">
-                      تازه‌سازی روزانه
-                    </Badge>
+                    </pre>
                   </div>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+        </section>
 
-                  <div className="p-4 border border-border rounded-lg">
-                    <h4 className="font-semibold mb-2">اپلیکیشن موبایل</h4>
-                    <p className="text-sm text-muted-foreground mb-2">ارسال نوتیفیکیشن با اشعار زیبا</p>
-                    <Badge variant="secondary" className="text-xs">
-                      API تصادفی
-                    </Badge>
-                  </div>
-
-                  <div className="p-4 border border-border rounded-lg">
-                    <h4 className="font-semibold mb-2">سایت آموزشی</h4>
-                    <p className="text-sm text-muted-foreground mb-2">آموزش ادبیات فارسی با اشعار تعاملی</p>
-                    <Badge variant="secondary" className="text-xs">
-                      فیلتر بر اساس شاعر
-                    </Badge>
-                  </div>
-
-                  <div className="p-4 border border-border rounded-lg">
-                    <h4 className="font-semibold mb-2">شبکه اجتماعی</h4>
-                    <p className="text-sm text-muted-foreground mb-2">اشتراک‌گذاری اشعار در پست‌ها</p>
-                    <Badge variant="secondary" className="text-xs">
-                      جستجو موضوعی
-                    </Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+        {/* Section 4: Advanced Examples */}
+        <section className="mb-12">
+          <div className="flex items-center gap-2 mb-6">
+            <BookOpen className="w-6 h-6 text-primary" />
+            <h2 className="text-2xl font-bold text-foreground">نمونه‌های پیشرفته</h2>
           </div>
-        </div>
-
-        {/* Additional Examples Section */}
-        <div className="mt-12">
-          <h2 className="text-3xl font-bold text-foreground mb-6">نمونه‌های پیشرفته</h2>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Daily Quote Example */}
-            <Card>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="min-w-0 overflow-hidden">
               <CardHeader>
                 <CardTitle>شعر روز</CardTitle>
                 <CardDescription>نمایش شعر ثابت برای یک روز کامل</CardDescription>
@@ -448,13 +449,10 @@ document.addEventListener('DOMContentLoaded', loadPersianQuote);`}</code>
                 <div className="bg-muted rounded-lg overflow-hidden">
                   <div className="bg-muted-foreground/10 px-4 py-2 border-b border-border flex items-center justify-between">
                     <span className="text-xs font-medium text-muted-foreground">Daily Quote Algorithm</span>
-                    <Badge variant="outline" className="text-xs">
-                      JS
-                    </Badge>
+                    <Badge variant="outline" className="text-xs">JS</Badge>
                   </div>
                   <pre className="p-4 text-sm overflow-x-auto ltr:text-left" dir="ltr">
-                    <code className="language-javascript">{`// شعر روز با seed ثابت
-const today = new Date().toDateString();
+                    <code className="language-javascript">{`const today = new Date().toDateString();
 const seed = today.split('').reduce((a, b) => {
   a = ((a << 5) - a) + b.charCodeAt(0);
   return a & a;
@@ -465,28 +463,61 @@ fetch(\`/api/quotes?limit=100\`)
   .then(data => {
     const index = Math.abs(seed) % data.data.length;
     const dailyQuote = data.data[index];
-    // نمایش شعر روز
   });`}</code>
                   </pre>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Quote Comparison */}
-            <Card>
+            <Card className="min-w-0 overflow-hidden">
               <CardHeader>
                 <CardTitle>مقایسه شاعران</CardTitle>
                 <CardDescription>نمایش اشعار چند شاعر در کنار هم</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+              <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-center">
                   <QuoteWidget poet="مولانا جلال‌الدین رومی" theme="elegant" size="small" />
                   <QuoteWidget poet="حافظ شیرازی" theme="classic" size="small" />
                 </div>
               </CardContent>
             </Card>
           </div>
-        </div>
+        </section>
+
+        {/* Section 5: Use Cases */}
+        <section>
+          <h2 className="text-2xl font-bold text-foreground mb-6">موارد استفاده</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card>
+              <CardContent className="pt-6">
+                <h4 className="font-semibold mb-2">وبلاگ ادبی</h4>
+                <p className="text-sm text-muted-foreground mb-3">نمایش شعر روز در سایدبار یا انتهای مطالب</p>
+                <Badge variant="secondary" className="text-xs">تازه‌سازی روزانه</Badge>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <h4 className="font-semibold mb-2">اپلیکیشن موبایل</h4>
+                <p className="text-sm text-muted-foreground mb-3">ارسال نوتیفیکیشن با اشعار زیبا</p>
+                <Badge variant="secondary" className="text-xs">API تصادفی</Badge>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <h4 className="font-semibold mb-2">سایت آموزشی</h4>
+                <p className="text-sm text-muted-foreground mb-3">آموزش ادبیات فارسی با اشعار تعاملی</p>
+                <Badge variant="secondary" className="text-xs">فیلتر بر اساس شاعر</Badge>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <h4 className="font-semibold mb-2">شبکه اجتماعی</h4>
+                <p className="text-sm text-muted-foreground mb-3">اشتراک‌گذاری اشعار در پست‌ها</p>
+                <Badge variant="secondary" className="text-xs">جستجو موضوعی</Badge>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
       </div>
     </div>
   )

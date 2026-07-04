@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="'Vazirmatn', system-ui, sans-serif" direction="rtl">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917"/>
+      <stop offset="100%" stop-color="#0c0a09"/>
+    </linearGradient>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&amp;display=swap');
+    </style>
+  </defs>
+
+  <rect width="900" height="480" fill="url(#bg3)"/>
+
+  <pattern id="g3" width="25" height="25" patternUnits="userSpaceOnUse">
+    <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#292524" stroke-width="0.3" opacity="0.3"/>
+  </pattern>
+  <rect width="900" height="480" fill="url(#g3)"/>
+
+  <!-- عنوان -->
+  <text x="450" y="35" text-anchor="middle" fill="#d6d3d1" font-size="20" font-weight="700">ساختار پکیج</text>
+  <text x="450" y="55" text-anchor="middle" fill="#78716c" font-size="10">v0.0.1-beta · TypeScript · صفر وابستگی</text>
+
+  <!-- هسته اصلی -->
+  <rect x="325" y="75" width="250" height="40" rx="8" fill="#1c1917" stroke="#44403c" stroke-width="1.5"/>
+  <text x="450" y="100" text-anchor="middle" fill="#d6d3d1" font-size="13" font-weight="700">@tigh/core</text>
+
+  <!-- خطوط اتصال -->
+  <line x1="360" y1="115" x2="130" y2="155" stroke="#57534e" stroke-width="0.8"/>
+  <line x1="390" y1="115" x2="290" y2="155" stroke="#57534e" stroke-width="0.8"/>
+  <line x1="420" y1="115" x2="420" y2="155" stroke="#57534e" stroke-width="0.8"/>
+  <line x1="480" y1="115" x2="560" y2="155" stroke="#57534e" stroke-width="0.8"/>
+  <line x1="510" y1="115" x2="700" y2="155" stroke="#57534e" stroke-width="0.8"/>
+
+  <!-- ماژول‌ها -->
+  <rect x="60" y="160" width="140" height="65" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="60" y="160" width="140" height="22" rx="6" fill="#292524"/>
+  <rect x="60" y="174" width="140" height="8" fill="#292524"/>
+  <text x="130" y="177" text-anchor="middle" fill="#d6d3d1" font-size="10" font-weight="600">engine.ts</text>
+  <text x="130" y="200" text-anchor="middle" fill="#78716c" font-size="8">هسته اصلی</text>
+  <text x="130" y="215" text-anchor="middle" fill="#57534e" font-size="8">class Tigh</text>
+
+  <rect x="220" y="160" width="140" height="65" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="220" y="160" width="140" height="22" rx="6" fill="#292524"/>
+  <rect x="220" y="174" width="140" height="8" fill="#292524"/>
+  <text x="290" y="177" text-anchor="middle" fill="#d6d3d1" font-size="10" font-weight="600">router.ts</text>
+  <text x="290" y="200" text-anchor="middle" fill="#78716c" font-size="8">مسیریاب Trie</text>
+  <text x="290" y="215" text-anchor="middle" fill="#57534e" font-size="8">TighRouter</text>
+
+  <rect x="380" y="160" width="140" height="65" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="380" y="160" width="140" height="22" rx="6" fill="#292524"/>
+  <rect x="380" y="174" width="140" height="8" fill="#292524"/>
+  <text x="450" y="177" text-anchor="middle" fill="#d6d3d1" font-size="10" font-weight="600">cache.ts</text>
+  <text x="450" y="200" text-anchor="middle" fill="#78716c" font-size="8">کش LRU + TTL</text>
+  <text x="450" y="215" text-anchor="middle" fill="#57534e" font-size="8">TighCache</text>
+
+  <rect x="540" y="160" width="140" height="65" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="540" y="160" width="140" height="22" rx="6" fill="#292524"/>
+  <rect x="540" y="174" width="140" height="8" fill="#292524"/>
+  <text x="610" y="177" text-anchor="middle" fill="#d6d3d1" font-size="10" font-weight="600">middleware.ts</text>
+  <text x="610" y="200" text-anchor="middle" fill="#78716c" font-size="8">پایپلاین + CORS</text>
+  <text x="610" y="215" text-anchor="middle" fill="#57534e" font-size="8">TighMiddleware</text>
+
+  <rect x="700" y="160" width="140" height="65" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="700" y="160" width="140" height="22" rx="6" fill="#292524"/>
+  <rect x="700" y="174" width="140" height="8" fill="#292524"/>
+  <text x="770" y="177" text-anchor="middle" fill="#d6d3d1" font-size="10" font-weight="600">metrics.ts</text>
+  <text x="770" y="200" text-anchor="middle" fill="#78716c" font-size="8">متریک + Percentile</text>
+  <text x="770" y="215" text-anchor="middle" fill="#57534e" font-size="8">TighMetrics</text>
+
+  <!-- ردیف دوم -->
+  <line x1="200" y1="225" x2="140" y2="260" stroke="#57534e" stroke-width="0.6"/>
+  <line x1="400" y1="225" x2="320" y2="260" stroke="#57534e" stroke-width="0.6"/>
+  <line x1="600" y1="225" x2="500" y2="260" stroke="#57534e" stroke-width="0.6"/>
+
+  <rect x="70" y="265" width="160" height="55" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="70" y="265" width="160" height="20" rx="6" fill="#292524"/>
+  <rect x="70" y="277" width="160" height="8" fill="#292524"/>
+  <text x="150" y="281" text-anchor="middle" fill="#d6d3d1" font-size="9" font-weight="600">rate-limiter.ts</text>
+  <text x="150" y="305" text-anchor="middle" fill="#78716c" font-size="8">۳ استراتژی محدودسازی</text>
+
+  <rect x="250" y="265" width="160" height="55" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="250" y="265" width="160" height="20" rx="6" fill="#292524"/>
+  <rect x="250" y="277" width="160" height="8" fill="#292524"/>
+  <text x="330" y="281" text-anchor="middle" fill="#d6d3d1" font-size="9" font-weight="600">circuit-breaker.ts</text>
+  <text x="330" y="305" text-anchor="middle" fill="#78716c" font-size="8">StateMachine سه‌حالته</text>
+
+  <rect x="430" y="265" width="160" height="55" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="430" y="265" width="160" height="20" rx="6" fill="#292524"/>
+  <rect x="430" y="277" width="160" height="8" fill="#292524"/>
+  <text x="510" y="281" text-anchor="middle" fill="#d6d3d1" font-size="9" font-weight="600">types.ts</text>
+  <text x="510" y="305" text-anchor="middle" fill="#78716c" font-size="8">۲۵+ نوع TypeScript</text>
+
+  <!-- اداپتورها -->
+  <line x1="350" y1="320" x2="280" y2="355" stroke="#57534e" stroke-width="0.6"/>
+  <line x1="550" y1="320" x2="480" y2="355" stroke="#57534e" stroke-width="0.6"/>
+
+  <rect x="160" y="360" width="240" height="45" rx="6" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="160" y="360" width="240" height="18" rx="6" fill="#292524"/>
+  <rect x="160" y="370" width="240" height="8" fill="#292524"/>
+  <text x="280" y="374" text-anchor="middle" fill="#d6d3d1" font-size="9" font-weight="600">adapter-next.ts</text>
+  <text x="280" y="396" text-anchor="middle" fill="#78716c" font-size="8">createNextHandler() · App Router</text>
+
+  <rect x="430" y="360" width="160" height="45" rx="6" fill="#1c1917" stroke="#292524" stroke-width="1" stroke-dasharray="3"/>
+  <rect x="430" y="360" width="160" height="18" rx="6" fill="#292524"/>
+  <rect x="430" y="370" width="160" height="8" fill="#292524"/>
+  <text x="510" y="374" text-anchor="middle" fill="#78716c" font-size="9">Express · Bun · Deno</text>
+  <text x="510" y="396" text-anchor="middle" fill="#57534e" font-size="8">آینده</text>
+
+  <!-- پاورقی -->
+  <rect x="40" y="420" width="820" height="28" rx="5" fill="#292524" opacity="0.5"/>
+  <text x="100" y="438" fill="#57534e" font-size="8">فایل‌ها: ۹ · انواع: ۲۵+ · وابستگی: ۰ · MIT</text>
+  <text x="750" y="438" fill="#57534e" font-size="8">طراحی و پیاده‌سازی: arsamadineh</text>
+</svg>

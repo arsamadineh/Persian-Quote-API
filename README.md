@@ -1,144 +1,274 @@
-# گنجینه API اشعار فارسی 🌹
+<p align="center">
+  <a href="https://pq.arsamadineh.ir">
+    <img src="public/banner.svg" alt="API اشعار فارسی" width="100%" />
+  </a>
+</p>
 
-[![ساخته شده با Next.js](https://img.shields.io/badge/ساخته%20شده%20با-Next.js-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
-[![مجوز MIT](https://img.shields.io/badge/مجوز-MIT-green?style=for-the-badge)](LICENSE)
-[![نسخه](https://img.shields.io/badge/نسخه-1.0.0-blue?style=for-the-badge)](https://github.com/arsamadineh/Persian-Quote-API)
-[![مشارکت‌کنندگان](https://img.shields.io/github/contributors/arsamadineh/Persian-Quote-API?style=for-the-badge&color=orange)](https://github.com/arsamadineh/Persian-Quote-API/graphs/contributors)
+<p align="center">
+  <a href="https://github.com/arsamadineh/Persian-Quote-API/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/%D9%85%D8%AC%D9%88%D8%B2-MIT-green?style=for-the-badge" alt="مجوز MIT" />
+  </a>
+  <a href="https://github.com/arsamadineh/Persian-Quote-API/releases">
+    <img src="https://img.shields.io/badge/%D9%86%D8%B3%D8%AE%D9%87-%DB%B3.%DB%B1.%DB%B1-blue?style=for-the-badge" alt="نسخه" />
+  </a>
+  <a href="https://github.com/arsamadineh/Persian-Quote-API/stargazers">
+    <img src="https://img.shields.io/github/stars/arsamadineh/Persian-Quote-API?style=for-the-badge&color=amber" alt="ستاره‌ها" />
+  </a>
+  <a href="https://github.com/arsamadineh/Persian-Quote-API/network/members">
+    <img src="https://img.shields.io/github/forks/arsamadineh/Persian-Quote-API?style=for-the-badge&color=indigo" alt="شاخه‌ها" />
+  </a>
+  <a href="https://github.com/arsamadineh/Persian-Quote-API/issues">
+    <img src="https://img.shields.io/github/issues/arsamadineh/Persian-Quote-API?style=for-the-badge" alt="مسائل" />
+  </a>
+</p>
 
-<div dir="rtl">
+<p align="center">
+  <strong>دسترسی آزاد به گنجینه اشعار شاعران بزرگ فارسی، فقط با یک درخواست HTTP.</strong>
+</p>
 
-## درباره پروژه
-
-پروژه **API نقل‌قول‌های فارسی** یک پلتفرم جامع، متن‌باز و مدرن برای دسترسی به گنجینه‌ای از اشعار و نقل‌قول‌های زیبا از شاعران بزرگ و نامدار فارسی‌زبان است. این پروژه به منظور حفظ و ترویج ادبیات غنی فارسی در بستر وب طراحی شده است و ابزاری قدرتمند برای توسعه‌دهندگان، طراحان و علاقه‌مندان به ادبیات فراهم می‌آورد.
-
-این پروژه شامل یک API کامل (RESTful)، ویجت‌های قابل جاسازی (Embeddable Widgets) و یک وب‌سایت نمایشی با طراحی اختصاصی راست‌به‌چپ (RTL) و تایپوگرافی زیبای فارسی با فونت **وزیرمتن** می‌باشد.
+<p align="center">
+  بدون ثبت‌نام. بدون کلید API. بدون محدودیت پرداخت. متن‌باز با مجوز MIT.
+</p>
 
 ---
 
-## ✨ ویژگی‌های کلیدی
+## نمای کلی
 
-### 🎯 API جامع و پرسرعت
-دسترسی به هزاران بیت شعر از صدها شاعر نامدار از طریق اندپوینت‌های استاندارد:
-- `GET /api/quotes` : دریافت نقل‌قول‌های تصادفی
-- `GET /api/quotes/[poet]` : دریافت اشعار بر اساس نام شاعر
-- `GET /api/quotes/category/[category]` : دریافت اشعار بر اساس موضوع (عشق، عرفان، حکمت و...)
-- `GET /api/quotes/search?q={query}` : جستجوی پیشرفته در متن اشعار
-- `GET /api/poets` : دریافت فهرست کامل شاعران به همراه زندگی‌نامه
-- `GET /api/categories` : دریافت فهرست دسته‌بندی‌های موضوعی
-- `GET /api/stats` : دریافت آمارهای پایگاه داده
+API اشعار فارسی یک سرویس REST عمومی و رایگان برای دسترسی به اشعار کلاسیک و معاصر فارسی است. این پروژه شامل اشعار مولانا، حافظ، سعدی، فردوسی، نیما یوشیج، سهراب سپهری، و سخنان بیش از ۴۹۰ بزرگ تاریخ است.
 
-### 🎨 ویجت‌ها و کارت‌های قابل جاسازی (Embed Widgets)
-آیا می‌خواهید اشعار فارسی را به وب‌سایت خود اضافه کنید؟ با استفاده از کارت‌های نقل‌قول قابل تنظیم، می‌توانید به راحتی اشعار را جاسازی کنید:
+ویجت قابل تعبیه، صفحه مستندات تعاملی، نمونه‌های کاربردی با اجرای زنده، و موتور API اختصاصی (Tigh) از قابلیت‌های این پروژه هستند.
+
+## نقشه فناوری
+
+<p align="center">
+  <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" /></a>
+  <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
+  <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" /></a>
+  <a href="https://react.dev"><img src="https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" /></a>
+</p>
+
+## شروع سریع
+
+یک شعر تصادفی:
+
+```bash
+curl https://pq.arsamadineh.ir/api/quotes?random=true&limit=1
+```
+
+یک غزل حافظ برای فال:
+
+```bash
+curl https://pq.arsamadineh.ir/api/quotes/hafez?random=true&limit=1
+```
+
+جستجو در میان اشعار:
+
+```bash
+curl "https://pq.arsamadineh.ir/api/quotes/search?q=عشق&limit=5"
+```
+
+نمونه پاسخ:
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "text_persian": "عاشقان مرده‌اند در عشق زنده\nتا ابد در دل جانان پاینده",
+      "text_english": "Lovers are dead in love, yet alive / Forever enduring in the beloved's heart",
+      "poet": "مولانا جلال‌الدین رومی",
+      "poet_english": "Rumi",
+      "source": "دیوان شمس",
+      "category": "عشق"
+    }
+  ],
+  "count": 1
+}
+```
+
+## اندپوینت‌ها
+
+| روش | مسیر | توضیح |
+|---|---|---|
+| `GET` | `/api/quotes` | فهرست اشعار با فیلتر شاعر و موضوع |
+| `GET` | `/api/quotes/[poet]` | اشعار یک شاعر مشخص |
+| `GET` | `/api/quotes/category/[category]` | اشعار یک موضوع مشخص |
+| `GET` | `/api/quotes/hafez` | دیوان کامل حافظ (۴۹۷ غزل) |
+| `GET` | `/api/quotes/shereno` | بیش از چهار هزار اثر شعر نو |
+| `GET` | `/api/quotes/non-poetry` | سخنان ۴۹۰+ بزرگ تاریخ |
+| `GET` | `/api/quotes/search` | جستجوی پیشرفته در متن اشعار |
+| `GET` | `/api/poets` | فهرست شاعران |
+| `GET` | `/api/categories` | دسته‌بندی‌های موضوعی |
+| `GET` | `/api/stats` | آمار کلی پایگاه داده |
+| `GET` | `/api/embed` | ویجت HTML قابل تعبیه |
+| `GET` | `/api/engine/stats` | متریک زنده موتور Tigh |
+| `GET` | `/api/engine/benchmark` | بنچمارک عملکردی موتور |
+
+### پارامترهای رایج
+
+| پارامتر | نوع | پیش‌فرض | توضیح |
+|---|---|---|---|
+| `random` | `boolean` | `false` | دریافت تصادفی |
+| `limit` | `number` | `10` | تعداد نتایج (حداکثر ۱۰۰) |
+| `poet` | `string` | - | فیلتر نام شاعر |
+| `category` | `string` | - | فیلتر موضوع |
+| `q` | `string` | - | عبارت جستجو |
+| `lang` | `string` | `fa` | زبان جستجو (fa/en/both) |
+
+## موتور Tigh
+
+پروژه شامل یک موتور API اختصاصی به نام **Tigh** است که زیرساخت پردازش درخواست‌ها را مدیریت می‌کند:
+
+| ماژول | عملکرد |
+|---|---|
+| **Trie Router** | مسیریابی سریع با پشتیبانی از پارامترهای داینامیک و wildcard |
+| **LRU Cache** | کش درون‌برنامه‌ای با TTL و ردیابی دسترسی O(1) |
+| **Rate Limiter** | محدودسازی نرخ با سه الگوریتم: Token Bucket، Sliding Window، Fixed Window |
+| **Circuit Breaker** | مدار شکن خودترمیم‌شونده با سه حالت closed/open/half-open |
+| **Metrics** | جمع‌آوری متریک با حافظه حلقه‌ای: P50/P99 latency، hit rate، uptime |
+| **Middleware** | پایپلاین CORS، اندازه‌گیری زمان، و فشرده‌سازی gzip |
+
+## صفحات پروژه
+
+| مسیر | توضیح |
+|---|---|
+| `/` | صفحه اصلی با معرفی و نمونه تعاملی API |
+| `/docs` | مستندات کامل اندپوینت‌ها با جستجوی سراسری (Ctrl K) |
+| `/examples` | نمونه کد در چهار زبان با اجرای زنده |
+| `/embed` | سازنده ویجت با پیش‌نمایش آنی و کد تعبیه |
+| `/sakhtar` | نمایش معماری موتور Tigh با نمودار و متریک زنده |
+| `/contribute` | فرم مشارکت برای افزودن شعر جدید |
+| `/changelog` | تاریخچه تغییرات نسخه‌ها |
+| `/privacy` | سیاست حریم خصوصی |
+| `/terms` | شرایط استفاده |
+
+## ویجت قابل تعبیه
+
+ویجت اشعار فارسی را می‌توانید با تنظیمات دلخواه بسازید و در وب‌سایت خود قرار دهید:
 
 ```html
-<!-- جاسازی ویجت شعر به راحتی در وب‌سایت شما -->
 <iframe
-  src="https://your-domain.com/embed?theme=classic&poet=rumi&category=love"
+  src="https://pq.arsamadineh.ir/api/embed?theme=elegant&size=medium"
   width="100%"
-  height="300"
-  frameborder="0">
+  height="400"
+  frameborder="0"
+  scrolling="no"
+>
 </iframe>
 ```
 
-### 💻 تکنولوژی‌های استفاده شده
-- **Next.js 15 (App Router)**: فریم‌ورک قدرتمند برای سمت سرور و کلاینت
-- **TypeScript**: تضمین کیفیت کد و Type Safety
-- **Tailwind CSS & Shadcn/ui**: طراحی رابط کاربری چشم‌نواز، مینیمال و واکنش‌گرا (Responsive)
-- **Supabase**: پایگاه داده PostgreSQL قدرتمند برای ذخیره و بازیابی اشعار
+پارامترهای موجود: `theme` (default/elegant/minimal/classic/modern)، `size` (small/medium/large)، `poet`، `category`، `english`، `source`، `category_badge`، `auto_refresh`، `refresh_interval`.
 
----
+## ساختار پروژه
 
-## 🚀 نصب و راه‌اندازی برای توسعه‌دهندگان
+```
+app/
+  api/                  اندپوینت‌های REST
+    quotes/             دریافت اشعار
+    embed/              ویجت HTML
+    engine/             متریک و بنچمارک موتور
+    poets/              فهرست شاعران
+    categories/         دسته‌بندی‌ها
+    stats/              آمار پایگاه داده
+  docs/                 مستندات تعاملی
+  examples/             نمونه‌های کاربردی
+  embed/                سازنده ویجت
+  sakhtar/              معماری موتور Tigh
+  contribute/           فرم مشارکت
+  changelog/            صفحه تغییرات
+  privacy/              سیاست حریم خصوصی
+  terms/                شرایط استفاده
 
-### پیش‌نیازها
-- Node.js 18 یا بالاتر
-- `pnpm` (پیشنهادی)، `npm` یا `yarn`
-- حساب کاربری Supabase (برای راه‌اندازی دیتابیس)
+lib/
+  engine/               موتور Tigh
+    engine.ts           هسته اصلی
+    router.ts           مسیریاب Trie
+    cache.ts            کش LRU با ایندکس نقشه‌ای
+    rate-limiter.ts     محدودسازی نرخ (سه الگوریتم)
+    circuit-breaker.ts  مدار شکن خودترمیم
+    metrics.ts          متریک با حافظه حلقه‌ای
+    middleware.ts       CORS، زمان‌سنجی، فشرده‌سازی
+    adapter-next.ts     اداپتور Next.js
+    instance.ts         نمونه سراسری موتور
+    types.ts            تعریف انواع
+  data/                 فایل‌های JSON اشعار
+    poetry-quotes.json  اشعار کلاسیک
+    hafez.json          دیوان حافظ (۴۹۷ غزل)
+    shereno.json        شعر نو (۴۰۰۰+ اثر)
+    non-poetry-quotes.json  سخنان بزرگان (۴۹۰+)
+  changelog.ts          منبع حقیقتی تغییرات
+  utils.ts              توابع مشترک (cn، formatVerse)
 
-### مراحل نصب گام به گام
+components/
+  navbar.tsx            نوار ناوبری شیشه‌ای
+  footer.tsx            فوتر مشترک
+  quote-cards/          کارت‌های نمایش شعر
+  ui/                   کامپوننت‌های پایه
 
-۱. **کلون کردن مخزن پروژه:**
+public/
+  banner.svg            بنر اصلی پروژه
+  og-image.svg          تصویر Open Graph
+  twitter-card.svg      تصویر Twitter Card
+  icon.svg              فاوآیکن
+```
+
+## نصب و راه‌اندازی
+
+پیش‌نیازها: Node.js ۱۸+ و یکی از npm، pnpm، یا bun.
+
 ```bash
 git clone https://github.com/arsamadineh/Persian-Quote-API.git
 cd Persian-Quote-API
+npm install
+npm run dev
 ```
 
-۲. **نصب وابستگی‌ها (با pnpm):**
-```bash
-pnpm install
-```
+پروژه روی `http://localhost:3000` در دسترس خواهد بود.
 
-۳. **تنظیم متغیرهای محیطی:**
-فایل `.env.example` را به `.env.local` تغییر نام دهید و مقادیر مربوط به دیتابیس خود را وارد کنید:
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-```
+## مشارکت
 
-۴. **آماده‌سازی پایگاه داده:**
-اسکریپت‌های SQL موجود در پوشه `scripts/` را به ترتیب در پنل Supabase خود اجرا کنید تا جداول ساخته و داده‌های اولیه و شاعران وارد شوند:
-- `001_create_quotes_schema.sql`
-- `002_seed_poets_data.sql`
-- `003_seed_categories_data.sql`
-- `004_seed_sample_quotes.sql`
-- `005_seed_more_poets.sql` (حاوی صدها شاعر و شعر جدید)
+**روش آسان**: فرم تعاملی در `/contribute` — بدون نیاز به دانش برنامه‌نویسی، فقط متن شعر را وارد کنید.
 
-۵. **اجرای سرور توسعه:**
-```bash
-pnpm dev
-```
-پروژه روی آدرس `http://localhost:3000` در دسترس خواهد بود!
+**روش مستقیم**: مخزن را fork کنید، شاخه جدید بسازید، تغییرات را در `lib/changelog.ts` ثبت کنید، و PR ارسال کنید.
 
----
+پیش از مشارکت، فایل `AGENTS.md` را مطالعه کنید.
 
-## 🤝 راهنمای مشارکت (How to Contribute)
+## مجوز
 
-ما از مشارکت‌های شما برای غنی‌تر کردن پایگاه داده اشعار و بهبود کدها به شدت استقبال می‌کنیم! شما می‌توانید به دو روش در این پروژه مشارکت کنید:
+این پروژه تحت مجوز [MIT](LICENSE) منتشر شده است. اشعار موجود در پایگاه داده در حوزه مالکیت عمومی قرار دارند.
 
-### روش اول: فرم تعاملی (سریع‌ترین و آسان‌ترین روش) 🚀
-ما یک رابط کاربری ساده برای افزودن اشعار طراحی کرده‌ایم. برای این کار نیازی به برنامه‌نویسی ندارید:
-1. در وب‌سایت پروژه، به صفحه **[مشارکت (Contribute)](/contribute)** بروید.
-2. فرم را با دقت (نام شاعر، متن شعر فارسی و ترجمه انگلیسی، منبع و...) پر کنید.
-3. روی دکمه «ثبت و ایجاد Pull Request» کلیک کنید.
-4. شما مستقیماً به صفحه گیت‌هاب برای تایید و ارسال Pull Request هدایت می‌شوید!
+## حمایت مالی
 
-### روش دوم: توسعه دستی و ارسال Pull Request (برای توسعه‌دهندگان) 💻
-اگر می‌خواهید در کدها یا توسعه هسته سیستم مشارکت کنید:
-1. ابتدا پروژه را در حساب گیت‌هاب خود Fork کنید.
-2. یک شاخه (Branch) جدید برای تغییرات خود بسازید:
-   ```bash
-   git checkout -b feature/amazing-new-feature
-   ```
-3. کدهای خود را با رعایت اصول Clean Code بنویسید.
-4. تغییرات خود را Commit کنید:
-   ```bash
-   git commit -m 'feat: Add an amazing new feature'
-   ```
-5. به شاخه خود در گیت‌هاب Push کنید:
-   ```bash
-   git push origin feature/amazing-new-feature
-   ```
-6. یک Pull Request در مخزن اصلی باز کنید تا تغییرات شما بررسی شود.
+این پروژه به‌طور کامل توسط آرسام آدینه و با هزینه شخصی توسعه و نگهداری می‌شود. اگر برایتان مفید بود، با خرید یک قهوه از ادامه کار حمایت کنید:
 
----
+<a href="https://www.coffeebede.com/arsamadineh"><img src="https://coffeebede.ir/DashboardTemplateV2/app-assets/images/banner/default-yellow.svg" alt="حمایت مالی" /></a>
 
-## 📄 مجوز (License)
+## آمار پروژه
 
-این پروژه تحت مجوز متن‌باز **[MIT](LICENSE)** منتشر شده است. استفاده، تغییر و انتشار آن برای همه آزاد است.
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=arsamadineh&repo=Persian-Quote-API&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=F59E0B&text_color=E6E6E6&icon_color=F59E0B" alt="آمار گیت‌هاب" />
+  <img src="https://streak-stats.demolab.com?user=arsamadineh&repo=Persian-Quote-API&theme=radical&hide_border=true&background=0D1117&stroke=E7E5E4&ring=F59E0B&fire=F59E0B&currStreakLabel=F59E0B&sideLabels=E6E6E6&dates=A8A29E" alt="آمار پیوستگی" />
+</p>
 
-## 👨‍💻 توسعه‌دهنده
+<p align="center">
+  <a href="https://github.com/arsamadineh/Persian-Quote-API/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=arsamadineh/Persian-Quote-API&max=24&theme=radical" alt="مشارکت‌کنندگان" />
+  </a>
+</p>
 
-**آرسام آدینه (Arsam Adineh)**
-- 🌐 [وب‌سایت شخصی](https://arsamadineh.ir)
-- 🐙 [GitHub](https://github.com/arsamadineh)
-- 📧 ایمیل: contact@arsamadineh.ir
+## توسعه‌دهنده
 
----
-<div align="center">
-  <p>ساخته شده با ❤️ و ☕ برای حفظ شکوه زبان زیبای پارسی.</p>
-</div>
+این پروژه توسط **آرسام آدینه** (Arsam Adineh) طراحی، توسعه، و تامین مالی شده است.
 
-</div>
+- وب‌سایت: [arsamadineh.ir](https://arsamadineh.ir)
+- گیت‌هاب: [github.com/arsamadineh](https://github.com/arsamadineh)
+- X: [x.com/dev_arsam](https://x.com/dev_arsam)
+- تلگرام: [t.me/arsamadineh](https://t.me/arsamadineh)
+- ایمیل: [contact@arsamadineh.ir](mailto:contact@arsamadineh.ir)
+
+## تماس و ارتباط
+
+- مخزن: [arsamadineh/Persian-Quote-API](https://github.com/arsamadineh/Persian-Quote-API)
+- گزارش مشکل: [Issues](https://github.com/arsamadineh/Persian-Quote-API/issues)
+- تغییرات: [lib/changelog.ts](lib/changelog.ts)

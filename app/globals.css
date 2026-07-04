@@ -4,76 +4,75 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens for Persian poetry website with warm golden amber and elegant neutrals */
-  --background: oklch(1 0 0); /* Pure white */
-  --foreground: oklch(0.25 0 0); /* Deep slate gray #374151 */
-  --card: oklch(0.98 0.02 85); /* Soft cream #fefce8 */
-  --card-foreground: oklch(0.25 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.25 0 0);
-  --primary: oklch(0.65 0.15 65); /* Warm golden amber #d97706 */
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.98 0.02 85); /* Soft cream */
-  --secondary-foreground: oklch(0.25 0 0);
-  --muted: oklch(0.98 0.02 85);
-  --muted-foreground: oklch(0.25 0 0);
-  --accent: oklch(0.65 0.15 65); /* Golden amber accent */
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.5 0.2 25);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0 0); /* Light gray borders */
-  --input: oklch(0.97 0 0); /* Light input background */
-  --ring: oklch(0.65 0.15 65 / 0.3); /* Golden amber ring with transparency */
-  --chart-1: oklch(0.65 0.15 65);
-  --chart-2: oklch(0.55 0.15 200);
-  --chart-3: oklch(0.35 0.1 200);
-  --chart-4: oklch(0.98 0.02 85);
-  --chart-5: oklch(0.25 0 0);
-  --radius: 0.5rem;
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.25 0 0);
-  --sidebar-primary: oklch(0.65 0.15 65);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.98 0.02 85);
-  --sidebar-accent-foreground: oklch(0.25 0 0);
-  --sidebar-border: oklch(0.92 0 0);
-  --sidebar-ring: oklch(0.65 0.15 65 / 0.3);
+  --background: #fafaf9; /* stone-50 */
+  --foreground: #1c1917; /* stone-900 */
+  --card: #ffffff;
+  --card-foreground: #1c1917;
+  --popover: #ffffff;
+  --popover-foreground: #1c1917;
+  --primary: #d97706; /* amber-600 */
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f4; /* stone-100 */
+  --secondary-foreground: #1c1917;
+  --muted: #f5f5f4;
+  --muted-foreground: #78716c; /* stone-500 */
+  --accent: #d97706;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e7e5e4; /* stone-200 */
+  --input: #e7e5e4;
+  --ring: rgba(217, 119, 6, 0.4);
+  --chart-1: #d97706;
+  --chart-2: #2563eb;
+  --chart-3: #16a34a;
+  --chart-4: #ca8a04;
+  --chart-5: #dc2626;
+  --radius: 0.75rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1c1917;
+  --sidebar-primary: #d97706;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5f5f4;
+  --sidebar-accent-foreground: #1c1917;
+  --sidebar-border: #e7e5e4;
+  --sidebar-ring: rgba(217, 119, 6, 0.4);
   --font-vazirmatn: "Vazirmatn";
 }
 
 .dark {
-  --background: oklch(0.08 0 0);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.12 0 0);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.7 0.15 65);
-  --primary-foreground: oklch(0.08 0 0);
-  --secondary: oklch(0.15 0 0);
-  --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.15 0 0);
-  --muted-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.7 0.15 65);
-  --accent-foreground: oklch(0.08 0 0);
-  --destructive: oklch(0.5 0.2 25);
-  --destructive-foreground: oklch(0.95 0 0);
-  --border: oklch(0.15 0 0);
-  --input: oklch(0.15 0 0);
-  --ring: oklch(0.7 0.15 65 / 0.3);
-  --chart-1: oklch(0.7 0.15 65);
-  --chart-2: oklch(0.6 0.15 200);
-  --chart-3: oklch(0.4 0.1 200);
-  --chart-4: oklch(0.15 0 0);
-  --chart-5: oklch(0.95 0 0);
-  --sidebar: oklch(0.08 0 0);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.7 0.15 65);
-  --sidebar-primary-foreground: oklch(0.08 0 0);
-  --sidebar-accent: oklch(0.15 0 0);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.15 0 0);
-  --sidebar-ring: oklch(0.7 0.15 65 / 0.3);
+  --background: #0c0a09; /* stone-950 */
+  --foreground: #f5f5f4; /* stone-100 */
+  --card: #1c1917; /* stone-900 */
+  --card-foreground: #f5f5f4;
+  --popover: #1c1917;
+  --popover-foreground: #f5f5f4;
+  --primary: #f59e0b; /* amber-500 */
+  --primary-foreground: #0c0a09;
+  --secondary: #292524; /* stone-800 */
+  --secondary-foreground: #f5f5f4;
+  --muted: #292524;
+  --muted-foreground: #a8a29e; /* stone-400 */
+  --accent: #f59e0b;
+  --accent-foreground: #0c0a09;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #292524; /* stone-800 */
+  --input: #292524;
+  --ring: rgba(245, 158, 11, 0.4);
+  --chart-1: #f59e0b;
+  --chart-2: #3b82f6;
+  --chart-3: #22c55e;
+  --chart-4: #eab308;
+  --chart-5: #ef4444;
+  --sidebar: #1c1917;
+  --sidebar-foreground: #f5f5f4;
+  --sidebar-primary: #f59e0b;
+  --sidebar-primary-foreground: #0c0a09;
+  --sidebar-accent: #292524;
+  --sidebar-accent-foreground: #f5f5f4;
+  --sidebar-border: #292524;
+  --sidebar-ring: rgba(245, 158, 11, 0.4);
   --font-vazirmatn: "Vazirmatn";
 }
 
@@ -209,7 +208,6 @@
 
   /* Enhanced quote card styling with Persian calligraphy inspiration */
   .quote-card {
-    background: linear-gradient(135deg, var(--card) 0%, var(--background) 100%);
     border: 1px solid var(--border);
     box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
     position: relative;
@@ -263,7 +261,7 @@
     font-size: 1.25rem;
     line-height: 2;
     text-align: center;
-    color: var(--foreground);
+    color: currentColor;
     font-weight: 500;
     position: relative;
     padding: 1rem 0;
@@ -281,13 +279,13 @@
 
   .persian-quote::before {
     top: -0.5rem;
-    right: -0.5rem;
+    right: -0.25rem;
   }
 
   .persian-quote::after {
     content: "❞";
     bottom: -0.5rem;
-    left: -0.5rem;
+    left: -0.25rem;
   }
 
   /* Persian poet attribution styling */
@@ -370,6 +368,15 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
+  }
+
+  /* Hide scrollbar for tab navigation */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 
   /* Enhanced focus styles for accessibility */
@@ -490,4 +497,180 @@
     border-radius: var(--radius);
     border: 1px solid var(--border);
   }
+}
+
+/* ═══════════════════ Engine Animations ═══════════════════ */
+
+@keyframes engine-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes engine-slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes engine-slide-right {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes engine-scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes engine-bar-fill {
+  from { width: 0%; }
+}
+
+@keyframes engine-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+  50% { box-shadow: 0 0 20px 4px rgba(245, 158, 11, 0.15); }
+}
+
+@keyframes engine-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes engine-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes engine-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-engine-pulse { animation: engine-pulse 2s ease-in-out infinite; }
+.animate-engine-slide-up { animation: engine-slide-up 0.7s ease-out forwards; }
+.animate-engine-slide-right { animation: engine-slide-right 0.7s ease-out forwards; }
+.animate-engine-scale-in { animation: engine-scale-in 0.5s ease-out forwards; }
+.animate-engine-bar-fill { animation: engine-bar-fill 1s ease-out forwards; }
+.animate-engine-glow { animation: engine-glow 3s ease-in-out infinite; }
+.animate-engine-float { animation: engine-float 3s ease-in-out infinite; }
+.animate-engine-spin-slow { animation: engine-spin-slow 8s linear infinite; }
+
+.engine-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.05) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: engine-shimmer 3s ease-in-out infinite;
+}
+
+/* Staggered children animation */
+.engine-stagger > * {
+  opacity: 0;
+  animation: engine-slide-up 0.5s ease-out forwards;
+}
+.engine-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.engine-stagger > *:nth-child(2) { animation-delay: 80ms; }
+.engine-stagger > *:nth-child(3) { animation-delay: 160ms; }
+.engine-stagger > *:nth-child(4) { animation-delay: 240ms; }
+.engine-stagger > *:nth-child(5) { animation-delay: 320ms; }
+.engine-stagger > *:nth-child(6) { animation-delay: 400ms; }
+.engine-stagger > *:nth-child(7) { animation-delay: 480ms; }
+.engine-stagger > *:nth-child(8) { animation-delay: 560ms; }
+
+/* ═══════════════════ Command Bar Animations ═══════════ */
+
+@keyframes cmdbar-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cmdbar-rise-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cmdbar-item-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-cmdbar-fade {
+  animation: cmdbar-fade-in 0.18s ease-out;
+}
+
+.animate-cmdbar-rise {
+  animation: cmdbar-rise-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-cmdbar-item {
+  animation: cmdbar-item-in 0.22s ease-out both;
+}
+
+.cmdbar-kbd {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.cmdbar-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid;
+  border-radius: 0.375rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+/* Smooth modal scrollbar (thinner) */
+.cmdbar-root ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.cmdbar-root ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cmdbar-root ::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+.cmdbar-root ::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Highlight matched term in results */
+.cmdbar-root mark {
+  background: linear-gradient(180deg, transparent 60%, rgba(245, 158, 11, 0.18) 60%);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* RTL/LTR mix in command palette — Persian titles, LTR code snippet text */
+.cmdbar-root [dir="rtl"] {
+  text-align: right;
+}
+.cmdbar-root [dir="ltr"] {
+  text-align: left;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .animate-cmdbar-rise,
+  .animate-cmdbar-fade,
+  .animate-cmdbar-item {
+    animation: none !important;
+  }
+}
+
+/* Scrollbar utility used by ai-prompts */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
 }

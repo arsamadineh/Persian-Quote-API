@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="'Vazirmatn', system-ui, sans-serif" direction="rtl">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917"/>
+      <stop offset="100%" stop-color="#0c0a09"/>
+    </linearGradient>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&amp;display=swap');
+    </style>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)"/>
+
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#292524" stroke-width="0.4" opacity="0.5"/>
+  </pattern>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+
+  <!-- عنوان -->
+  <text x="600" y="50" text-anchor="middle" fill="#d6d3d1" font-size="26" font-weight="700">ساختار موتور تیغ</text>
+  <text x="600" y="72" text-anchor="middle" fill="#78716c" font-size="12">v0.0.1-beta · معماری و جریان داده</text>
+
+  <!-- ═══ ردیف بالا: جریان درخواست ═══ -->
+  <!-- کلاینت -->
+  <rect x="100" y="100" width="120" height="48" rx="8" fill="#292524" stroke="#44403c" stroke-width="1"/>
+  <text x="160" y="122" text-anchor="middle" fill="#d6d3d1" font-size="13" font-weight="600">کلاینت</text>
+  <text x="160" y="138" text-anchor="middle" fill="#78716c" font-size="10">درخواست HTTP</text>
+
+  <line x1="220" y1="124" x2="270" y2="124" stroke="#78716c" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Pipeline -->
+  <rect x="275" y="92" width="180" height="64" rx="8" fill="#292524" stroke="#44403c" stroke-width="1"/>
+  <text x="365" y="114" text-anchor="middle" fill="#d6d3d1" font-size="12" font-weight="600">پایپلاین Middleware</text>
+  <text x="365" y="130" text-anchor="middle" fill="#78716c" font-size="10">CORS · Timing · Rate Limit</text>
+  <text x="365" y="146" text-anchor="middle" fill="#57534e" font-size="9">اعتبارسنجی · تبدیل داده</text>
+
+  <line x1="455" y1="124" x2="505" y2="124" stroke="#78716c" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- مسیریاب -->
+  <rect x="510" y="92" width="150" height="64" rx="8" fill="#292524" stroke="#44403c" stroke-width="1"/>
+  <text x="585" y="114" text-anchor="middle" fill="#d6d3d1" font-size="12" font-weight="600">مسیریاب Trie</text>
+  <text x="585" y="130" text-anchor="middle" fill="#78716c" font-size="10">تطابق مسیر O(۱)</text>
+  <text x="585" y="146" text-anchor="middle" fill="#57534e" font-size="9">پارامتر + Wildcard</text>
+
+  <line x1="660" y1="124" x2="710" y2="124" stroke="#78716c" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- هندلر -->
+  <rect x="715" y="92" width="150" height="64" rx="8" fill="#292524" stroke="#44403c" stroke-width="1"/>
+  <text x="790" y="114" text-anchor="middle" fill="#d6d3d1" font-size="12" font-weight="600">هندلر</text>
+  <text x="790" y="130" text-anchor="middle" fill="#78716c" font-size="10">اجرا و پردازش</text>
+  <text x="790" y="146" text-anchor="middle" fill="#57534e" font-size="9">دسترسی به داده</text>
+
+  <line x1="865" y1="124" x2="915" y2="124" stroke="#78716c" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- پاسخ -->
+  <rect x="920" y="100" width="120" height="48" rx="8" fill="#292524" stroke="#44403c" stroke-width="1"/>
+  <text x="980" y="122" text-anchor="middle" fill="#d6d3d1" font-size="13" font-weight="600">پاسخ</text>
+  <text x="980" y="138" text-anchor="middle" fill="#78716c" font-size="10">JSON + هدرها</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#78716c"/>
+    </marker>
+  </defs>
+
+  <!-- ═══ ردیف میانی: ماژول‌ها ═══ -->
+  <text x="600" y="200" text-anchor="middle" fill="#a8a29e" font-size="16" font-weight="600">ماژول‌های هسته</text>
+
+  <!-- مسیریاب -->
+  <rect x="60" y="225" width="170" height="120" rx="8" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="60" y="225" width="170" height="28" rx="8" fill="#292524"/>
+  <rect x="60" y="245" width="170" height="8" fill="#292524"/>
+  <text x="145" y="244" text-anchor="middle" fill="#d6d3d1" font-size="11" font-weight="600">مسیریاب</text>
+  <text x="145" y="272" text-anchor="middle" fill="#a8a29e" font-size="10">Trie-based routing</text>
+  <text x="145" y="290" text-anchor="middle" fill="#78716c" font-size="9">پیچیدگی O(۱)</text>
+  <text x="145" y="308" text-anchor="middle" fill="#78716c" font-size="9">پارامتر داینامیک</text>
+  <text x="145" y="326" text-anchor="middle" fill="#57534e" font-size="9">Wildcard support</text>
+
+  <!-- کش -->
+  <rect x="260" y="225" width="170" height="120" rx="8" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="260" y="225" width="170" height="28" rx="8" fill="#292524"/>
+  <rect x="260" y="245" width="170" height="8" fill="#292524"/>
+  <text x="345" y="244" text-anchor="middle" fill="#d6d3d1" font-size="11" font-weight="600">کش</text>
+  <text x="345" y="272" text-anchor="middle" fill="#a8a29e" font-size="10">LRU + TTL</text>
+  <text x="345" y="290" text-anchor="middle" fill="#78716c" font-size="9">ردیابی حافظه</text>
+  <text x="345" y="308" text-anchor="middle" fill="#78716c" font-size="9">Invalidation الگویی</text>
+  <text x="345" y="326" text-anchor="middle" fill="#57534e" font-size="9">پاکسازی خودکار</text>
+
+  <!-- محدودساز -->
+  <rect x="460" y="225" width="170" height="120" rx="8" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="460" y="225" width="170" height="28" rx="8" fill="#292524"/>
+  <rect x="460" y="245" width="170" height="8" fill="#292524"/>
+  <text x="545" y="244" text-anchor="middle" fill="#d6d3d1" font-size="11" font-weight="600">محدودساز نرخ</text>
+  <text x="545" y="272" text-anchor="middle" fill="#a8a29e" font-size="10">۳ استراتژی</text>
+  <text x="545" y="290" text-anchor="middle" fill="#78716c" font-size="9">Token Bucket</text>
+  <text x="545" y="308" text-anchor="middle" fill="#78716c" font-size="9">Sliding Window</text>
+  <text x="545" y="326" text-anchor="middle" fill="#57534e" font-size="9">Fixed Window</text>
+
+  <!-- مدار شکن -->
+  <rect x="660" y="225" width="170" height="120" rx="8" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="660" y="225" width="170" height="28" rx="8" fill="#292524"/>
+  <rect x="660" y="245" width="170" height="8" fill="#292524"/>
+  <text x="745" y="244" text-anchor="middle" fill="#d6d3d1" font-size="11" font-weight="600">مدار شکن</text>
+  <text x="745" y="272" text-anchor="middle" fill="#a8a29e" font-size="10">StateMachine ۳حالته</text>
+  <text x="745" y="290" text-anchor="middle" fill="#78716c" font-size="9">Closed → Open → Half</text>
+  <text x="745" y="308" text-anchor="middle" fill="#78716c" font-size="9">بهبود خودکار</text>
+  <text x="745" y="326" text-anchor="middle" fill="#57534e" font-size="9">جلوگیری از خرابی</text>
+
+  <!-- متریک -->
+  <rect x="860" y="225" width="170" height="120" rx="8" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="860" y="225" width="170" height="28" rx="8" fill="#292524"/>
+  <rect x="860" y="245" width="170" height="8" fill="#292524"/>
+  <text x="945" y="244" text-anchor="middle" fill="#d6d3d1" font-size="11" font-weight="600">متریک</text>
+  <text x="945" y="272" text-anchor="middle" fill="#a8a29e" font-size="10">Percentile + Counter</text>
+  <text x="945" y="290" text-anchor="middle" fill="#78716c" font-size="9">P50 / P90 / P95 / P99</text>
+  <text x="945" y="308" text-anchor="middle" fill="#78716c" font-size="9">نسبت hit/miss کش</text>
+  <text x="945" y="326" text-anchor="middle" fill="#57534e" font-size="9">Snapshot لحظه‌ای</text>
+
+  <!-- ═══ ردیف پایین: اداپتورها ═══ -->
+  <text x="600" y="390" text-anchor="middle" fill="#a8a29e" font-size="14" font-weight="600">اداپتورهای Runtime</text>
+
+  <!-- Next.js -->
+  <rect x="280" y="410" width="200" height="56" rx="8" fill="#1c1917" stroke="#44403c" stroke-width="1"/>
+  <rect x="280" y="410" width="200" height="24" rx="8" fill="#292524"/>
+  <rect x="280" y="426" width="200" height="8" fill="#292524"/>
+  <text x="380" y="428" text-anchor="middle" fill="#d6d3d1" font-size="10" font-weight="600">اداپتور Next.js</text>
+  <text x="380" y="452" text-anchor="middle" fill="#78716c" font-size="9">App Router · createNextHandler()</text>
+
+  <!-- آینده -->
+  <rect x="520" y="410" width="160" height="56" rx="8" fill="#1c1917" stroke="#292524" stroke-width="1" stroke-dasharray="4"/>
+  <rect x="520" y="410" width="160" height="24" rx="8" fill="#292524"/>
+  <rect x="520" y="426" width="160" height="8" fill="#292524"/>
+  <text x="600" y="428" text-anchor="middle" fill="#78716c" font-size="10">Express · Bun · Deno</text>
+  <text x="600" y="452" text-anchor="middle" fill="#57534e" font-size="9">آینده</text>
+
+  <!-- ═══ پنل عملکرد ═══ -->
+  <rect x="60" y="490" width="1080" height="110" rx="8" fill="#1c1917" stroke="#292524" stroke-width="1"/>
+  <text x="600" y="514" text-anchor="middle" fill="#a8a29e" font-size="14" font-weight="600">عملکرد</text>
+
+  <rect x="90" y="530" width="190" height="55" rx="6" fill="#292524"/>
+  <text x="185" y="552" text-anchor="middle" fill="#d6d3d1" font-size="18" font-weight="700">O(۱)</text>
+  <text x="185" y="572" text-anchor="middle" fill="#78716c" font-size="9">مسیریاب</text>
+
+  <rect x="310" y="530" width="190" height="55" rx="6" fill="#292524"/>
+  <text x="405" y="552" text-anchor="middle" fill="#d6d3d1" font-size="18" font-weight="700">O(۱)</text>
+  <text x="405" y="572" text-anchor="middle" fill="#78716c" font-size="9">کش LRU</text>
+
+  <rect x="530" y="530" width="190" height="55" rx="6" fill="#292524"/>
+  <text x="625" y="552" text-anchor="middle" fill="#d6d3d1" font-size="18" font-weight="700">۰٪</text>
+  <text x="625" y="572" text-anchor="middle" fill="#78716c" font-size="9">نشت حافظه</text>
+
+  <rect x="750" y="530" width="190" height="55" rx="6" fill="#292524"/>
+  <text x="845" y="552" text-anchor="middle" fill="#d6d3d1" font-size="18" font-weight="700">۱۲۰</text>
+  <text x="845" y="572" text-anchor="middle" fill="#78716c" font-size="9">درخواست/دقیقه</text>
+
+  <!-- ═══ پاورقی ═══ -->
+  <text x="600" y="640" text-anchor="middle" fill="#57534e" font-size="10">طراحی و پیاده‌سازی: arsamadineh · مجوز MIT · متن‌باز</text>
+</svg>

@@ -154,45 +154,53 @@ export default function EmbedPage() {
                 </div>
 
                 {/* Display Options */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="show-english">نمایش ترجمه انگلیسی</Label>
-                    <Switch
-                      id="show-english"
-                      checked={config.showEnglish}
-                      onCheckedChange={(checked) => setConfig({ ...config, showEnglish: checked })}
-                    />
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between py-3 border-b border-border/40">
+                    <Label htmlFor="show-english" className="cursor-pointer text-sm font-medium">نمایش ترجمه انگلیسی</Label>
+                    <div dir="ltr">
+                      <Switch
+                        id="show-english"
+                        checked={config.showEnglish}
+                        onCheckedChange={(checked) => setConfig({ ...config, showEnglish: checked })}
+                      />
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="show-source">نمایش منبع</Label>
-                    <Switch
-                      id="show-source"
-                      checked={config.showSource}
-                      onCheckedChange={(checked) => setConfig({ ...config, showSource: checked })}
-                    />
+                  <div className="flex items-center justify-between py-3 border-b border-border/40">
+                    <Label htmlFor="show-source" className="cursor-pointer text-sm font-medium">نمایش منبع</Label>
+                    <div dir="ltr">
+                      <Switch
+                        id="show-source"
+                        checked={config.showSource}
+                        onCheckedChange={(checked) => setConfig({ ...config, showSource: checked })}
+                      />
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="show-category">نمایش دسته‌بندی</Label>
-                    <Switch
-                      id="show-category"
-                      checked={config.showCategory}
-                      onCheckedChange={(checked) => setConfig({ ...config, showCategory: checked })}
-                    />
+                  <div className="flex items-center justify-between py-3 border-b border-border/40">
+                    <Label htmlFor="show-category" className="cursor-pointer text-sm font-medium">نمایش دسته‌بندی</Label>
+                    <div dir="ltr">
+                      <Switch
+                        id="show-category"
+                        checked={config.showCategory}
+                        onCheckedChange={(checked) => setConfig({ ...config, showCategory: checked })}
+                      />
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="auto-refresh">تازه‌سازی خودکار</Label>
-                    <Switch
-                      id="auto-refresh"
-                      checked={config.autoRefresh}
-                      onCheckedChange={(checked) => setConfig({ ...config, autoRefresh: checked })}
-                    />
+                  <div className="flex items-center justify-between py-3">
+                    <Label htmlFor="auto-refresh" className="cursor-pointer text-sm font-medium">تازه‌سازی خودکار</Label>
+                    <div dir="ltr">
+                      <Switch
+                        id="auto-refresh"
+                        checked={config.autoRefresh}
+                        onCheckedChange={(checked) => setConfig({ ...config, autoRefresh: checked })}
+                      />
+                    </div>
                   </div>
 
                   {config.autoRefresh && (
-                    <div className="space-y-2">
+                    <div className="space-y-2 pt-2">
                       <Label htmlFor="refresh-interval">فاصله تازه‌سازی (ثانیه)</Label>
                       <Input
                         id="refresh-interval"
@@ -228,18 +236,19 @@ export default function EmbedPage() {
                       <Label>کد HTML</Label>
                       <div className="relative">
                         <textarea
-                          className="w-full h-24 p-3 text-sm bg-muted rounded-lg resize-none font-mono"
+                          className="w-full h-24 p-3 pr-12 text-sm bg-muted rounded-lg resize-none font-mono border border-border/50 focus:outline-none"
                           value={embedCode}
                           readOnly
                           dir="ltr"
                         />
                         <Button
-                          size="sm"
-                          variant="outline"
-                          className="absolute top-2 left-2 bg-transparent"
+                          size="icon"
+                          variant="ghost"
+                          className="absolute top-2 right-2 w-8 h-8 bg-background/80 hover:bg-muted border border-border/50"
                           onClick={() => copyToClipboard(embedCode)}
+                          title="کپی کد"
                         >
-                          <Copy className="w-4 h-4" />
+                          <Copy className="w-3.5 h-3.5" />
                         </Button>
                       </div>
                     </div>
@@ -249,14 +258,14 @@ export default function EmbedPage() {
                     <div className="space-y-2">
                       <Label>لینک مستقیم</Label>
                       <div className="relative">
-                        <Input value={iframeCode} readOnly className="font-mono text-sm" dir="ltr" />
-                        <div className="absolute left-2 top-1/2 -translate-y-1/2 flex gap-1">
-                          <Button size="sm" variant="outline" onClick={() => copyToClipboard(iframeCode)}>
-                            <Copy className="w-4 h-4" />
+                        <Input value={iframeCode} readOnly className="font-mono text-sm pl-20" dir="ltr" />
+                        <div className="absolute left-1 top-1/2 -translate-y-1/2 flex gap-1" dir="ltr">
+                          <Button size="icon" variant="ghost" className="w-8 h-8" onClick={() => copyToClipboard(iframeCode)} title="کپی">
+                            <Copy className="w-3.5 h-3.5" />
                           </Button>
-                          <Button size="sm" variant="outline" asChild>
-                            <a href={iframeCode} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4" />
+                          <Button size="icon" variant="ghost" className="w-8 h-8" asChild>
+                            <a href={iframeCode} target="_blank" rel="noopener noreferrer" title="باز کردن">
+                              <ExternalLink className="w-3.5 h-3.5" />
                             </a>
                           </Button>
                         </div>
@@ -278,8 +287,8 @@ export default function EmbedPage() {
               <CardContent>
                 <div className="flex justify-center">
                   <QuoteWidget
-                    poet={config.poet || undefined}
-                    category={config.category || undefined}
+                    poet={config.poet && config.poet !== "all" ? config.poet : undefined}
+                    category={config.category && config.category !== "all" ? config.category : undefined}
                     theme={config.theme as any}
                     size={config.size as any}
                     showEnglish={config.showEnglish}

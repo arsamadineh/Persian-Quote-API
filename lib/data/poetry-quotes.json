@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "text_persian": "عاشقان مرده‌اند در عشق زنده / تا ابد در دل جانان پاینده",
+    "text_english": "Lovers are dead in love, yet alive / Forever enduring in the beloved's heart",
+    "poet": "مولانا جلال‌الدین رومی",
+    "poet_english": "Rumi",
+    "source": "دیوان شمس",
+    "category": "عشق",
+    "tags": ["عشق", "زندگی", "معنویت"]
+  },
+  {
+    "id": 2,
+    "text_persian": "دوش از مسجد سوی میخانه آمد پیرِ ما / ای خدا این چه منزل است که پیر ما آمد",
+    "text_english": "Last night our elder came from mosque to tavern / O God, what a station this is, that our elder came",
+    "poet": "حافظ شیرازی",
+    "poet_english": "Hafez",
+    "source": "دیوان حافظ",
+    "category": "عرفان",
+    "tags": ["عرفان", "حکمت", "زندگی"]
+  },
+  {
+    "id": 3,
+    "text_persian": "هر که را در دل محبت جای است / جان او را آرامش و صفای است",
+    "text_english": "Whoever has love's place in their heart / Their soul has peace and purity",
+    "poet": "سعدی شیرازی",
+    "poet_english": "Saadi",
+    "source": "بوستان",
+    "category": "محبت",
+    "tags": ["محبت", "آرامش", "معنویت"]
+  },
+  {
+    "id": 4,
+    "text_persian": "بهار آمد و بر لب جوی آب / نشست و چنین گفت با آفتاب",
+    "text_english": "Spring came and sat by the stream's edge / And spoke thus to the sun",
+    "poet": "فردوسی",
+    "poet_english": "Ferdowsi",
+    "source": "شاهنامه",
+    "category": "طبیعت",
+    "tags": ["طبیعت", "بهار", "زیبایی"]
+  },
+  {
+    "id": 5,
+    "text_persian": "گر همه کافران جهان گردند مؤمن / من ز عشق تو نگردم کافر ای جان",
+    "text_english": "If all the world's unbelievers become faithful / I will not become faithless to your love, O soul",
+    "poet": "حافظ شیرازی",
+    "poet_english": "Hafez",
+    "source": "دیوان حافظ",
+    "category": "عشق",
+    "tags": ["عشق", "وفاداری", "عرفان"]
+  },
+  {
+    "id": 6,
+    "text_persian": "خوشا آن روز که از خود بروم / وز سر عشق به جان آن شوم",
+    "text_english": "Blessed is the day I leave myself behind / And become the soul of that beloved through love",
+    "poet": "مولانا جلال‌الدین رومی",
+    "poet_english": "Rumi",
+    "source": "مثنوی معنوی",
+    "category": "عرفان",
+    "tags": ["عرفان", "عشق", "فنا"]
+  },
+  {
+    "id": 7,
+    "text_persian": "آدمی را آرزو باید که نیکو باشد / ور نه از حیوان پست‌تر خواهد بود",
+    "text_english": "A human must have noble aspirations / Otherwise they will be lower than animals",
+    "poet": "سعدی شیرازی",
+    "poet_english": "Saadi",
+    "source": "گلستان",
+    "category": "اخلاق",
+    "tags": ["اخلاق", "انسانیت", "تعالی"]
+  }
+]

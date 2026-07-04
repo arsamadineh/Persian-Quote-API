@@ -1,30 +1,107 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Ignore Node / npm / yarn / pnpm
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
 
-# dependencies
-/node_modules
-
-# next.js
+# Next.js build outputs
 /.next/
 /out/
+/build/
+/dist/
 
-# production
-/build
+# Bun
+.bun/
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files
-.env*
-
-# vercel
-.vercel
-
-# typescript
+# TypeScript build info
 *.tsbuildinfo
 next-env.d.ts
 
-# logs
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
 dev_server.log
+*.log
+
+# env files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Vercel
+.vercel
+
+# Test / coverage
+/coverage/
+/.nyc_output/
+/junit.xml
+
+# OS junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.iml
+
+# ───- ابزارهای اتوماسیون و دستیارهای کد ───-
+
+# Aider
+.aider*
+.aider.chat.history.md
+.aider.input.history
+.aider.model.settings.yaml
+
+# Cursor
+.cursor/
+.cursorignore
+
+# Windsurf
+.windsurf/
+.windsurfrules
+
+# Claude Code
+.claude/
+CLAUDE.md
+.claude.json
+
+# Codeium
+.codeium/
+.codeiumignore
+
+# Trae / Cody / Continue / Tabnine / 기타
+.trae/
+.cody/
+.continue/
+.tabnine/
+
+# Generic agent caches
+.agent/
+.agents/cache/
+.serena/
+
+# ───- فایل‌های موقت پروژه ───-
+
+/tmp/
+/.tmp/
+*.tmp
+*.bak
+
+# ───- سرویس‌های داده ───-
+
+# پشتیبان‌های محلی پایگاه داده
+*.sqlite
+*.sqlite-journal
+*.db
+
+# ───- V0 / generator artefacts ───-
+
+# فایل‌های تولیدشده توسط سرویس‌های طراحی (در صورت استفاده) که نباید در مخزن باشند
+.v0/

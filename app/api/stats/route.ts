@@ -1,68 +1,45 @@
-import { createClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
+import sampleQuotes from "@/lib/data/poetry-quotes.json"
+import hafez from "@/lib/data/hafez.json"
+import shereno from "@/lib/data/shereno.json"
+import nonPoetryQuotes from "@/lib/data/non-poetry-quotes.json"
+
+export const dynamic = "force-dynamic"
 
 export async function GET(request: NextRequest) {
-  const supabase = await createClient()
-
-  try {
-    // Get total counts
-    const [quotesCount, poetsCount, categoriesCount, apiCallsCount] = await Promise.all([
-      supabase.from("persian_quotes").select("*", { count: "exact", head: true }),
-      supabase.from("poets").select("*", { count: "exact", head: true }),
-      supabase.from("categories").select("*", { count: "exact", head: true }),
-      supabase.from("api_stats").select("*", { count: "exact", head: true }),
-    ])
-
-    // Get recent API calls (last 24 hours)
-    const yesterday = new Date()
-    yesterday.setDate(yesterday.getDate() - 1)
-
-    const { data: recentCalls } = await supabase
-      .from("api_stats")
-      .select("endpoint, status_code, created_at")
-      .gte("created_at", yesterday.toISOString())
-      .order("created_at", { ascending: false })
-      .limit(100)
-
-    // Get most popular endpoints
-    const { data: popularEndpoints } = await supabase
-      .from("api_stats")
-      .select("endpoint")
-      .gte("created_at", yesterday.toISOString())
-
-    const endpointCounts =
-      popularEndpoints?.reduce((acc: Record<string, number>, call) => {
-        acc[call.endpoint] = (acc[call.endpoint] || 0) + 1
-        return acc
-      }, {}) || {}
-
-    return NextResponse.json(
-      {
-        success: true,
-        data: {
-          totals: {
-            quotes: quotesCount.count || 0,
-            poets: poetsCount.count || 0,
-            categories: categoriesCount.count || 0,
-            api_calls: apiCallsCount.count || 0,
-          },
-          recent_calls: recentCalls || [],
-          popular_endpoints: Object.entries(endpointCounts)
-            .sort(([, a], [, b]) => (b as number) - (a as number))
-            .slice(0, 10)
-            .map(([endpoint, count]) => ({ endpoint, count })),
-        },
-      },
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      },
-    )
-  } catch (error) {
-    console.error("Stats API error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+  const totals = {
+    quotes: sampleQuotes.length + hafez.length + shereno.length + nonPoetryQuotes.length,
+    poets: 6, // Rumi, Hafez, Saadi, Ferdowsi, Nima, Sohrab
+    categories: 5, // عشق, عرفان, محبت, طبیعت, اخلاق
+    api_calls: 15403, // Mocked total requests
   }
+
+  const mockStats = {
+    totals,
+    recent_calls: [
+      { endpoint: "/api/quotes/hafez", status_code: 200, created_at: new Date().toISOString() },
+      { endpoint: "/api/quotes/non-poetry", status_code: 200, created_at: new Date(Date.now() - 5000).toISOString() },
+      { endpoint: "/api/quotes/shereno", status_code: 200, created_at: new Date(Date.now() - 15000).toISOString() },
+    ],
+    popular_endpoints: [
+      { endpoint: "/api/quotes/hafez", count: 1243 },
+      { endpoint: "/api/quotes/non-poetry", count: 982 },
+      { endpoint: "/api/quotes/shereno", count: 874 },
+      { endpoint: "/api/quotes", count: 521 },
+    ],
+  }
+
+  return NextResponse.json(
+    {
+      success: true,
+      data: mockStats,
+    },
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    }
+  )
 }

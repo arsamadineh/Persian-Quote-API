@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Quote } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, formatVerse } from "@/lib/utils"
 
 interface QuoteData {
   text_persian: string
@@ -40,10 +40,10 @@ export function QuoteCard({
 
   const themeClasses = {
     default: "bg-card border-border shadow-md",
-    elegant: "bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200 shadow-lg",
-    minimal: "bg-white border-gray-200 shadow-sm",
-    classic: "bg-gradient-to-b from-yellow-50 to-amber-50 border-amber-300 shadow-xl",
-    modern: "bg-gradient-to-r from-slate-50 to-gray-50 border-slate-200 shadow-lg",
+    elegant: "bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/60 dark:to-orange-950/60 border-amber-200 dark:border-amber-800 shadow-lg text-stone-900 dark:text-amber-50",
+    minimal: "bg-stone-50 dark:bg-stone-900 border-stone-200 dark:border-stone-700 shadow-sm text-stone-900 dark:text-stone-100",
+    classic: "bg-gradient-to-b from-yellow-50 to-amber-50 dark:from-yellow-950/60 dark:to-amber-950/60 border-amber-300 dark:border-amber-700 shadow-xl text-stone-900 dark:text-amber-50",
+    modern: "bg-gradient-to-r from-slate-50 to-stone-50 dark:from-slate-900 dark:to-stone-900 border-slate-200 dark:border-slate-700 shadow-lg text-slate-900 dark:text-slate-100",
   }
 
   const textSizes = {
@@ -53,7 +53,7 @@ export function QuoteCard({
   }
 
   return (
-    <Card className={cn("rtl persian-text quote-card", sizeClasses[size], themeClasses[theme], className)}>
+    <Card className={cn("rtl persian-text quote-card mx-auto", sizeClasses[size], themeClasses[theme], className)}>
       <CardContent className="space-y-4">
         {/* Quote Icon */}
         <div className="flex justify-center">
@@ -62,9 +62,9 @@ export function QuoteCard({
 
         {/* Persian Text */}
         <blockquote
-          className={cn("persian-quote text-center leading-relaxed font-medium text-foreground", textSizes[size])}
+          className={cn("persian-quote text-center leading-relaxed font-medium whitespace-pre-wrap", textSizes[size])}
         >
-          {quote.text_persian}
+          {formatVerse(quote.text_persian)}
         </blockquote>
 
         {/* English Translation */}

@@ -89,8 +89,8 @@ INSERT INTO public.persian_quotes (text_persian, text_english, poet, poet_englis
       <main className="container mx-auto py-12 px-4">
         <div className="max-w-3xl mx-auto space-y-8">
           <div className="text-center space-y-4">
-            <h1 className="text-4xl font-bold text-foreground">مشارکت در گنجینه اشعار</h1>
-            <p className="text-xl text-muted-foreground">
+            <h1 className="text-2xl md:text-4xl font-bold text-foreground">مشارکت در گنجینه اشعار</h1>
+            <p className="text-base md:text-xl text-muted-foreground">
               با افزودن اشعار جدید، به غنی‌تر شدن این پایگاه داده کمک کنید.
             </p>
           </div>
