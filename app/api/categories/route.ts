@@ -83,21 +83,23 @@ export async function GET(request: NextRequest) {
 
     let categoriesWithStats = categories
 
-    // If stats requested, get quote counts for each category
+    // If stats requested, get quote counts for each category efficiently
     if (includeStats && categories) {
-      categoriesWithStats = await Promise.all(
-        categories.map(async (category) => {
-          const { count } = await supabase
-            .from("persian_quotes")
-            .select("*", { count: "exact", head: true })
-            .eq("category", category.name_persian)
+      const { data: quotesData } = await supabase
+        .from("persian_quotes")
+        .select("category")
 
-          return {
-            ...category,
-            quote_count: count || 0,
-          }
-        }),
-      )
+      const categoryCounts = (quotesData || []).reduce((acc: Record<string, number>, quote: any) => {
+        if (quote.category) {
+          acc[quote.category] = (acc[quote.category] || 0) + 1
+        }
+        return acc
+      }, {})
+
+      categoriesWithStats = categories.map((category) => ({
+        ...category,
+        quote_count: categoryCounts[category.name_persian] || 0,
+      }))
     }
 
     return NextResponse.json(
