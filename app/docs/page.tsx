@@ -9,35 +9,6 @@ import Link from "next/link"
 export default function DocsPage() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">API اشعار فارسی</h1>
-                <p className="text-sm text-muted-foreground">مستندات API</p>
-              </div>
-            </Link>
-            <nav className="flex items-center gap-4">
-              <Link href="/" className="text-foreground hover:text-primary transition-colors">
-                خانه
-              </Link>
-              <Link href="/examples" className="text-foreground hover:text-primary transition-colors">
-                نمونه‌ها
-              </Link>
-              <Button variant="outline" size="sm">
-                <ExternalLink className="w-4 h-4 ml-2" />
-                GitHub
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </header>
-
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar Navigation */}

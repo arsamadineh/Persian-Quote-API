@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Vazirmatn } from "next/font/google"
 import "./globals.css"
+import { Navbar } from "@/components/navbar"
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -31,7 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl" className="rtl">
-      <body className={`${vazirmatn.variable} font-vazirmatn persian-text antialiased`}>{children}</body>
+      <body className={`${vazirmatn.variable} font-vazirmatn persian-text antialiased`}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   )
 }

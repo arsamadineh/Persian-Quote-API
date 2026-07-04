@@ -86,23 +86,6 @@ INSERT INTO public.persian_quotes (text_persian, text_english, poet, poet_englis
 
   return (
     <div className="min-h-screen bg-background font-vazirmatn selection:bg-primary/20 selection:text-primary" dir="rtl">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <PenTool className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="font-bold text-lg hidden sm:inline-block">API اشعار فارسی</span>
-          </div>
-          <nav className="flex items-center gap-6 text-sm font-medium">
-            <a href="/" className="transition-colors hover:text-primary">
-              خانه
-            </a>
-          </nav>
-        </div>
-      </header>
-
       <main className="container mx-auto py-12 px-4">
         <div className="max-w-3xl mx-auto space-y-8">
           <div className="text-center space-y-4">

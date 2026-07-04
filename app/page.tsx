@@ -1,6 +1,4 @@
 "use client"
-import { useState } from "react"
-import { TypographyCanvas } from "@/components/typography-canvas"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -8,76 +6,8 @@ import { BookOpen, Code, Heart, Menu, Search, Star, Users } from "lucide-react"
 import Link from "next/link"
 
 export default function HomePage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 relative">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-lg">
-                <BookOpen className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">API اشعار فارسی</h1>
-                <p className="text-sm text-muted-foreground">Persian Quotes API</p>
-              </div>
-            </div>
-            <nav className="hidden md:flex items-center gap-4">
-              <Link href="/docs" className="text-foreground hover:text-primary transition-colors font-medium">
-                مستندات
-              </Link>
-              <Link href="/examples" className="text-foreground hover:text-primary transition-colors font-medium">
-                نمونه‌ها
-              </Link>
-              <Link href="/contribute" className="text-foreground hover:text-primary transition-colors font-medium">
-                مشارکت
-              </Link>
-              <a href="https://github.com/arsamadineh/Persian-Quote-API" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="sm" className="persian-button bg-transparent">
-                  <Code className="w-4 h-4 ml-2" />
-                  GitHub
-                </Button>
-              </a>
-            </nav>
-            <div className="md:hidden">
-              <Button variant="outline" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Open menu</span>
-              </Button>
-            </div>
-          </div>
-          {isMenuOpen && (
-            <div className="md:hidden absolute top-full left-0 w-full bg-card/95 backdrop-blur-sm shadow-lg">
-              <nav className="flex flex-col items-center gap-4 py-6">
-                <Link
-                  href="/docs"
-                  className="text-foreground hover:text-primary transition-colors font-medium text-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  مستندات
-                </Link>
-                <Link
-                  href="/examples"
-                  className="text-foreground hover:text-primary transition-colors font-medium text-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  نمونه‌ها
-                </Link>
-                <a href="https://github.com/arsamadineh/Persian-Quote-API" target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="sm" className="persian-button bg-transparent mt-2">
-                    <Code className="w-4 h-4 ml-2" />
-                    GitHub
-                  </Button>
-                </a>
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="py-16 md:py-20 px-4 relative overflow-hidden">
         <div className="hero-pattern"></div>
@@ -293,15 +223,6 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
-          {/* Typography Canvas Section */}
-          <section id="typography-canvas" className="w-full max-w-6xl mx-auto mb-20 px-4 md:px-0 mt-20">
-            <div className="flex flex-col items-center gap-4 text-center mb-8">
-              <h2 className="text-3xl font-bold font-vazirmatn">بوم تایپوگرافی پیشرفته</h2>
-              <p className="text-muted-foreground text-lg font-serif">Advanced Typography Canvas</p>
-            </div>
-            <TypographyCanvas />
-          </section>
-
       </section>
 
       {/* Footer */}
