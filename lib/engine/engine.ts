@@ -179,11 +179,22 @@ export class Tigh {
 
     req.params = match.params;
 
-    const handler = async (): Promise<Response> => {
-      return match.route.handler(req);
+    // زنجیره میان‌افزارهای مسیر (شامل منطق واقعیِ هندلر در انتها) را اجرا می‌کنیم.
+    // هندلرِ route.handler یک بدنهٔ خالی (null) است و منطق اصلی در route.middlewares قرار دارد.
+    const routeMiddlewares = match.route.middlewares || [];
+    const runRouteChain: NextFn = async (): Promise<Response> => {
+      let index = 0;
+      const next: NextFn = async (): Promise<Response> => {
+        if (index < routeMiddlewares.length) {
+          const mw = routeMiddlewares[index++];
+          return mw(req, next);
+        }
+        return match.route.handler(req);
+      };
+      return next();
     };
 
-    return this.middleware.execute(req, handler);
+    return this.middleware.execute(req, runRouteChain);
   }
 
   use(middleware: MiddlewareFn): Tigh {

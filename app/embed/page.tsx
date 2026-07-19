@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { QuoteWidget } from "@/components/quote-cards/quote-widget"
+import { PoetCombobox, type PoetOption } from "@/components/ui/poet-combobox"
 import { Copy, ExternalLink, BookOpen } from "lucide-react"
 import Link from "next/link"
 
@@ -32,14 +33,27 @@ export default function EmbedPage() {
   const [iframeCode, setIframeCode] = useState("")
 
   useEffect(() => {
-    // Fetch poets and categories
-    Promise.all([fetch("/api/poets"), fetch("/api/categories")]).then(async ([poetsRes, categoriesRes]) => {
-      const poetsData = await poetsRes.json()
-      const categoriesData = await categoriesRes.json()
+    // Fetch poets and categories — پاسخ نامعتبر یا بدنه خالی نباید باعث خطا شود
+    const safe = async (url: string): Promise<any | null> => {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const ct = res.headers.get("content-type") || "";
+        if (!ct.includes("application/json")) return null;
+        return await res.json();
+      } catch {
+        return null;
+      }
+    };
 
-      if (poetsData.success) setPoets(poetsData.data)
-      if (categoriesData.success) setCategories(categoriesData.data)
-    })
+    (async () => {
+      const [poetsData, categoriesData] = await Promise.all([
+        safe("/api/poets"),
+        safe("/api/categories"),
+      ]);
+      if (poetsData?.success) setPoets(poetsData.data);
+      if (categoriesData?.success) setCategories(categoriesData.data);
+    })();
   }, [])
 
   useEffect(() => {
@@ -117,22 +131,20 @@ export default function EmbedPage() {
                   </Select>
                 </div>
 
-                {/* Poet Filter */}
+                {/* Poet Filter — کامبوباکس جستجوشونده */}
                 <div className="space-y-2">
                   <Label>شاعر (اختیاری)</Label>
-                  <Select value={config.poet} onValueChange={(value) => setConfig({ ...config, poet: value })}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="همه شاعران" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">همه شاعران</SelectItem>
-                      {poets.map((poet) => (
-                        <SelectItem key={poet.id} value={poet.name_persian}>
-                          {poet.name_persian}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <PoetCombobox
+                    options={poets.map((poet) => ({
+                      value: poet.name_persian,
+                      label: poet.name_persian,
+                      count: poet.quote_count,
+                    }))}
+                    value={config.poet === "" ? "all" : config.poet}
+                    onChange={(v) => setConfig({ ...config, poet: v === "all" ? "" : v })}
+                    allLabel="همه شاعران"
+                    placeholder="شاعر را انتخاب کنید"
+                  />
                 </div>
 
                 {/* Category Filter */}

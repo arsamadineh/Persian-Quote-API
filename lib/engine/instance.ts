@@ -1,4 +1,5 @@
 import { Tigh } from './engine';
+import { registerRoutes } from './routes';
 
 export const engine = new Tigh({
   enableMetrics: true,
@@ -28,3 +29,9 @@ export const engine = new Tigh({
     maxAge: 86400,
   },
 });
+
+// ثبت یک‌باره تمام اندپوینت‌ها روی موتور (هنگام بارگذاری ماژول)
+registerRoutes();
+
+export { createNextHandler } from './adapter-next';
+export default engine;

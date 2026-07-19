@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
+import Script from "next/script"
 import { Vazirmatn } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
@@ -434,6 +435,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.github.com" />
+        {/* فیلتر کنسول: پیام پیشنهاد نصب React DevTools را در محیط توسعه حذف می‌کند
+            بدون تأثیر روی سایر لاگ‌ها (debug/warn/error دست‌نخورده باقی می‌مانند) */}
+        <Script
+          id="console-devtools-filter"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var m='Download the React DevTools';var d=console.debug;if(typeof d==='function'){console.debug=function(){var a=arguments;if(a[0]&&typeof a[0]==='string'&&a[0].indexOf(m)!==-1)return;return d.apply(console,a);};}}catch(e){}})();`,
+          }}
+        />
       </head>
       <body className={`${vazirmatn.variable} font-vazirmatn persian-text antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
