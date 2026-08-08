@@ -4,6 +4,6 @@ export const dynamic = "force-dynamic";
 
 const handler = createNextHandler(engine);
 
-export async function GET(request: Request, context?: { params: Promise<Record<string, string>> }) {
+export async function GET(request: Request, context: { params: Promise<Record<string, string>> }) {
   return handler(request, context);
 }

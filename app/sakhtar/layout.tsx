@@ -9,7 +9,7 @@ const PAGE_URL = `${SITE_URL}/sakhtar`
 export const metadata: Metadata = {
   title: "موتور تیغ — موتور API فارسی با Trie Router، LRU Cache، و Circuit Breaker",
   description:
-    "موتور تیغ: اولین موتور API متن‌باز فارسی برای پردازش درخواست‌های HTTP. شامل مسیریاب Trie با O(۱)، کش LRU با TTL، محدودساز نرخ با سه الگوریتم، مدار شکن خودترمیم، متریک P50-P99، و اداپتور Next.js. صفر وابستگی خارجی، TypeScript خالص، ۸ کیلوبایت bundle. مجوز MIT.",
+    "موتور تیغ: اولین موتور API متن‌باز فارسی برای پردازش درخواست‌های HTTP. شامل مسیریاب Trie با O(۱)، کش LRU با TTL، محدودساز نرخ با سه الگوریتم، مدار شکن خودترمیم، متریک P50-P99، و اداپتور Next.js. TypeScript خالص و مجوز MIT.",
   keywords: [
     "موتور تیغ",
     "Tigh engine",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "موتور تیغ — موتور API فارسی با عملکرد بالا",
     description:
-      "اولین موتور API متن‌باز فارسی. مسیریاب Trie، کش LRU، محدودساز نرخ، مدار شکن، متریک. صفر وابستگی، TypeScript خالص، ۸ کیلوبایت.",
+      "موتور API متن‌باز فارسی با مسیریاب Trie، کش LRU، محدودساز نرخ، مدار شکن و متریک زنده.",
     url: PAGE_URL,
     type: "article",
     images: [
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "موتور تیغ — موتور API فارسی",
     description:
-      "موتور API با Trie Router، LRU Cache، Rate Limiter، Circuit Breaker. صفر وابستگی، TypeScript خالص.",
+      "موتور API با Trie Router، LRU Cache، Rate Limiter، Circuit Breaker و TypeScript خالص.",
   },
 }
 
@@ -57,7 +57,7 @@ const jsonLd = {
       name: "Tigh Engine",
       alternateName: "موتور تیغ",
       description:
-        "موتور API با عملکرد بالا، نوشته‌شده در TypeScript خالص. شامل مسیریاب Trie، کش LRU با TTL، محدودساز نرخ با سه استراتژی (Token Bucket، Sliding Window، Fixed Window)، مدار شکن خودترمیم‌شونده با سه حالت (Closed، Open، Half-Open)، متریک با حافظه حلقوی و محاسبه P50-P99، و پایپلاین Middleware با CORS، زمان‌سنجی، و فشرده‌سازی. صفر وابستگی خارجی، ۸ کیلوبایت bundle، مجوز MIT.",
+        "موتور API با عملکرد بالا، نوشته‌شده در TypeScript خالص. شامل مسیریاب Trie، کش LRU با TTL، محدودساز نرخ با سه استراتژی (Token Bucket، Sliding Window، Fixed Window)، مدار شکن خودترمیم‌شونده با سه حالت (Closed، Open، Half-Open)، متریک با حافظه حلقوی و محاسبه P50-P99، و پایپلاین Middleware با CORS، زمان‌سنجی، و فشرده‌سازی. مجوز MIT.",
       url: PAGE_URL,
       downloadUrl: "https://github.com/arsamadineh/Persian-Quote-API",
       codeRepository: "https://github.com/arsamadineh/Persian-Quote-API",
@@ -75,9 +75,9 @@ const jsonLd = {
       license: "https://opensource.org/licenses/MIT",
       creator: { "@id": `${SITE_URL}#organization` },
       dateCreated: "2026-07-04",
-      dateModified: "2026-07-04",
+      dateModified: "2026-08-08",
       version: "0.0.1-beta",
-      fileSize: "8KB",
+      fileSize: "اندازه در زمان build تعیین می‌شود",
       keywords:
         "Trie router, LRU cache, rate limiter, circuit breaker, metrics, middleware, zero dependencies, TypeScript, API engine, Persian",
       isAccessibleForFree: true,

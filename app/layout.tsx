@@ -123,7 +123,7 @@ export const metadata: Metadata = {
     },
   },
   description:
-    "API رایگان و متن‌باز برای دسترسی به گنجینه‌ای از اشعار شاعران بزرگ فارسی شامل مولانا، حافظ، سعدی، فردوسی، نیما یوشیج، و سهراب سپهری، به همراه سخنان بزرگان جهان. شامل دیوان کامل حافظ، ۴۴۰۰+ شعر نو، و ۴۹۰+ نقل‌قول غیرشعری. دارای موتور اختصاصی «تیغ» با مسیریاب Trie، کش LRU، محدودساز نرخ، و مدار شکن خودترمیم. بدون نیاز به ثبت‌نام، بدون کلید API، بدون محدودیت پرداخت.",
+    "API رایگان و متن‌باز برای دسترسی به گنجینه‌ای از اشعار شاعران بزرگ فارسی شامل مولانا، حافظ، سعدی، فردوسی، نیما یوشیج، و سهراب سپهری، به همراه سخنان بزرگان جهان. تعداد مجموعه‌ها در API آمار به‌صورت زنده اعلام می‌شود. دارای موتور اختصاصی «تیغ» با مسیریاب Trie، کش LRU، محدودساز نرخ، و مدار شکن خودترمیم. بدون نیاز به ثبت‌نام، بدون کلید API، بدون محدودیت پرداخت.",
   abstract:
     "Persian Quotes API: a free, open-source RESTful service for accessing a curated collection of Persian classical and modern poetry. Includes the Tigh engine, a high-performance TypeScript runtime for routing, caching, and rate-limiting. No signup, no API key, MIT-licensed.",
   robots: {
@@ -318,7 +318,7 @@ const jsonLd = {
       browserRequirements: "Requires modern browser with JavaScript",
       softwareVersion: "3.1.2",
       softwareRequirements: "Internet connection",
-      fileSize: "8KB (engine bundle)",
+      fileSize: "وابسته به build",
       downloadUrl: "https://github.com/arsamadineh/Persian-Quote-API",
       softwareHelp: {
         "@type": "CreativeWork",
@@ -334,8 +334,8 @@ const jsonLd = {
       },
       aggregateRating: {
         "@type": "AggregateRating",
-        ratingValue: "4.9",
-        ratingCount: "127",
+        ratingValue: undefined,
+        ratingCount: undefined,
         bestRating: "5",
         worstRating: "1",
       },
@@ -365,7 +365,7 @@ const jsonLd = {
       name: "Tigh Engine",
       alternateName: "موتور تیغ",
       description:
-        "موتور API با عملکرد بالا، نوشته‌شده در TypeScript خالص. شامل مسیریاب Trie، کش LRU با TTL، محدودساز نرخ با سه استراتژی، مدار شکن، و متریک. صفر وابستگی خارجی، ۸ کیلوبایت bundle.",
+        "موتور API نوشته‌شده در TypeScript خالص با مسیریاب Trie، کش LRU با TTL، محدودساز نرخ، مدار شکن و متریک.",
       url: `${SITE_URL}/sakhtar`,
       downloadUrl: "https://github.com/arsamadineh/Persian-Quote-API",
       codeRepository: "https://github.com/arsamadineh/Persian-Quote-API",

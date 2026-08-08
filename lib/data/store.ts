@@ -59,7 +59,7 @@ const SHERENO_POET_EN: Record<string, string> = {
   "سهراب سپهری": "Sohrab Sepehri",
   "احمد شاملو": "Ahmad Shamlou",
   "فروغ فرخزاد": "Forugh Farrokhzad",
-  "مهدی اخوان ثالث": "Malek o-Shoara Bahar",
+  "مهدی اخوان ثالث": "Mehdi Akhavan-Sales",
   "سیاوش کسرایی": "Siavash Kasraei",
   "نادر نادرپور": "Nader Naderpour",
   "هوشنگ ایرانی": "Houshang Irani",
@@ -121,17 +121,80 @@ function clamp(n: number, min: number, max: number): number {
 }
 
 // کلید نرمال‌شده برای تشخیص تکراری (بدون فاصله‌های اضافه و نویسه نامرئی)
-function normKey(s: string): string {
-  return s
-    .replace(/[ \t]+/g, " ")
-    .replace(/‌/g, "")
-    .replace(/[٬،;]/g, ",")
+// نرمال‌سازی مشترک فارسی و لاتین برای جستجو و تشخیص نام شاعر.
+// این تابع شکل‌های ی/ي، ک/ك، نیم‌فاصله، اعراب و نشانه‌گذاری را یکسان می‌کند.
+export function normalizeText(value: string): string {
+  return value
+    .normalize("NFC")
+    .replace(/[يى]/g, "ی")
+    .replace(/ك/g, "ک")
+    .replace(/ة/g, "ه")
+    .replace(/[\u064B-\u065F\u0670]/g, "")
+    .replace(/[ـ]/g, "")
+    .replace(/[\u200c\u200d\u200e\u200f]/g, "")
+    .replace(/[\u0660-\u0669]/g, (digit) => String(digit.charCodeAt(0) - 0x0660))
+    .replace(/[\u06F0-\u06F9]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0))
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
     .trim()
     .toLowerCase();
 }
 
+function normKey(s: string): string {
+  return normalizeText(s);
+}
+
 function buildSearch(...parts: (string | undefined)[]): string {
-  return parts.filter(Boolean).join(" ").toLowerCase();
+  return parts.filter(Boolean).map((part) => normalizeText(String(part))).join(" ");
+}
+
+// نام‌های رایج، املای لاتین و غلط‌های متداول به یک نام canonical نگاشت می‌شوند.
+// نام‌هایی که در این فهرست نیستند با شکل نرمال‌شدهٔ خودشان کار می‌کنند.
+const POET_ALIAS_ENTRIES: Array<[string, string]> = [
+  ["مولانا", "مولانا"],
+  ["مولوی", "مولانا"],
+  ["رومی", "مولانا"],
+  ["جلال الدین رومی", "مولانا"],
+  ["مولانا جلال الدین رومی", "مولانا"],
+  ["rumi", "مولانا"],
+  ["mawlana", "مولانا"],
+  ["mevlana", "مولانا"],
+  ["حافظ", "حافظ"],
+  ["حافظ شیرازی", "حافظ"],
+  ["هافظ", "حافظ"],
+  ["hafez", "حافظ"],
+  ["hafiz", "حافظ"],
+  ["سعدی", "سعدی"],
+  ["سعدی شیرازی", "سعدی"],
+  ["saadi", "سعدی"],
+  ["فردوسی", "فردوسی"],
+  ["حکیم ابوالقاسم فردوسی", "فردوسی"],
+  ["ferdowsi", "فردوسی"],
+  ["firdawsi", "فردوسی"],
+  ["نیما", "نیما یوشیج"],
+  ["نیما یوشیج", "نیما یوشیج"],
+  ["nima", "نیما یوشیج"],
+  ["nima yushij", "نیما یوشیج"],
+  ["علی اسفندیاری", "نیما یوشیج"],
+  ["سهراب", "سهراب سپهری"],
+  ["سهراب سپهری", "سهراب سپهری"],
+  ["sohrab", "سهراب سپهری"],
+  ["sohrab sepehri", "سهراب سپهری"],
+];
+const POET_ALIAS_MAP = new Map(
+  POET_ALIAS_ENTRIES.map(([alias, canonical]) => [normalizeText(alias), normalizeText(canonical)]),
+);
+
+function canonicalPoetName(name: string): string {
+  const normalized = normalizeText(name);
+  return POET_ALIAS_MAP.get(normalized) ?? normalized;
+}
+
+function decodeNeedle(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
 }
 
 // --- نرمال‌سازی اشعار کلاسیک ---
@@ -229,38 +292,77 @@ for (const q of sherenoRaw as any[]) {
   });
 }
 
-// نمایه سریع شعر نو بر اساس نام شاعر — فیلتر درخواست‌ها بدون پیمایش کل مجموعه
-const sherenoByPoetIndex = new Map<string, NormalizedQuote[]>();
-for (const q of shereno) {
-  if (!q.poet) continue;
-  const key = q.poet.toLowerCase();
-  const list = sherenoByPoetIndex.get(key);
-  if (list) list.push(q);
-  else sherenoByPoetIndex.set(key, [q]);
+function buildPoetIndex(items: NormalizedQuote[]): Map<string, NormalizedQuote[]> {
+  const index = new Map<string, NormalizedQuote[]>();
+  for (const quote of items) {
+    if (!quote.poet) continue;
+    const key = canonicalPoetName(quote.poet);
+    const list = index.get(key);
+    if (list) list.push(quote);
+    else index.set(key, [quote]);
+  }
+  return index;
+}
+
+const poetryByPoetIndex = buildPoetIndex(poetry);
+const sherenoByPoetIndex = buildPoetIndex(shereno);
+
+function levenshtein(a: string, b: string): number {
+  const previous = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let diagonal = previous[0];
+    previous[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const saved = previous[j];
+      previous[j] = a[i - 1] === b[j - 1]
+        ? diagonal
+        : Math.min(previous[j] + 1, previous[j - 1] + 1, diagonal + 1);
+      diagonal = saved;
+    }
+  }
+  return previous[b.length];
+}
+
+function poetScore(needle: string, candidate: string): number {
+  const query = normalizeText(needle);
+  const value = normalizeText(candidate);
+  if (!query || !value) return 0;
+  if (query === value) return 1;
+  if (canonicalPoetName(query) === canonicalPoetName(value)) return 0.99;
+  if (value.includes(query) || query.includes(value)) return 0.9;
+  if (query.length < 3 || value.length < 3) return 0;
+  return 1 - levenshtein(query, value) / Math.max(query.length, value.length);
 }
 
 function matchPoet(q: NormalizedQuote, needle: string): boolean {
-  return (
-    q.poet?.toLowerCase() === needle ||
-    q.poet_english?.toLowerCase() === needle ||
-    q.poet?.toLowerCase().includes(needle)
-  );
+  const query = normalizeText(needle);
+  const candidates = [q.poet, q.poet_english].filter((value): value is string => Boolean(value));
+  const score = Math.max(...candidates.map((candidate) => poetScore(query, candidate)));
+  return score >= (query.length < 4 ? 0.9 : 0.72);
 }
 
-// بازیابی سریع اشعار یک شاعر از نمایه (تطابق دقیق، جزئی و انگلیسی)
-function sherenoForPoet(needle: string): NormalizedQuote[] {
-  const exact = sherenoByPoetIndex.get(needle);
+// تطابق دقیق و alias از نمایه خوانده می‌شود؛ فقط برای املای ناشناخته، fuzzy scan انجام می‌گیرد.
+function quotesForPoet(index: Map<string, NormalizedQuote[]>, needle: string): NormalizedQuote[] {
+  const query = normalizeText(decodeNeedle(needle));
+  if (!query) return [];
+  const canonical = canonicalPoetName(query);
+  const exact = index.get(canonical);
   if (exact) return exact;
+
   const out: NormalizedQuote[] = [];
-  for (const [key, list] of sherenoByPoetIndex) {
-    if (key.includes(needle)) out.push(...list);
-  }
-  if (out.length === 0) {
-    for (const q of shereno) {
-      if (q.poet_english?.toLowerCase().includes(needle)) out.push(q);
+  for (const [key, list] of index) {
+    if (key.includes(query) || query.includes(key)) {
+      out.push(...list);
+      continue;
     }
+    const representative = list[0];
+    if (representative && matchPoet(representative, query)) out.push(...list);
   }
   return out;
+}
+
+function sherenoForPoet(needle: string): NormalizedQuote[] {
+  return quotesForPoet(sherenoByPoetIndex, needle);
 }
 
 const all: NormalizedQuote[] = [...poetry, ...nonPoetry, ...hafez, ...shereno];
@@ -311,22 +413,15 @@ export const dataset = {
 
 export function getQuotes(sp: URLSearchParams): ListResult<NormalizedQuote> {
   const poet = sp.get("poet");
-  if (poet) {
-    const needle = decodeURIComponent(poet).toLowerCase();
-    const filtered = poetry.filter((q) => matchPoet(q, needle));
+  if (poet !== null) {
+    const filtered = quotesForPoet(poetryByPoetIndex, poet);
     return resolve(filtered, parseOptions(sp));
   }
   return resolve(poetry, parseOptions(sp));
 }
 
 export function getQuotesByPoet(poet: string, sp: URLSearchParams): ListResult<NormalizedQuote> {
-  const needle = decodeURIComponent(poet).toLowerCase();
-  const filtered = poetry.filter(
-    (q) =>
-      q.poet?.toLowerCase() === needle ||
-      q.poet_english?.toLowerCase() === needle ||
-      q.poet?.includes(needle) === true,
-  );
+  const filtered = quotesForPoet(poetryByPoetIndex, poet);
   return resolve(filtered, parseOptions(sp));
 }
 
@@ -339,7 +434,7 @@ export function getHafez(sp: URLSearchParams): ListResult<NormalizedQuote> {
     if (!Number.isNaN(id)) data = data.filter((g) => g.id === `h-${id}`);
   }
   if (query) {
-    const q = query.toLowerCase();
+    const q = normalizeText(query);
     data = data.filter((g) => g.search.includes(q));
   }
   const opts = parseOptions(sp);
@@ -351,31 +446,37 @@ export function getHafez(sp: URLSearchParams): ListResult<NormalizedQuote> {
 }
 
 export function getNonPoetry(sp: URLSearchParams): ListResult<NormalizedQuote> {
-  return resolve(nonPoetry, parseOptions(sp));
+  const author = sp.get("author");
+  const data = author !== null
+    ? nonPoetry.filter((quote) => {
+        const needle = normalizeText(decodeNeedle(author));
+        return Boolean(quote.author && poetScore(needle, quote.author) >= (needle.length < 4 ? 0.9 : 0.72)) ||
+          Boolean(quote.author_english && poetScore(needle, quote.author_english) >= 0.72);
+      })
+    : nonPoetry;
+  return resolve(data, parseOptions(sp));
 }
 
 export function getShereno(sp: URLSearchParams): ListResult<NormalizedQuote> {
   const poet = sp.get("poet");
   const title = sp.get("title");
   let data: NormalizedQuote[];
-  if (poet) {
+  if (poet !== null) {
     // بازیابی سریع از نمایه به جای پیمایش کل مجموعه (شعر نو بزرگ)
-    data = sherenoForPoet(decodeURIComponent(poet).toLowerCase());
+    data = sherenoForPoet(poet);
   } else {
     data = shereno;
   }
   if (title) {
-    const t = title.toLowerCase();
-    data = data.filter((q) => q.title?.toLowerCase().includes(t));
+    const t = normalizeText(title);
+    data = data.filter((q) => q.title && normalizeText(q.title).includes(t));
   }
   return resolve(data, parseOptions(sp));
 }
 
 export function getByCategory(category: string, sp: URLSearchParams): ListResult<NormalizedQuote> {
-  const cat = decodeURIComponent(category);
-  let items = poetry
-    .filter((q) => q.category === cat)
-    .map((q) => ({ ...q, created_at: new Date().toISOString() }));
+  const cat = decodeNeedle(category);
+  let items = poetry.filter((q) => q.category === cat);
 
   // برای دسته‌های عرفان و عشق، غزل‌های حافظ را برای غنای بیشتر اضافه می‌کنیم
   if (cat === "عرفان" || cat === "عشق") {
@@ -396,7 +497,7 @@ export function getByCategory(category: string, sp: URLSearchParams): ListResult
 }
 
 export function searchQuotes(sp: URLSearchParams): ListResult<NormalizedQuote> {
-  const q = (sp.get("q") || sp.get("query") || "").trim().toLowerCase();
+  const q = normalizeText((sp.get("q") || sp.get("query") || "").trim());
   const opts = parseOptions(sp);
   if (!q) {
     // بدون پرس‌وجو: تمام مجموعه‌ها (تصادفی در صورت درخواست)
@@ -408,21 +509,17 @@ export function searchQuotes(sp: URLSearchParams): ListResult<NormalizedQuote> {
 
 export function getPoets(): { data: any[]; count: number } {
   const counts = new Map<string, number>();
-  for (const q of [...poetry, ...hafez]) {
-    const key = q.poet ?? "نامشخص";
-    counts.set(key, (counts.get(key) || 0) + 1);
-  }
-  // ادغام شعر نو با نام‌های فارسی
-  for (const q of shereno) {
-    const key = q.poet ?? "نامشخص";
+  for (const q of [...poetry, ...hafez, ...shereno]) {
+    const key = q.poet ? canonicalPoetName(q.poet) : "نامشخص";
     counts.set(key, (counts.get(key) || 0) + 1);
   }
 
   const data = [...counts.entries()].map(([name, quote_count], i) => {
-    const bio = POET_BIOS[name];
+    const displayName = [...poetry, ...hafez, ...shereno].find((quote) => quote.poet && canonicalPoetName(quote.poet) === name)?.poet ?? name;
+    const bio = POET_BIOS[name] ?? POET_BIOS[displayName] ?? Object.values(POET_BIOS).find((candidate) => normalizeText(candidate.english) === name);
     return {
       id: i + 1,
-      name_persian: name,
+      name_persian: displayName,
       name_english: bio?.english ?? null,
       birth_year: bio?.birth ?? null,
       death_year: bio?.death ?? null,

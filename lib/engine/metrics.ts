@@ -10,6 +10,7 @@ export class TighMetrics {
   private latencyCount = 0;
   private maxLatenciesTracked = 10000;
   private startTime = Date.now();
+  private instanceId = `${this.startTime.toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 
   private cacheStats = { hits: 0, misses: 0, size: 0, memoryBytes: 0 };
   private rateLimitStats: { totalRequests: number; rejected: number; byKey: Record<string, { allowed: number; rejected: number }> } = { totalRequests: 0, rejected: 0, byKey: {} };
@@ -111,6 +112,10 @@ export class TighMetrics {
       },
       circuitBreaker: { ...this.circuitBreakerStats },
       uptime: Date.now() - this.startTime,
+      startedAt: new Date(this.startTime).toISOString(),
+      instanceId: this.instanceId,
+      sampleSize: total,
+      collectionScope: 'process-instance',
       timestamp: Date.now(),
     };
   }
@@ -123,5 +128,9 @@ export class TighMetrics {
     this.latencyIndex = 0;
     this.latencyCount = 0;
     this.startTime = Date.now();
+    this.instanceId = `${this.startTime.toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+    this.cacheStats = { hits: 0, misses: 0, size: 0, memoryBytes: 0 };
+    this.rateLimitStats = { totalRequests: 0, rejected: 0, byKey: {} };
+    this.circuitBreakerStats = { state: 'closed', failures: 0, successes: 0, totalTrips: 0 };
   }
 }

@@ -1,24 +1,20 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { engine } from "@/lib/engine/instance"
-import sampleQuotes from "@/lib/data/poetry-quotes.json"
-import hafez from "@/lib/data/hafez.json"
-import shereno from "@/lib/data/shereno.json"
-import nonPoetryQuotes from "@/lib/data/non-poetry-quotes.json"
+import { NextResponse } from "next/server";
+import { getCategories, getPoets, getStats } from "@/lib/data/store";
+import { engine } from "@/lib/engine/instance";
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
-export async function GET(request: NextRequest) {
-  const start = performance.now()
+function round(value: number): number {
+  return Math.round(value * 100) / 100;
+}
 
-  const totals = {
-    quotes: sampleQuotes.length + hafez.length + shereno.length + nonPoetryQuotes.length,
-    poets: 6,
-    categories: 5,
-  }
-
-  const engineMetrics = engine.flushMetrics()
-
-  const duration = performance.now() - start
+export async function GET() {
+  const started = performance.now();
+  const datasetStats = getStats();
+  const poets = getPoets();
+  const categories = getCategories();
+  const metrics = engine.flushMetrics();
+  const duration = performance.now() - started;
 
   return NextResponse.json(
     {
@@ -26,55 +22,71 @@ export async function GET(request: NextRequest) {
       engine: "تیغ",
       version: "0.0.1-beta",
       data: {
-        totals,
+        totals: {
+          quotes: datasetStats.total,
+          poets: poets.count,
+          categories: categories.count,
+          poetry: datasetStats.poetry,
+          hafez: datasetStats.hafez,
+          shereno: datasetStats.shereno,
+          nonPoetry: datasetStats.nonPoetry,
+        },
         engine: {
-          uptime: engineMetrics.uptime,
+          uptime: metrics.uptime,
+          startedAt: metrics.startedAt,
+          instanceId: metrics.instanceId,
+          collectionScope: metrics.collectionScope,
+          sampleSize: metrics.sampleSize,
           requests: {
-            total: engineMetrics.requests.total,
-            byMethod: engineMetrics.requests.byMethod,
-            byStatus: engineMetrics.requests.byStatus,
-            topPaths: Object.entries(engineMetrics.requests.byPath)
+            total: metrics.requests.total,
+            byMethod: metrics.requests.byMethod,
+            byStatus: metrics.requests.byStatus,
+            topPaths: Object.entries(metrics.requests.byPath)
               .sort(([, a], [, b]) => b - a)
               .slice(0, 10)
               .map(([path, count]) => ({ path, count })),
           },
           latency: {
-            avg: Math.round(engineMetrics.latency.avg * 100) / 100,
-            p50: Math.round(engineMetrics.latency.p50 * 100) / 100,
-            p90: Math.round(engineMetrics.latency.p90 * 100) / 100,
-            p95: Math.round(engineMetrics.latency.p95 * 100) / 100,
-            p99: Math.round(engineMetrics.latency.p99 * 100) / 100,
-            min: Math.round(engineMetrics.latency.min * 100) / 100,
-            max: Math.round(engineMetrics.latency.max * 100) / 100,
+            avg: round(metrics.latency.avg),
+            p50: round(metrics.latency.p50),
+            p90: round(metrics.latency.p90),
+            p95: round(metrics.latency.p95),
+            p99: round(metrics.latency.p99),
+            min: round(metrics.latency.min),
+            max: round(metrics.latency.max),
           },
           cache: {
-            hitRate: Math.round(engineMetrics.cache.hitRate * 10000) / 100,
-            hits: engineMetrics.cache.hits,
-            misses: engineMetrics.cache.misses,
-            size: engineMetrics.cache.size,
-            memoryMB: Math.round((engineMetrics.cache.memoryBytes / 1024 / 1024) * 100) / 100,
+            hitRate: round(metrics.cache.hitRate * 100),
+            hits: metrics.cache.hits,
+            misses: metrics.cache.misses,
+            size: metrics.cache.size,
+            memoryMB: round(metrics.cache.memoryBytes / 1024 / 1024),
           },
           rateLimit: {
-            totalRequests: engineMetrics.rateLimit.totalRequests,
-            rejected: engineMetrics.rateLimit.rejected,
+            totalRequests: metrics.rateLimit.totalRequests,
+            rejected: metrics.rateLimit.rejected,
           },
-          circuitBreaker: {
-            state: engineMetrics.circuitBreaker.state,
-            failures: engineMetrics.circuitBreaker.failures,
-            totalTrips: engineMetrics.circuitBreaker.totalTrips,
-          },
+          circuitBreaker: metrics.circuitBreaker,
+        },
+        dataIntegrity: {
+          nonPoetryRaw: datasetStats.nonPoetryRaw,
+          nonPoetryClean: datasetStats.nonPoetry,
+          nonPoetryDropped: datasetStats.nonPoetryDropped,
+          status: datasetStats.nonPoetryDropped > 0 ? "تمیزسازی خودکار اعمال شد" : "سالم",
         },
         meta: {
-          responseTime: `${Math.round(duration * 100) / 100}ms`,
+          responseTimeMs: round(duration),
           timestamp: new Date().toISOString(),
+          note: "آمار درخواست‌ها و uptime فقط مربوط به همین نمونهٔ در حال اجرای سرویس است و با راه‌اندازی مجدد صفر می‌شود.",
         },
       },
     },
     {
       headers: {
         "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store",
         "X-Engine": "tigh/0.0.1-beta",
       },
-    }
-  )
+    },
+  );
 }

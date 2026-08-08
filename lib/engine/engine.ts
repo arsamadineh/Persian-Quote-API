@@ -66,20 +66,32 @@ export class Tigh {
 
   route(definition: EngineRoute): Tigh {
     const method = definition.method;
-    const middlewares = [
-      ...(definition.middlewares || []),
-    ];
+    const middlewares: MiddlewareFn[] = [];
+
+    if (this.config.enableMetrics) {
+      middlewares.push(async (req, next) => {
+        const started = performance.now();
+        try {
+          const response = await next();
+          this.metrics.recordRequest(req.method, definition.path, response.status, performance.now() - started);
+          return response;
+        } catch (error) {
+          this.metrics.recordRequest(req.method, definition.path, 500, performance.now() - started);
+          throw error;
+        }
+      });
+    }
+
+    middlewares.push(...(definition.middlewares || []));
 
     if (this.config.enableCache && definition.cache) {
       middlewares.push(this.createCacheMiddleware(definition));
     }
 
     const wrappedHandler: MiddlewareFn = async (req: Request, next: NextFn) => {
-      const start = performance.now();
-      try {
-        let response: Response;
+      let response: Response;
 
-        if (this.config.enableCircuitBreaker) {
+      if (this.config.enableCircuitBreaker) {
           try {
             response = await this.circuitBreaker.execute(() => Promise.resolve(definition.handler(req)));
           } catch (error) {
@@ -93,23 +105,11 @@ export class Tigh {
               throw error;
             }
           }
-        } else {
-          response = await definition.handler(req);
-        }
-
-        const duration = performance.now() - start;
-        if (this.config.enableMetrics) {
-          this.metrics.recordRequest(req.method, definition.path, response.status, duration);
-        }
-
-        return response;
-      } catch (error) {
-        const duration = performance.now() - start;
-        if (this.config.enableMetrics) {
-          this.metrics.recordRequest(req.method, definition.path, 500, duration);
-        }
-        throw error;
+      } else {
+        response = await definition.handler(req);
       }
+
+      return response;
     };
 
     middlewares.push(wrappedHandler);
@@ -140,6 +140,9 @@ export class Tigh {
         ? definition.cache.key(req)
         : `cache:${req.method}:${req.path}:${JSON.stringify(req.query)}`;
 
+      // پاسخ تصادفی نباید از کش خوانده یا در آن ذخیره شود.
+      if (req.query.random === 'true' || !cacheKey) return next();
+
       const cached = this.cache.get<Response>(cacheKey);
       if (cached) {
         return { ...cached, headers: { ...cached.headers, 'X-Cache': 'HIT' } };
@@ -155,9 +158,13 @@ export class Tigh {
   }
 
   async handle(method: HttpMethod, path: string, req: Request): Promise<Response> {
+    const requestStarted = performance.now();
     if (this.config.enableRateLimit) {
       const rateResult = this.rateLimiter.check(req);
       if (!rateResult.allowed) {
+        if (this.config.enableMetrics) {
+          this.metrics.recordRequest(method, path, 429, performance.now() - requestStarted);
+        }
         return {
           status: 429,
           headers: {
@@ -174,7 +181,11 @@ export class Tigh {
 
     const match = this.router.match(method, path);
     if (!match) {
-      return this.router.getNotFoundHandler()(req);
+      const response = await this.router.getNotFoundHandler()(req);
+      if (this.config.enableMetrics) {
+        this.metrics.recordRequest(method, path, response.status, performance.now() - requestStarted);
+      }
+      return response;
     }
 
     req.params = match.params;
@@ -194,7 +205,14 @@ export class Tigh {
       return next();
     };
 
-    return this.middleware.execute(req, runRouteChain);
+    const response = await this.middleware.execute(req, runRouteChain);
+    if (req.query.random === 'true') {
+      return {
+        ...response,
+        headers: { ...response.headers, 'Cache-Control': 'no-store' },
+      };
+    }
+    return response;
   }
 
   use(middleware: MiddlewareFn): Tigh {
@@ -203,17 +221,16 @@ export class Tigh {
   }
 
   flushMetrics(): ReturnType<TighMetrics['snapshot']> {
-    const snapshot = this.metrics.snapshot();
     this.metrics.updateCacheStats(
       this.cache.getStats().hits,
       this.cache.getStats().misses,
       this.cache.getStats().size,
-      this.cache.getStats().memoryBytes
+      this.cache.getStats().memoryBytes,
     );
     this.metrics.updateRateLimitStats(
       this.rateLimiter.getStats().totalRequests,
       this.rateLimiter.getStats().rejected,
-      this.rateLimiter.getStats().byKey
+      this.rateLimiter.getStats().byKey,
     );
     const cbStats = this.circuitBreaker.getStats();
     this.metrics.updateCircuitBreakerStats(cbStats.state, cbStats.failures, cbStats.successes, cbStats.totalTrips);

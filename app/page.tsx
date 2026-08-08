@@ -65,13 +65,13 @@ function ApiPlayground() {
     }
   ],
   "count": 1,
-  "total": 500
+  "total": 497
 }`
     },
     {
       title: "شعر نو معاصر",
       endpoint: "/api/quotes/shereno?random=true&limit=1",
-      description: "دسترسی به بیش از ۴۴۰۰ شعر نو معاصر از نیما یوشیج، سهراب سپهری و دیگر شاعران معاصر.",
+      description: "دسترسی به مجموعه شعر نو معاصر از نیما یوشیج، سهراب سپهری و دیگر شاعران معاصر.",
       params: [
         { name: "poet", type: "string", required: "اختیاری", desc: "نام شاعر نو (نیما یوشیج یا سهراب سپهری)" },
         { name: "title", type: "string", required: "اختیاری", desc: "جستجو در عنوان اشعار" },
@@ -89,13 +89,13 @@ function ApiPlayground() {
     }
   ],
   "count": 1,
-  "total": 4400
+  "total": "از پاسخ واقعی API خوانده می‌شود"
 }`
     },
     {
       title: "سخنان بزرگان",
       endpoint: "/api/quotes/non-poetry?random=true&limit=1",
-      description: "دسترسی به گلچینی از ۴۹۰ سخن ارزشمند و کلمات قصار از اندیشمندان جهان.",
+      description: "دسترسی به گلچینی از سخنان ارزشمند و کلمات قصار از اندیشمندان جهان.",
       params: [
         { name: "author", type: "string", required: "اختیاری", desc: "فیلتر براساس نام گوینده (مثال: انیشتین)" },
         { name: "limit", type: "number", required: "اختیاری", desc: "تعداد سخنان بازگشتی" }
@@ -110,7 +110,7 @@ function ApiPlayground() {
     }
   ],
   "count": 1,
-  "total": 490
+  "total": "از پاسخ واقعی API خوانده می‌شود"
 }`
     }
   ]
@@ -418,7 +418,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent className="relative z-10">
                 <CardDescription className="text-sm md:text-base leading-relaxed">
-                  بیش از ۴۹۰ نقل‌قول ارزشمند و الهام‌بخش غیرشعری از اندیشمندان جهان
+                  نقل‌قول‌های ارزشمند و الهام‌بخش غیرشعری از اندیشمندان جهان
                 </CardDescription>
               </CardContent>
             </Card>
@@ -433,7 +433,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent className="relative z-10">
                 <CardDescription className="text-sm md:text-base leading-relaxed">
-                  گنجینه‌ای با بیش از ۴۴۰۰ شعر نو از شاعران معاصر مانند نیما یوشیج و سهراب سپهری
+                  گنجینه‌ای از شعر نو شاعران معاصر مانند نیما یوشیج و سهراب سپهری
                 </CardDescription>
               </CardContent>
             </Card>

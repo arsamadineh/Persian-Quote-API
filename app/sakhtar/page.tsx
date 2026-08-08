@@ -36,6 +36,10 @@ interface EngineStats {
   data: {
     totals: { quotes: number; poets: number; categories: number }
     engine: {
+      startedAt: string
+      instanceId: string
+      collectionScope: string
+      sampleSize: number
       uptime: number
       requests: { total: number; topPaths: { path: string; count: number }[] }
       latency: { avg: number; p50: number; p90: number; p95: number; p99: number }
@@ -49,7 +53,7 @@ interface EngineStats {
 interface BenchmarkData {
   benchmark: {
     iterations: number
-    summary: { routerNsPerOp: number; cacheSetNsPerOp: number; cacheGetNsPerOp: number; metricsNsPerOp: number }
+    summary: { routerNsPerOp: number; cacheSetNsPerOp: number; cacheGetNsPerOp: number; cacheHitRate: number }
   }
 }
 
@@ -209,7 +213,7 @@ export default function SakhtarPage() {
             {[
               { l: "هسته", v: "۶ ماژول" },
               { l: "اداپتور", v: "۱ فعال" },
-              { l: "Middleware", v: "۳ پایه" },
+              { l: "Middleware", v: "۲ فعال" },
               { l: "وابستگی", v: "۰" },
             ].map(i => (
               <div key={i.l} className="text-center p-2.5 rounded-lg bg-stone-900/40 border border-stone-800/40">
@@ -427,7 +431,7 @@ export default function SakhtarPage() {
                   { l: "روتر", v: toFa(bench.benchmark.summary.routerNsPerOp), c: "text-stone-200", u: "ns" },
                   { l: "کش (set)", v: toFa(bench.benchmark.summary.cacheSetNsPerOp), c: "text-stone-200", u: "ns" },
                   { l: "کش (get)", v: toFa(bench.benchmark.summary.cacheGetNsPerOp), c: "text-stone-200", u: "ns" },
-                  { l: "متریک", v: toFa(bench.benchmark.summary.metricsNsPerOp), c: "text-stone-200", u: "ns" },
+                  { l: "نرخ hit کش", v: toFa(Math.round(bench.benchmark.summary.cacheHitRate * 100)), c: "text-stone-200", u: "٪" },
                 ].map(x => (
                   <div key={x.l} className="text-center p-3 rounded-lg bg-stone-900/40 border border-stone-800/40">
                     <div className={`text-base font-bold font-mono ${x.c}`}>{x.v}{x.u && <span className="text-[10px] text-stone-600 mr-0.5">{x.u}</span>}</div>
@@ -442,14 +446,15 @@ export default function SakhtarPage() {
                   <CardTitle className="text-xs text-stone-400">سرعت ماژول‌ها — ns/op (کمتر بهتر)</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <Bar value={bench.benchmark.summary.routerNsPerOp} max={Math.max(bench.benchmark.summary.routerNsPerOp, bench.benchmark.summary.cacheSetNsPerOp, bench.benchmark.summary.cacheGetNsPerOp, bench.benchmark.summary.metricsNsPerOp)}
+                  <Bar value={bench.benchmark.summary.routerNsPerOp} max={Math.max(bench.benchmark.summary.routerNsPerOp, bench.benchmark.summary.cacheSetNsPerOp, bench.benchmark.summary.cacheGetNsPerOp)}
                     label="TighRouter" color="bg-stone-400" delay={0} />
-                  <Bar value={bench.benchmark.summary.cacheGetNsPerOp} max={Math.max(bench.benchmark.summary.routerNsPerOp, bench.benchmark.summary.cacheSetNsPerOp, bench.benchmark.summary.cacheGetNsPerOp, bench.benchmark.summary.metricsNsPerOp)}
+                  <Bar value={bench.benchmark.summary.cacheGetNsPerOp} max={Math.max(bench.benchmark.summary.routerNsPerOp, bench.benchmark.summary.cacheSetNsPerOp, bench.benchmark.summary.cacheGetNsPerOp)}
                     label="TighCache (get)" color="bg-stone-500" delay={150} />
-                  <Bar value={bench.benchmark.summary.cacheSetNsPerOp} max={Math.max(bench.benchmark.summary.routerNsPerOp, bench.benchmark.summary.cacheSetNsPerOp, bench.benchmark.summary.cacheGetNsPerOp, bench.benchmark.summary.metricsNsPerOp)}
+                  <Bar value={bench.benchmark.summary.cacheSetNsPerOp} max={Math.max(bench.benchmark.summary.routerNsPerOp, bench.benchmark.summary.cacheSetNsPerOp, bench.benchmark.summary.cacheGetNsPerOp)}
                     label="TighCache (set)" color="bg-stone-500" delay={300} />
-                  <Bar value={bench.benchmark.summary.metricsNsPerOp} max={Math.max(bench.benchmark.summary.routerNsPerOp, bench.benchmark.summary.cacheSetNsPerOp, bench.benchmark.summary.cacheGetNsPerOp, bench.benchmark.summary.metricsNsPerOp)}
-                    label="TighMetrics" color="bg-stone-600" delay={450} />
+                  <div className="text-[10px] text-stone-600 border-t border-stone-800/50 pt-3">
+                    متریک‌های درخواست در این آزمایش ثبت نمی‌شوند تا آمار سرویس آلوده نشود.
+                  </div>
                 </CardContent>
               </Card>
 
@@ -483,7 +488,7 @@ export default function SakhtarPage() {
                           ["CORS", "خودکار", "پلاگین", "خودکار", "پلاگین"],
                           ["وابستگی", "صفر", "۱", "۰", "۱"],
                           ["TypeScript", "خالص", "ناخالص", "خالص", "ناخالص"],
-                          ["اندازه", "۸KB", "۲۰۰KB", "۳۰KB", "۲۵۰KB"],
+                          ["اندازه", "وابسته به build", "وابسته به build", "وابسته به build", "وابسته به build"],
                           ["پشتیبانی فارسی", "بله", "خیر", "خیر", "خیر"],
                         ].map(([f, t, e, h, fa]) => (
                           <tr key={f} className="border-b border-stone-800/30">
@@ -513,7 +518,7 @@ export default function SakhtarPage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-xl sm:text-2xl font-bold text-stone-100 mb-1">ساختار فایل‌ها</h2>
-            <p className="text-xs sm:text-sm text-stone-500">{toFa(9)} فایل TypeScript · صفر وابستگی · مجوز MIT</p>
+            <p className="text-xs sm:text-sm text-stone-500">ماژول‌های TypeScript · بدون وابستگی خارجی در موتور · مجوز MIT</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -580,7 +585,7 @@ engine.get("/api/quotes", async (req) => {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {[
-                      ["فایل‌ها", toFa(9)],
+                      ["فایل‌ها", toFa(FILES.filter(f => !f.dir).length)],
                       ["انواع TS", "۲۵+"],
                       ["وابستگی", "۰"],
                       ["License", "MIT"],

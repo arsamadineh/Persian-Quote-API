@@ -414,7 +414,7 @@ export default function DocsPage() {
         <div className="hero-pattern" />
         <div className="container mx-auto max-w-5xl relative z-10 text-center">
           <Badge variant="secondary" className="mb-4 text-xs font-mono">
-            نسخه ۲.۱۵.۰ • موتور تیغ ۰.۰.۱-beta
+            موتور تیغ ۰.۰.۱-beta • متریک‌های این صفحه زنده هستند
           </Badge>
           <h1 className="text-3xl md:text-5xl font-extrabold text-foreground mb-4 leading-tight">
             مستندات <span className="text-primary">API اشعار فارسی</span>
@@ -494,8 +494,8 @@ export default function DocsPage() {
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">معرفی کلی</h2>
                 <p className="text-base text-muted-foreground leading-relaxed">
-                  API رایگان و متن‌باز برای دسترسی به گنجینه‌ای از اشعار شاعران بزرگ فارسی. بیش از ۵۰۰۰ سند
-                  شامل غزلیات حافظ، اشعار مولانا و سعدی، شعر نو معاصر، و سخنان بزرگان.
+                  API رایگان و متن‌باز برای دسترسی به مجموعه‌ای از اشعار و سخنان فارسی. تعداد دقیق اسناد، شاعران و
+                  دسته‌بندی‌ها در بخش متریک زنده از دادهٔ واقعی مخزن خوانده می‌شود.
                 </p>
               </div>
 
@@ -509,9 +509,9 @@ export default function DocsPage() {
 
               <div className="grid md:grid-cols-3 gap-3">
                 {[
-                  { label: "اشعار", value: "۵۰۰۰+", icon: BookOpen },
-                  { label: "شاعران", value: "۱۰+", icon: Users },
-                  { label: "End-to-End TypeScript", value: "خالص", icon: Code },
+                  { label: "تعداد اسناد", value: "زنده", icon: BookOpen },
+                  { label: "تعداد شاعران", value: "زنده", icon: Users },
+                  { label: "پیاده‌سازی", value: "TypeScript", icon: Code },
                 ].map((s) => (
                   <Card key={s.label} className="p-4 border-border/70">
                     <div className="flex items-center justify-between mb-2">
@@ -809,11 +809,11 @@ curl "https://pq.arsamadineh.ir/api/quotes/category/%D8%B9%D8%B4%D9%82"`}
               <EndpointCard
                 id="ep-hafez"
                 title="دیوان حافظ"
-                badge="۴۹۷ غزل"
+                badge="نمونه پاسخ: ۴۹۷ غزل"
                 description="دسترسی کامل به تمام غزلیات خواجه شمس‌الدین حافظ شیرازی با ساختار بیتی (مصرع اول و دوم). پارامتر q جستجوی متنی اختصاصی دارد."
                 paths={["/api/quotes/hafez"]}
                 params={[
-                  { name: "id", type: "number", desc: "دریافت غزل با شماره مشخص (۱ تا ۴۹۷)" },
+                  { name: "id", type: "number", desc: "دریافت غزل با شماره موجود در مجموعه" },
                   { name: "q", type: "string", desc: "جستجو در بین مصرع‌های دیوان" },
                   { name: "limit", type: "number", default: "10", desc: "تعداد غزل‌ها (حداکثر 100)" },
                   { name: "random", type: "boolean", default: "false", desc: "دریافت تصادفی (فال حافظ)" },
@@ -841,7 +841,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/hafez?q=%D8%B1%D9%86%D8%AF"`}
     }
   ],
   "count": 1,
-  "total": 497
+  "total": "نمونه؛ مقدار واقعی از API خوانده می‌شود"
 }`}
                 notes={
                   <>
@@ -854,7 +854,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/hafez?q=%D8%B1%D9%86%D8%AF"`}
               <EndpointCard
                 id="ep-shereno"
                 title="شعر نو معاصر"
-                badge="۴۴۰۰+ اثر"
+                badge="نمونه پاسخ: ۴۴۰۰ اثر"
                 description="اشعار نو از پیشگامان شعر نو فارسی شامل نیما یوشیج، سهراب سپهری، و دیگر شاعران معاصر."
                 paths={["/api/quotes/shereno"]}
                 params={[
@@ -881,7 +881,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/shereno?poet=%D9%86%DB%8C%D9%85%D8%A7
     }
   ],
   "count": 1,
-  "total": 4400
+  "total": "نمونه؛ مقدار واقعی از API خوانده می‌شود"
 }`}
               />
 
@@ -912,7 +912,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/non-poetry?author=%D8%A7%DB%8C%D9%84%
     }
   ],
   "count": 1,
-  "total": 490
+  "total": "نمونه؛ مقدار واقعی از API خوانده می‌شود"
 }`}
               />
 
@@ -1009,7 +1009,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/search?q=love&lang=english&limit=3"`}
                 </Badge>
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">موتور تیغ</h2>
                 <p className="text-base text-muted-foreground leading-relaxed">
-                  یک موتور API با عملکرد بالا، نوشته‌شده در TypeScript خالص — صفر وابستگی خارجی. مناسب برای
+                  یک موتور API نوشته‌شده در TypeScript خالص؛ ماژول‌های موتور به وابستگی خارجی نیاز ندارند. مناسب برای
                   هر پروژه‌ای که به مسیریابی سریع، کش هوشمند، و متریک زنده نیاز دارد.
                 </p>
               </div>
@@ -1017,7 +1017,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/search?q=love&lang=english&limit=3"`}
               <div className="grid md:grid-cols-4 gap-3">
                 {[
                   { label: "فایل‌های TS", value: "۹", icon: FileCode2 },
-                  { label: "اندازه bundle", value: "۸KB", icon: Box },
+                  { label: "اندازه bundle", value: "وابسته به build", icon: Box },
                   { label: "وابستگی", value: "۰", icon: Package },
                   { label: "مجوز", value: "MIT", icon: ShieldCheck },
                 ].map((s) => (
@@ -1219,13 +1219,13 @@ Retry-After: 30    // فقط در حالت 429`}
                 </div>
                 <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                   <InlineCode>TighMiddleware</InlineCode> هر درخواست را از طریق زنجیره‌ای از middlewareها
-                  عبور می‌دهد. سه middleware پیش‌فرض:
+                  عبور می‌دهد. دو middleware پیش‌فرض فعال هستند و فشرده‌سازی به‌صورت اختیاری در دسترس است:
                 </p>
                 <div className="grid md:grid-cols-3 gap-3">
                   {[
                     { name: "corsMiddleware", desc: "تزریق هدرهای CORS و پاسخ ۲۰۴ به OPTIONS" },
                     { name: "timingMiddleware", desc: "اندازه‌گیری پاسخ + تزریق X-Request-Id" },
-                    { name: "compressMiddleware", desc: "فشرده‌سازی gzip در پاسخ‌های بزرگ" },
+                    { name: "compressMiddleware", desc: "فشرده‌سازی gzip اختیاری در پاسخ‌های بزرگ" },
                   ].map((m) => (
                     <Card key={m.name} className="p-3 border-border/70">
                       <InlineCode className="text-[11px]">{m.name}</InlineCode>

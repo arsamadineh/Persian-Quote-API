@@ -61,7 +61,7 @@ export async function GET() {
 - متریک با حافظه حلقوی و محاسبه P50/P90/P95/P99
 - پایپلاین Middleware با CORS، زمان‌سنجی، و فشرده‌سازی gzip
 - اداپتور داخلی برای Next.js App Router
-- صفر وابستگی خارجی، نوشته‌شده در TypeScript خالص، ۸ کیلوبایت bundle
+- ماژول‌های موتور بدون وابستگی خارجی، نوشته‌شده در TypeScript خالص
 
 جزئیات بیشتر در صفحه ساختار: ${SITE_URL}/sakhtar
 

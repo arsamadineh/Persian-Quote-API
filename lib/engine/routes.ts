@@ -42,8 +42,8 @@ function ok(data: unknown, meta: Record<string, unknown> = {}) {
 }
 
 // ثبت GET و OPTIONS برای یک مسیر با بهره‌گیری از کش LRU و مدار شکن موتور
-function reg(path: string, handler: RouteHandler, ttl = 60000): void {
-  engine.get(path, handler, { cache: { ttl } });
+function reg(path: string, handler: RouteHandler, ttl = 60000, cache = true): void {
+  engine.get(path, handler, cache ? { cache: { ttl } } : undefined);
 }
 
 export function registerRoutes(): void {
@@ -114,14 +114,16 @@ export function registerRoutes(): void {
   reg('/api/stats', () => {
     const s = getStats();
     const cache = engine.cache.getStats();
-    const metrics = engine.metrics.snapshot();
-    return ok(s, {
+    const metrics = engine.flushMetrics();
+    const response = ok(s, {
       engine: {
         name: 'تیغ',
         version: '0.0.1-beta',
         cache: { size: cache.size, hitRate: cache.hitRate, hits: cache.hits, misses: cache.misses },
         requests: metrics.requests.total,
         uptimeMs: metrics.uptime,
+        instanceId: metrics.instanceId,
+        collectionScope: metrics.collectionScope,
       },
       dataIntegrity: {
         nonPoetryRaw: s.nonPoetryRaw,
@@ -130,14 +132,19 @@ export function registerRoutes(): void {
         status: s.nonPoetryDropped > 0 ? 'تمیزسازی خودکار اعمال شد' : 'سالم',
       },
     });
-  });
+    return { ...response, headers: { ...response.headers, 'Cache-Control': 'no-store' } };
+  }, 60000, false);
 
   reg('/api/health', () => {
     const s = getStats();
-    return ok(
+    const metrics = engine.flushMetrics();
+    const response = ok(
       {
         status: 'ok',
         engine: 'تیغ/0.0.1-beta',
+        instanceId: metrics.instanceId,
+        collectionScope: metrics.collectionScope,
+        uptimeMs: metrics.uptime,
         datasets: {
           poetry: s.poetry,
           hafez: s.hafez,
@@ -150,5 +157,6 @@ export function registerRoutes(): void {
       },
       {},
     );
-  });
+    return { ...response, headers: { ...response.headers, 'Cache-Control': 'no-store' } };
+  }, 60000, false);
 }

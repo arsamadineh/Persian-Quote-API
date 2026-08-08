@@ -107,6 +107,10 @@ export interface MetricsSnapshot {
     totalTrips: number;
   };
   uptime: number;
+  startedAt: string;
+  instanceId: string;
+  sampleSize: number;
+  collectionScope: 'process-instance';
   timestamp: number;
 }
 
