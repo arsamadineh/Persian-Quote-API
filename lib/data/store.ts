@@ -274,9 +274,14 @@ for (const q of nonPoetryRaw as any[]) {
 const shereno: NormalizedQuote[] = [];
 
 for (const q of sherenoRaw as any[]) {
-  const poem = typeof q.poem === "string" ? q.poem.trim() : "";
+  const rawPoem = typeof q.poem === "string" ? q.poem.trim() : "";
   const poet = typeof q.poet === "string" ? q.poet.trim() : "";
-  if (!poem) continue;
+  if (!rawPoem) continue;
+  // حذف ستاره‌های جداکننده ابیات/بندها و تبدیل به سطر جدید
+  const poem = rawPoem
+    .replace(/[\s\*]*\*+[\s\*]*/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
   const tags = ["شعر نو", poet].filter(Boolean) as string[];
   shereno.push({
     id: `sn-${q.id}`,
@@ -411,11 +416,17 @@ export const dataset = {
 
 // --- اندپوینت‌ها ---
 
+// جستجو در هر دو نمایه شعر کلاسیک و شعر نو برای یک شاعر مشخص
+export function getQuotesForPoet(poet: string): NormalizedQuote[] {
+  const fromPoetry = quotesForPoet(poetryByPoetIndex, poet);
+  const fromShereno = quotesForPoet(sherenoByPoetIndex, poet);
+  return [...fromPoetry, ...fromShereno];
+}
+
 export function getQuotes(sp: URLSearchParams): ListResult<NormalizedQuote> {
   const poet = sp.get("poet");
   if (poet !== null) {
-    const filtered = quotesForPoet(poetryByPoetIndex, poet);
-    return resolve(filtered, parseOptions(sp));
+    return resolve(getQuotesForPoet(poet), parseOptions(sp));
   }
   return resolve(poetry, parseOptions(sp));
 }

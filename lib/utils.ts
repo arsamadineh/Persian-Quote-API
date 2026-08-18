@@ -6,5 +6,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatVerse(text: string): string {
-  return text.replace(/ *\/ */g, "\n")
+  return text
+    .replace(/[\s\*]*\*+[\s\*]*/g, "\n")
+    .replace(/ *\/ */g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim()
 }

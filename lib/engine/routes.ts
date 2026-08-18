@@ -52,12 +52,7 @@ export function registerRoutes(): void {
     return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit });
   });
 
-  reg('/api/quotes/[poet]', (req) => {
-    const params = req.params as RouteParams;
-    const r = getQuotesByPoet(String(params.poet), sp(req));
-    return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit, poet: params.poet });
-  });
-
+  // مسیرهای ثابت پیش از مسیر پویا [poet] ثبت می‌شوند
   reg('/api/quotes/hafez', (req) => {
     const r = getHafez(sp(req));
     return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit });
@@ -99,6 +94,12 @@ export function registerRoutes(): void {
     const params = req.params as RouteParams;
     const r = getByCategory(String(params.category), sp(req));
     return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit, category: params.category });
+  });
+
+  reg('/api/quotes/[poet]', (req) => {
+    const params = req.params as RouteParams;
+    const r = getQuotesByPoet(String(params.poet), sp(req));
+    return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit, poet: params.poet });
   });
 
   reg('/api/poets', () => {

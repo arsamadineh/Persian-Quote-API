@@ -1,10 +1,15 @@
 import { type NextRequest, NextResponse } from "next/server"
-import sampleQuotes from "@/lib/data/poetry-quotes.json"
-import hafez from "@/lib/data/hafez.json"
-import shereno from "@/lib/data/shereno.json"
+import { dataset, getQuotesForPoet, type NormalizedQuote } from "@/lib/data/store"
 import { formatVerse } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
+
+// کوتاه کردن متن شعر در مرز کلمه (بدون برش وسط کلمه)
+function trimPoem(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+  const cut = text.lastIndexOf(" ", maxChars);
+  return (cut > 0 ? text.slice(0, cut) : text.slice(0, maxChars)) + "…";
+}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
@@ -20,46 +25,45 @@ export async function GET(request: NextRequest) {
   const autoRefresh = searchParams.get("auto_refresh") === "true"
   const refreshInterval = Number.parseInt(searchParams.get("refresh_interval") || "30000")
 
-  let quote: any;
+  // Gather quotes from the unified normalized store
+  let allQuotes: NormalizedQuote[] = []
 
-  // Gather quotes
-  let allQuotes: any[] = []
-
-  if (poet === "حافظ شیرازی") {
-    allQuotes = hafez.map((g: any) => ({
-      text_persian: g.verses.slice(0, 2).map((v: string[]) => v.join(" / ")).join("\n"),
-      text_english: `Ghazal #${g.id}`,
-      poet: "حافظ شیرازی",
-      poet_english: "Hafez",
-      source: "دیوان حافظ",
-      category: "عرفان"
-    }))
-  } else if (poet === "نیما یوشیج" || poet === "سهراب سپهری") {
-    const filteredSher = shereno.filter((p: any) => p.poet === poet)
-    allQuotes = filteredSher.map((p: any) => ({
-      text_persian: p.poem.substring(0, 150) + "...",
-      text_english: p.title,
-      poet: p.poet,
-      poet_english: p.poet === "نیما یوشیج" ? "Nima Yushij" : "Sohrab Sepehri",
-      source: p.book,
-      category: "شعر نو"
-    }))
+  if (poet) {
+    allQuotes = getQuotesForPoet(poet)
+  } else if (category) {
+    allQuotes = dataset.poetry.filter(q => q.category === category)
   } else {
-    let filtered = [...sampleQuotes]
-    if (poet) {
-      filtered = filtered.filter(q => q.poet === poet)
-    }
-    if (category) {
-      filtered = filtered.filter(q => q.category === category)
-    }
-    allQuotes = filtered
+    allQuotes = dataset.poetry
   }
 
   if (allQuotes.length === 0) {
-    allQuotes = sampleQuotes
+    return new NextResponse(
+      JSON.stringify({ error: "شاعر یا دسته‌بندی مورد نظر یافت نشد" }),
+      {
+        status: 404,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    )
   }
 
-  quote = allQuotes[Math.floor(Math.random() * allQuotes.length)]
+  const raw = allQuotes[Math.floor(Math.random() * allQuotes.length)]
+
+  // برای شعر نو: متن بلند را در مرز کلمه کوتاه می‌کنیم
+  const displayText = raw.kind === "shereno"
+    ? trimPoem(raw.text_persian, 200)
+    : raw.text_persian
+
+  const quote = {
+    text_persian: displayText,
+    text_english: raw.kind === "shereno" ? undefined : raw.text_english,
+    poet: raw.poet ?? raw.author,
+    poet_english: raw.poet_english ?? raw.author_english,
+    source: raw.source ?? raw.book,
+    category: raw.category ?? (raw.kind === "shereno" ? "شعر نو" : undefined),
+  }
 
   // Generate CSS based on theme
   const themeStyles = {
