@@ -777,6 +777,7 @@ func main() {
                   { name: "random", type: "boolean", default: "false", desc: "انتخاب تصادفی اشعار" },
                   { name: "poet", type: "string", desc: "فیلتر بر اساس نام شاعر (مثلاً: مولانا)" },
                   { name: "category", type: "string", desc: "فیلتر بر اساس دسته‌بندی (مثلاً: عشق)" },
+                  { name: "lines", type: "string", default: "auto", desc: "شکست خط متن: auto | separators | raw" },
                 ]}
                 example={`# پنج شعر تصادفی
 curl "https://pq.arsamadineh.ir/api/quotes?random=true&limit=5"
@@ -862,6 +863,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/hafez?q=%D8%B1%D9%86%D8%AF"`}
                   { name: "title", type: "string", desc: "جستجو در عنوان شعر" },
                   { name: "limit", type: "number", default: "10", desc: "تعداد اشعار (حداکثر 100)" },
                   { name: "random", type: "boolean", default: "false", desc: "انتخاب تصادفی" },
+                  { name: "lines", type: "string", default: "auto", desc: "شکست خط متن: auto | separators | raw" },
                 ]}
                 example={`# یک شعر نو تصادفی
 curl "https://pq.arsamadineh.ir/api/quotes/shereno?random=true&limit=1"
@@ -873,13 +875,16 @@ curl "https://pq.arsamadineh.ir/api/quotes/shereno?poet=%D9%86%DB%8C%D9%85%D8%A7
   "success": true,
   "data": [
     {
-      "id": 2,
+      "id": "sn-2",
       "title": "قایق",
-      "poem": "من چهره‌ام گرفته / من قایقم نشسته به خشکی...",
+      "text_persian": "من چهره‌ام گرفته\\nمن قایقم نشسته به خشکی",
+      "line_origin": "reconstructed",
+      "line_count": 12,
       "poet": "نیما یوشیج",
       "book": "مجموعه اشعار"
     }
   ],
+  "line_mode": "auto",
   "count": 1,
   "total": "نمونه؛ مقدار واقعی از API خوانده می‌شود"
 }`}
@@ -925,6 +930,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/non-poetry?author=%D8%A7%DB%8C%D9%84%
                   { name: "q", type: "string", required: true, desc: "کلمه یا عبارت جستجو (حداقل ۲ کاراکتر)" },
                   { name: "limit", type: "number", default: "10", desc: "تعداد نتایج (حداکثر ۵۰)" },
                   { name: "lang", type: "string", default: "both", desc: "زبان: persian | english | both" },
+                  { name: "lines", type: "string", default: "auto", desc: "شکست خط متن: auto | separators | raw" },
                 ]}
                 example={`# جستجوی کلمه عشق
 curl "https://pq.arsamadineh.ir/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5"

@@ -12,7 +12,10 @@ import {
   getCategories,
   getStats,
   dataset,
+  presentQuotes,
+  type NormalizedQuote,
 } from '@/lib/data/store';
+import type { LineMode } from '@/lib/data/poem-lines';
 
 // ============================================================================
 // ثبت اندپوینت‌های API روی موتور تیغ
@@ -41,6 +44,23 @@ function ok(data: unknown, meta: Record<string, unknown> = {}) {
   return json({ success: true, data, ...meta });
 }
 
+// حالت شکست خط شعر با پارامتر lines انتخاب می‌شود:
+//   auto (پیش‌فرض)   شکست خط‌های واقعی، و در نبود نشانه، سطرهای بازسازی‌شده
+//   separators       فقط شکست خط‌های واقعی منبع
+//   raw              متن خام منبع بدون هیچ شکست خط افزوده
+function lineMode(req: Request): LineMode {
+  const value = String(req.query.lines ?? '').toLowerCase();
+  if (value === 'raw' || value === 'original') return 'raw';
+  if (value === 'separators' || value === 'split') return 'separators';
+  return 'auto';
+}
+
+// تبدیل آیتم‌های داخلی مخزن به شکل قابل انتشار در پاسخ
+function present(req: Request, quotes: NormalizedQuote[]): { data: Record<string, unknown>[]; lineMode: LineMode } {
+  const mode = lineMode(req);
+  return { data: presentQuotes(quotes, mode), lineMode: mode };
+}
+
 // ثبت GET و OPTIONS برای یک مسیر با بهره‌گیری از کش LRU و مدار شکن موتور
 function reg(path: string, handler: RouteHandler, ttl = 60000, cache = true): void {
   engine.get(path, handler, cache ? { cache: { ttl } } : undefined);
@@ -49,22 +69,26 @@ function reg(path: string, handler: RouteHandler, ttl = 60000, cache = true): vo
 export function registerRoutes(): void {
   reg('/api/quotes', (req) => {
     const r = getQuotes(sp(req));
-    return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit });
+    const p = present(req, r.data);
+    return ok(p.data, { count: r.count, total: r.total, page: r.page, limit: r.limit, line_mode: p.lineMode });
   });
 
   // مسیرهای ثابت پیش از مسیر پویا [poet] ثبت می‌شوند
   reg('/api/quotes/hafez', (req) => {
     const r = getHafez(sp(req));
-    return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit });
+    const p = present(req, r.data);
+    return ok(p.data, { count: r.count, total: r.total, page: r.page, limit: r.limit, line_mode: p.lineMode });
   });
 
   reg('/api/quotes/non-poetry', (req) => {
     const r = getNonPoetry(sp(req));
-    return ok(r.data, {
+    const p = present(req, r.data);
+    return ok(p.data, {
       count: r.count,
       total: r.total,
       page: r.page,
       limit: r.limit,
+      line_mode: p.lineMode,
       meta: {
         raw: dataset.nonPoetryRawCount,
         dropped: dataset.nonPoetryDropped,
@@ -75,17 +99,32 @@ export function registerRoutes(): void {
 
   reg('/api/quotes/shereno', (req) => {
     const r = getShereno(sp(req));
-    return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit });
+    const p = present(req, r.data);
+    return ok(p.data, {
+      count: r.count,
+      total: r.total,
+      page: r.page,
+      limit: r.limit,
+      line_mode: p.lineMode,
+      meta: {
+        note:
+          p.lineMode === 'auto'
+            ? 'سطرهای شعر نو در نبود نشانهٔ شکست خط در منبع، بازسازی تقریبی شده‌اند. مقدار line_origin منبع هر متن را اعلام می‌کند.'
+            : 'شکست خط‌ها فقط از نشانه‌های موجود در منبع گرفته شده‌اند.',
+      },
+    });
   });
 
   reg('/api/quotes/search', (req) => {
     const qs = sp(req);
     const r = searchQuotes(qs);
-    return ok(r.data, {
+    const p = present(req, r.data);
+    return ok(p.data, {
       count: r.count,
       total: r.total,
       page: r.page,
       limit: r.limit,
+      line_mode: p.lineMode,
       query: qs.get('q') || qs.get('query') || '',
     });
   });
@@ -93,13 +132,29 @@ export function registerRoutes(): void {
   reg('/api/quotes/category/[category]', (req) => {
     const params = req.params as RouteParams;
     const r = getByCategory(String(params.category), sp(req));
-    return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit, category: params.category });
+    const p = present(req, r.data);
+    return ok(p.data, {
+      count: r.count,
+      total: r.total,
+      page: r.page,
+      limit: r.limit,
+      line_mode: p.lineMode,
+      category: params.category,
+    });
   });
 
   reg('/api/quotes/[poet]', (req) => {
     const params = req.params as RouteParams;
     const r = getQuotesByPoet(String(params.poet), sp(req));
-    return ok(r.data, { count: r.count, total: r.total, page: r.page, limit: r.limit, poet: params.poet });
+    const p = present(req, r.data);
+    return ok(p.data, {
+      count: r.count,
+      total: r.total,
+      page: r.page,
+      limit: r.limit,
+      line_mode: p.lineMode,
+      poet: params.poet,
+    });
   });
 
   reg('/api/poets', () => {

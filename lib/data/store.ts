@@ -2,12 +2,24 @@ import poetryRaw from "@/lib/data/poetry-quotes.json";
 import hafezRaw from "@/lib/data/hafez.json";
 import nonPoetryRaw from "@/lib/data/non-poetry-quotes.json";
 import sherenoRaw from "@/lib/data/shereno.json";
+import {
+  analyzePoem,
+  layoutAnalyzedPoem,
+  type LineMode,
+  type PoemLayout,
+  type PoemSource,
+} from "@/lib/data/poem-lines";
 
 // ============================================================================
 // مخزن یکپارچه داده‌ها (Data Store)
 // هر مجموعه‌داده را یک بار بارگذاری، نرمال‌سازی و نمایه می‌کند تا تمام اندپوینت‌ها
 // از یک منبع واحد و حافظه‌محور استفاده کنند. هنگام بارگذاری، داده‌ها به‌طور خودکار
 // پاک‌سازی (حذف تکراری، حذف ورودی‌های خالی، نرمال‌سازی متن) می‌شوند.
+//
+// ساختار نمایش متن شعر نو از دو لایه تشکیل می‌شود:
+//   - لایهٔ داده: متنی که فقط شکست خط‌های واقعی منبع را دارد.
+//   - لایهٔ نمایش: متنی که برای خوانایی، شکست خط بازسازی‌شده هم می‌گیرد.
+// خروجی هر اندپوینت از presentQuotes می‌گذرد و منبع شکست خط را اعلام می‌کند.
 // ============================================================================
 
 export type QuoteKind = "poetry" | "non-poetry" | "hafez" | "shereno";
@@ -15,6 +27,10 @@ export type QuoteKind = "poetry" | "non-poetry" | "hafez" | "shereno";
 export interface NormalizedQuote {
   id: string;
   kind: QuoteKind;
+  /**
+   * متن فارسی. برای شعر کلاسیک، غیرشعری و حافظ، همان متن نهایی است.
+   * برای شعر نو متن خام منبع است؛ سطر‌بندی آن در لایهٔ نمایش (presentQuote) انجام می‌شود.
+   */
   text_persian: string;
   text_english?: string;
   author?: string;
@@ -110,7 +126,7 @@ const POET_BIOS: Record<
   "سهراب سپهری": {
     english: "Sohrab Sepehri",
     bioFa: "سهراب سپهری، شاعر، نویسنده و نقاش معاصر ایرانی و یکی از مهم‌ترین شاعران نوپرداز",
-    bioEn: "Sohrab Sepehri was a notable Iranian poet and painter, known for his clean, nature-inspired modern verse",
+    bioEn: "Sohrab Sepehri was a notable Iranian painter and poet, known for his clean, nature-inspired modern verse",
     birth: 1928,
     death: 1980,
   },
@@ -120,21 +136,53 @@ function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
 }
 
-// کلید نرمال‌شده برای تشخیص تکراری (بدون فاصله‌های اضافه و نویسه نامرئی)
-// نرمال‌سازی مشترک فارسی و لاتین برای جستجو و تشخیص نام شاعر.
-// این تابع شکل‌های ی/ي، ک/ك، نیم‌فاصله، اعراب و نشانه‌گذاری را یکسان می‌کند.
+// ---------------------------------------------------------------------------
+// نرمال‌سازی متن
+// ---------------------------------------------------------------------------
+
+// نگاشت نویسه‌های پرکاربرد به شکل یکسان‌شده. هر نویسهٔ دیگری که در این دسته
+// بیفتد اما نگاشت نداشته باشد، حذف می‌شود (اعراب، کشیده و نویسه‌های نامرئی).
+const SPECIAL_CHAR_RE =
+  /[يىكةۀـ\u064B-\u065F\u0670\u200B-\u200F\u202A-\u202E\u0660-\u0669\u06F0-\u06F9]/g;
+const SPECIAL_CHAR_MAP: Record<string, string> = {
+  "ي": "ی",
+  "ى": "ی",
+  "ك": "ک",
+  "ة": "ه",
+  "ۀ": "ه",
+  "ـ": "",
+  "\u200b": "",
+  "\u200c": "",
+  "\u200d": "",
+  "\u200e": "",
+  "\u200f": "",
+  "\u202a": "",
+  "\u202b": "",
+  "\u202c": "",
+  "\u202d": "",
+  "\u202e": "",
+};
+const NON_TOKEN_RE = /[^\p{L}\p{N}]+/gu;
+
+function mapSpecialChar(char: string): string {
+  const mapped = SPECIAL_CHAR_MAP[char];
+  if (mapped !== undefined) return mapped;
+  const code = char.charCodeAt(0);
+  if (code >= 0x0660 && code <= 0x0669) return String(code - 0x0660);
+  if (code >= 0x06f0 && code <= 0x06f9) return String(code - 0x06f0);
+  return "";
+}
+
+/**
+ * نرمال‌سازی مشترک فارسی و لاتین برای جستجو و تشخیص نام شاعر.
+ * این تابع شکل‌های ی/ي، ک/ك، نیم‌فاصله، اعراب و نشانه‌گذاری را یکسان می‌کند.
+ * پیاده‌سازی در یک گذر نویسه‌محور انجام می‌شود تا واکشی متن‌های بلند ارزان باشد.
+ */
 export function normalizeText(value: string): string {
   return value
     .normalize("NFC")
-    .replace(/[يى]/g, "ی")
-    .replace(/ك/g, "ک")
-    .replace(/ة/g, "ه")
-    .replace(/[\u064B-\u065F\u0670]/g, "")
-    .replace(/[ـ]/g, "")
-    .replace(/[\u200c\u200d\u200e\u200f]/g, "")
-    .replace(/[\u0660-\u0669]/g, (digit) => String(digit.charCodeAt(0) - 0x0660))
-    .replace(/[\u06F0-\u06F9]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0))
-    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .replace(SPECIAL_CHAR_RE, mapSpecialChar)
+    .replace(NON_TOKEN_RE, " ")
     .trim()
     .toLowerCase();
 }
@@ -143,8 +191,24 @@ function normKey(s: string): string {
   return normalizeText(s);
 }
 
-function buildSearch(...parts: (string | undefined)[]): string {
-  return parts.filter(Boolean).map((part) => normalizeText(String(part))).join(" ");
+/**
+ * ساخت رشتهٔ جستجو و ثبت مرز بخش متن.
+ * `headLength` محل پایان بخش متن در رشتهٔ نرمال‌شده است؛ با آن، امتیازدهی
+ * می‌تواند بی‌آنکه متن دوباره نرمال شود، تشخیص دهد واژه در متن شعر آمده یا در فراداده.
+ */
+function composeSearch(
+  textParts: (string | undefined)[],
+  metaParts: (string | undefined)[],
+): { search: string; headLength: number } {
+  const chunks: string[] = [];
+  for (const part of textParts) {
+    if (part) chunks.push(normalizeText(String(part)));
+  }
+  const headLength = chunks.join(" ").length;
+  for (const part of metaParts) {
+    if (part) chunks.push(normalizeText(String(part)));
+  }
+  return { search: chunks.join(" "), headLength };
 }
 
 // نام‌های رایج، املای لاتین و غلط‌های متداول به یک نام canonical نگاشت می‌شوند.
@@ -197,11 +261,62 @@ function decodeNeedle(value: string): string {
   }
 }
 
+// ---------------------------------------------------------------------------
+// ساخت آیتم‌های نرمال‌شده
+// ---------------------------------------------------------------------------
+
+// فیلدهای کمکی جستجو روی خود آیتم و به‌صورت غیرقابل‌شمارش نگه داشته می‌شوند؛
+// بنابراین در پاسخ JSON ظاهر نمی‌شوند اما دسترسی به آن‌ها ارزان است.
+const SCORE_FIELDS = Symbol("scoreFields");
+
+interface ScoreFields {
+  headLength: number;
+  authorTarget: string;
+  titleTarget: string;
+}
+
+type ScoredQuote = NormalizedQuote & { [SCORE_FIELDS]?: ScoreFields };
+
+function attachScoreFields(
+  quote: NormalizedQuote,
+  textParts: (string | undefined)[],
+  metaParts: (string | undefined)[],
+  authorParts: (string | undefined)[],
+  titleParts: (string | undefined)[],
+): void {
+  const { search, headLength } = composeSearch(textParts, metaParts);
+  quote.search = search;
+  Object.defineProperty(quote, SCORE_FIELDS, {
+    value: {
+      headLength,
+      authorTarget: normalizeText(authorParts.filter(Boolean).map(String).join(" ")),
+      titleTarget: normalizeText(titleParts.filter(Boolean).map(String).join(" ")),
+    } satisfies ScoreFields,
+    enumerable: false,
+    configurable: true,
+  });
+}
+
+function scoreFieldsOf(quote: NormalizedQuote): ScoreFields {
+  const existing = (quote as ScoredQuote)[SCORE_FIELDS];
+  if (existing) return existing;
+  // مسیر جانشین برای آیتم‌هایی که با کپی‌برداری ساخته شده‌اند.
+  const fields: ScoreFields = {
+    headLength: quote.search.length,
+    authorTarget: normalizeText(
+      [quote.author, quote.author_english, quote.poet, quote.poet_english].filter(Boolean).join(" "),
+    ),
+    titleTarget: normalizeText([quote.title, quote.category, ...quote.tags].filter(Boolean).join(" ")),
+  };
+  Object.defineProperty(quote, SCORE_FIELDS, { value: fields, enumerable: false, configurable: true });
+  return fields;
+}
+
 // --- نرمال‌سازی اشعار کلاسیک ---
 const poetry: NormalizedQuote[] = (poetryRaw as any[]).map((q, i) => {
   const text_persian = String(q.text_persian ?? "");
   const tags: string[] = Array.isArray(q.tags) ? q.tags : [];
-  return {
+  const quote: NormalizedQuote = {
     id: `p-${q.id ?? i + 1}`,
     kind: "poetry",
     text_persian,
@@ -211,8 +326,16 @@ const poetry: NormalizedQuote[] = (poetryRaw as any[]).map((q, i) => {
     source: q.source,
     category: q.category,
     tags,
-    search: buildSearch(text_persian, q.text_english, q.poet, q.poet_english, q.category, ...tags),
+    search: "",
   };
+  attachScoreFields(
+    quote,
+    [text_persian, q.text_english],
+    [q.poet, q.poet_english, q.category, ...tags],
+    [q.poet, q.poet_english],
+    [q.category, ...tags],
+  );
+  return quote;
 });
 
 // --- نرمال‌سازی غزل‌های حافظ ---
@@ -221,7 +344,7 @@ const hafez: NormalizedQuote[] = (hafezRaw as any[]).map((g) => {
   const text_persian = verses
     .map((v) => (Array.isArray(v) ? v.join(" / ") : String(v)))
     .join("\n");
-  return {
+  const quote: NormalizedQuote = {
     id: `h-${g.id}`,
     kind: "hafez",
     text_persian,
@@ -230,9 +353,17 @@ const hafez: NormalizedQuote[] = (hafezRaw as any[]).map((g) => {
     source: "دیوان حافظ",
     category: "غزل",
     tags: ["حافظ", "غزل"],
-    // شامل املای رایج اشتباه «هافظ» برای جستجوی بهتر
-    search: buildSearch(text_persian, "حافظ", "هافظ", "غزل", "دیوان حافظ"),
+    search: "",
   };
+  // شامل املای رایج اشتباه «هافظ» برای جستجوی بهتر
+  attachScoreFields(
+    quote,
+    [text_persian],
+    ["حافظ", "هافظ", "غزل", "دیوان حافظ"],
+    ["حافظ", "Hafez"],
+    [quote.category, ...quote.tags],
+  );
+  return quote;
 });
 
 // --- نرمال‌سازی جملات غیرشعری (با حذف تکراری و ورودی‌های ناقص) ---
@@ -257,7 +388,7 @@ for (const q of nonPoetryRaw as any[]) {
   }
   seenBodies.add(key);
   const tags: string[] = Array.isArray(q.tags) ? q.tags : [];
-  nonPoetry.push({
+  const quote: NormalizedQuote = {
     id: `np-${q.id}`,
     kind: "non-poetry",
     text_persian: body.trim(),
@@ -266,35 +397,101 @@ for (const q of nonPoetryRaw as any[]) {
     source: q.source,
     category: q.category,
     tags,
-    search: buildSearch(body, author, q.author_english, q.source, q.category, ...tags),
-  });
+    search: "",
+  };
+  attachScoreFields(
+    quote,
+    [body],
+    [author, q.author_english, q.source, q.category, ...tags],
+    [author, q.author_english],
+    [q.category, ...tags],
+  );
+  nonPoetry.push(quote);
 }
 
-// --- نرمال‌سازی شعر نو (شعرنو) ---
+// --- نرمال‌سازی شعر نو ---
+//
+// متن شعر نو در زمان بارگذاری فقط کپی می‌شود؛ تحلیل نوشتاری و ساخت سطرها
+// در زمان نمایش و به‌صورت تنبل (lazy) انجام می‌گیرد تا راه‌اندازی سرویس سریع بماند.
+// هر شعر سه شکل دارد:
+//   raw        : متن دست‌نخوردهٔ منبع
+//   separators : متن با شکست خط‌های واقعی (ستاره و فاصلهٔ دوگانه)
+//   reconstructed : سطرهای بازسازی‌شده برای متنی که هیچ نشانه‌ای ندارد
 const shereno: NormalizedQuote[] = [];
+const sherenoSources = new WeakMap<NormalizedQuote, PoemSource>();
+const layoutCache = new WeakMap<NormalizedQuote, Map<LineMode, PoemLayout>>();
 
 for (const q of sherenoRaw as any[]) {
   const rawPoem = typeof q.poem === "string" ? q.poem.trim() : "";
   const poet = typeof q.poet === "string" ? q.poet.trim() : "";
   if (!rawPoem) continue;
-  // حذف ستاره‌های جداکننده ابیات/بندها و تبدیل به سطر جدید
-  const poem = rawPoem
-    .replace(/[\s\*]*\*+[\s\*]*/g, "\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
+
+  const title = typeof q.title === "string" ? q.title.trim() : "";
+  const book = typeof q.book === "string" ? q.book.trim() : "";
   const tags = ["شعر نو", poet].filter(Boolean) as string[];
-  shereno.push({
+  const quote: NormalizedQuote = {
     id: `sn-${q.id}`,
     kind: "shereno",
-    text_persian: poem,
+    text_persian: rawPoem,
     poet,
     poet_english: SHERENO_POET_EN[poet],
-    title: q.title,
-    book: q.book,
-    source: q.book,
+    title,
+    book,
+    source: book,
     tags,
-    search: buildSearch(poem, poet, q.title, q.book),
-  });
+    search: "",
+  };
+  attachScoreFields(quote, [rawPoem], [poet, title, book], [poet], [title, ...tags]);
+  shereno.push(quote);
+}
+
+/**
+ * چیدمان سطری یک شعر با حالت درخواستی مصرف‌کننده.
+ * تحلیل متن و ساخت سطرها یک بار برای هر آیتم و هر حالت انجام و نگه داشته می‌شود.
+ */
+function layoutFor(quote: NormalizedQuote, mode: LineMode): PoemLayout | null {
+  if (quote.kind !== "shereno") return null;
+
+  let perItem = layoutCache.get(quote);
+  if (!perItem) {
+    perItem = new Map();
+    layoutCache.set(quote, perItem);
+  }
+  const cached = perItem.get(mode);
+  if (cached) return cached;
+
+  let source = sherenoSources.get(quote);
+  if (!source) {
+    source = analyzePoem(quote.text_persian);
+    sherenoSources.set(quote, source);
+  }
+
+  // حالت پیش‌فرض فقط وقتی بازسازی می‌کند که منبع هیچ نشانه‌ای نداشته باشد.
+  const effectiveMode: LineMode = mode === "auto" && source.hasBreaks ? "separators" : mode;
+  const layout = layoutAnalyzedPoem(source, effectiveMode);
+  perItem.set(mode, layout);
+  return layout;
+}
+
+/**
+ * تبدیل آیتم داخلی مخزن به شکل قابل انتشار در پاسخ API.
+ * فیلدهای داخلی (رشتهٔ جستجو) حذف می‌شوند و متن شعر با شکست خط مناسب حالت
+ * درخواستی برگردانده می‌شود. برای شعر نو، منبع سطرها در line_origin اعلام می‌شود.
+ */
+export function presentQuote(quote: NormalizedQuote, mode: LineMode = "auto"): Record<string, any> {
+  const layout = layoutFor(quote, mode);
+  const rest: Record<string, unknown> = { ...quote };
+  delete rest.search;
+  return {
+    ...rest,
+    text_persian: layout ? layout.text : quote.text_persian,
+    line_origin: layout ? layout.origin : undefined,
+    line_count: layout ? layout.lineCount : undefined,
+  };
+}
+
+export function presentQuotes(quotes: NormalizedQuote[], mode: LineMode = "auto"): Record<string, any>[] {
+  return quotes.map((quote) => presentQuote(quote, mode));
 }
 
 function buildPoetIndex(items: NormalizedQuote[]): Map<string, NormalizedQuote[]> {
@@ -328,9 +525,8 @@ function levenshtein(a: string, b: string): number {
   return previous[b.length];
 }
 
-function poetScore(needle: string, candidate: string): number {
-  const query = normalizeText(needle);
-  const value = normalizeText(candidate);
+// ورودی‌ها از پیش نرمال شده‌اند؛ این تابع بدون نرمال‌سازی دوباره کار می‌کند.
+function scoreNormalized(query: string, value: string): number {
   if (!query || !value) return 0;
   if (query === value) return 1;
   if (canonicalPoetName(query) === canonicalPoetName(value)) return 0.99;
@@ -339,10 +535,15 @@ function poetScore(needle: string, candidate: string): number {
   return 1 - levenshtein(query, value) / Math.max(query.length, value.length);
 }
 
+function poetScore(needle: string, candidate: string): number {
+  return scoreNormalized(normalizeText(needle), normalizeText(candidate));
+}
+
 function matchPoet(q: NormalizedQuote, needle: string): boolean {
   const query = normalizeText(needle);
   const candidates = [q.poet, q.poet_english].filter((value): value is string => Boolean(value));
-  const score = Math.max(...candidates.map((candidate) => poetScore(query, candidate)));
+  if (candidates.length === 0) return false;
+  const score = Math.max(...candidates.map((candidate) => scoreNormalized(query, normalizeText(candidate))));
   return score >= (query.length < 4 ? 0.9 : 0.72);
 }
 
@@ -372,15 +573,67 @@ function sherenoForPoet(needle: string): NormalizedQuote[] {
 
 const all: NormalizedQuote[] = [...poetry, ...nonPoetry, ...hafez, ...shereno];
 
-// نمونه‌گیری تصادفی درست (Fisher–Yates) به جای مرتب‌سازی ناقص Math.random()-0.5
-export function randomSample<T>(arr: T[], limit: number): T[] {
-  const pool = arr.slice();
-  const n = Math.min(limit, pool.length);
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
+// ---------------------------------------------------------------------------
+// نمایهٔ نویسندگان برای تطبیق فازی
+// تطبیق تقریبی نام شاعر روی نام‌های یکتا انجام می‌شود، نه روی هر آیتم.
+// ---------------------------------------------------------------------------
+
+interface AuthorGroup {
+  target: string;
+  indices: number[];
+}
+
+let authorGroups: AuthorGroup[] | null = null;
+
+function getAuthorGroups(): AuthorGroup[] {
+  if (authorGroups) return authorGroups;
+  const groups = new Map<string, AuthorGroup>();
+  for (let i = 0; i < all.length; i++) {
+    const target = scoreFieldsOf(all[i]).authorTarget;
+    const group = groups.get(target);
+    if (group) group.indices.push(i);
+    else groups.set(target, { target, indices: [i] });
   }
-  return pool.slice(0, n);
+  authorGroups = [...groups.values()];
+  return authorGroups;
+}
+
+const fuzzyCache = new Map<string, Set<number>>();
+
+// مجموعهٔ اندیس آیتم‌هایی که نام شاعرشان به‌طور تقریبی با واژهٔ پرس‌وجو می‌خواند.
+function fuzzyAuthorMatches(term: string): Set<number> {
+  const cached = fuzzyCache.get(term);
+  if (cached) return cached;
+
+  const matched = new Set<number>();
+  if (term.length >= 3) {
+    const threshold = term.length < 4 ? 0.9 : 0.75;
+    for (const group of getAuthorGroups()) {
+      if (group.target && scoreNormalized(term, group.target) >= threshold) {
+        for (const index of group.indices) matched.add(index);
+      }
+    }
+  }
+  if (fuzzyCache.size > 512) fuzzyCache.clear();
+  fuzzyCache.set(term, matched);
+  return matched;
+}
+
+// ---------------------------------------------------------------------------
+// صفحات و نمونه‌گیری
+// ---------------------------------------------------------------------------
+
+// نمونه‌گیری تصادفی بدون کپی کل آرایه (الگوریتم مخزن)
+export function randomSample<T>(arr: T[], limit: number): T[] {
+  const n = Math.min(limit, arr.length);
+  if (n <= 0) return [];
+  if (arr.length <= n) return arr.slice();
+  const reservoir = arr.slice(0, n);
+  for (let i = n; i < arr.length; i++) {
+    const j = Math.floor(Math.random() * (i + 1));
+    if (j < n) reservoir[j] = arr[i];
+  }
+  return reservoir;
 }
 
 export function paginate<T>(arr: T[], page: number, limit: number): ListResult<T> {
@@ -461,8 +714,11 @@ export function getNonPoetry(sp: URLSearchParams): ListResult<NormalizedQuote> {
   const data = author !== null
     ? nonPoetry.filter((quote) => {
         const needle = normalizeText(decodeNeedle(author));
-        return Boolean(quote.author && poetScore(needle, quote.author) >= (needle.length < 4 ? 0.9 : 0.72)) ||
-          Boolean(quote.author_english && poetScore(needle, quote.author_english) >= 0.72);
+        const fields = scoreFieldsOf(quote);
+        return (
+          scoreNormalized(needle, fields.authorTarget) >= (needle.length < 4 ? 0.9 : 0.72) ||
+          (quote.author_english ? poetScore(needle, quote.author_english) >= 0.72 : false)
+        );
       })
     : nonPoetry;
   return resolve(data, parseOptions(sp));
@@ -518,38 +774,45 @@ export function searchQuotes(sp: URLSearchParams): ListResult<NormalizedQuote> {
 
   // تفکیک پرس‌وجو به کلمات مستقل برای جستجوی چندکلمه‌ای
   const terms = q.split(/\s+/).filter(Boolean);
+  // تطبیق فازی فقط برای واژه‌هایی لازم است که ممکن است در متن نباشند.
+  const fuzzySets = terms.map((term) => (term.length >= 3 ? null : new Set<number>()));
 
-  // جستجوی دقیق چندکلمه‌ای و امتیازدهی به نتایج
   const scoredItems: Array<{ quote: NormalizedQuote; score: number }> = [];
 
-  for (const item of all) {
+  for (let index = 0; index < all.length; index++) {
+    const item = all[index];
+    const fields = scoreFieldsOf(item);
     let score = 0;
-    const authorTarget = normalizeText([item.author, item.author_english, item.poet, item.poet_english].filter(Boolean).join(" "));
-    const titleTarget = normalizeText([item.title, item.category, ...item.tags].filter(Boolean).join(" "));
-    const textTarget = normalizeText(item.text_persian + " " + (item.text_english || ""));
-
-    // تطبیق تمام واژه‌ها
     let allMatched = true;
-    for (const term of terms) {
-      if (item.search.includes(term)) {
-        // امتیازدهی بر اساس اهمیت بخش
-        if (authorTarget.includes(term)) {
+
+    for (let t = 0; t < terms.length; t++) {
+      const term = terms[t];
+      const at = item.search.indexOf(term);
+      if (at !== -1) {
+        // امتیازدهی بر اساس بخشی که واژه در آن دیده شده است
+        if (fields.authorTarget.includes(term)) {
           score += 15;
-        } else if (titleTarget.includes(term)) {
+        } else if (fields.titleTarget.includes(term)) {
           score += 8;
-        } else if (textTarget.includes(term)) {
+        } else if (at + term.length <= fields.headLength) {
           score += 3;
         } else {
           score += 1;
         }
+        continue;
+      }
+
+      // واژه در رشتهٔ جستجو نبود؛ فقط نام شاعر به‌صورت تقریبی بررسی می‌شود
+      let fuzzy = fuzzySets[t];
+      if (!fuzzy) {
+        fuzzy = fuzzyAuthorMatches(term);
+        fuzzySets[t] = fuzzy;
+      }
+      if (fuzzy.has(index)) {
+        score += 10;
       } else {
-        // اگر کلمه مستقیماً نبود، تطبیق فازی با شاعر بررسی می‌شود
-        if (authorTarget && poetScore(term, authorTarget) >= (term.length < 4 ? 0.9 : 0.75)) {
-          score += 10;
-        } else {
-          allMatched = false;
-          break;
-        }
+        allMatched = false;
+        break;
       }
     }
 
@@ -569,16 +832,27 @@ export function searchQuotes(sp: URLSearchParams): ListResult<NormalizedQuote> {
   return resolve(filtered, opts);
 }
 
+let poetsCache: { data: any[]; count: number } | null = null;
+
 export function getPoets(): { data: any[]; count: number } {
+  if (poetsCache) return poetsCache;
+
   const counts = new Map<string, number>();
+  const displayNames = new Map<string, string>();
   for (const q of [...poetry, ...hafez, ...shereno]) {
     const key = q.poet ? canonicalPoetName(q.poet) : "نامشخص";
     counts.set(key, (counts.get(key) || 0) + 1);
+    if (!displayNames.has(key) && q.poet) displayNames.set(key, q.poet);
+  }
+
+  const bioByEnglish = new Map<string, { english: string; bioFa: string; bioEn: string; birth?: number; death?: number }>();
+  for (const candidate of Object.values(POET_BIOS)) {
+    bioByEnglish.set(normalizeText(candidate.english), candidate);
   }
 
   const data = [...counts.entries()].map(([name, quote_count], i) => {
-    const displayName = [...poetry, ...hafez, ...shereno].find((quote) => quote.poet && canonicalPoetName(quote.poet) === name)?.poet ?? name;
-    const bio = POET_BIOS[name] ?? POET_BIOS[displayName] ?? Object.values(POET_BIOS).find((candidate) => normalizeText(candidate.english) === name);
+    const displayName = displayNames.get(name) ?? name;
+    const bio = POET_BIOS[name] ?? POET_BIOS[displayName] ?? bioByEnglish.get(name);
     return {
       id: i + 1,
       name_persian: displayName,
@@ -591,10 +865,16 @@ export function getPoets(): { data: any[]; count: number } {
       quote_count,
     };
   });
-  return { data, count: data.length };
+
+  poetsCache = { data, count: data.length };
+  return poetsCache;
 }
 
+let categoriesCache: { data: any[]; count: number } | null = null;
+
 export function getCategories(): { data: any[]; count: number } {
+  if (categoriesCache) return categoriesCache;
+
   const counts = new Map<string, number>();
   for (const q of poetry) {
     if (q.category) counts.set(q.category, (counts.get(q.category) || 0) + 1);
@@ -607,7 +887,9 @@ export function getCategories(): { data: any[]; count: number } {
     description_english: `Poems about ${name}`,
     quote_count,
   }));
-  return { data, count: data.length };
+
+  categoriesCache = { data, count: data.length };
+  return categoriesCache;
 }
 
 export function getStats(): Stats {

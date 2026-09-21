@@ -353,7 +353,7 @@ function PersianQuote() {
 
   return (
     <div className="quote-card">
-      <blockquote>{quote.text_persian}</blockquote>
+      <blockquote style={{ whiteSpace: 'pre-line' }}>{quote.text_persian}</blockquote>
       <cite>— {quote.poet}</cite>
     </div>
   );
@@ -371,7 +371,7 @@ function PersianQuote() {
                     <pre className="p-4 text-sm overflow-x-auto ltr:text-left" dir="ltr">
                       <code className="language-vue">{`<template>
   <div v-if="quote" class="quote-card">
-    <blockquote>{{ quote.text_persian }}</blockquote>
+    <blockquote style="white-space: pre-line">{{ quote.text_persian }}</blockquote>
     <cite>— {{ quote.poet }}</cite>
   </div>
   <div v-else>در حال بارگذاری...</div>
@@ -411,7 +411,10 @@ export default {
     
     if (data.success && data.data.length > 0) {
       const quote = data.data[0];
-      document.getElementById('quote-text').textContent = quote.text_persian;
+      const text = document.getElementById('quote-text');
+      // سطرهای شعر با \n جدا شده‌اند؛ برای نمایش درست، فاصلهٔ سفید را حفظ کنید
+      text.style.whiteSpace = 'pre-line';
+      text.textContent = quote.text_persian;
       document.getElementById('quote-poet').textContent = '— ' + quote.poet;
     }
   } catch (error) {

@@ -1,14 +1,22 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { dataset, getQuotesForPoet, type NormalizedQuote } from "@/lib/data/store"
+import { dataset, getQuotesForPoet, presentQuote, type NormalizedQuote } from "@/lib/data/store"
 import { formatVerse } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
 
-// کوتاه کردن متن شعر در مرز کلمه (بدون برش وسط کلمه)
-function trimPoem(text: string, maxChars: number): string {
-  if (text.length <= maxChars) return text;
-  const cut = text.lastIndexOf(" ", maxChars);
-  return (cut > 0 ? text.slice(0, cut) : text.slice(0, maxChars)) + "…";
+// کوتاه کردن متن شعر در مرز سطر و کلمه (بدون برش وسط کلمه)
+function trimPoem(text: string, maxLines: number, maxChars: number): string {
+  const lines = text.split("\n").filter((line) => line.trim().length > 0);
+  if (lines.length <= maxLines && text.length <= maxChars) return text;
+
+  const kept: string[] = [];
+  let used = 0;
+  for (const line of lines) {
+    if (kept.length >= maxLines || used + line.length > maxChars) break;
+    kept.push(line);
+    used += line.length + 1;
+  }
+  return kept.join("\n") + "…";
 }
 
 export async function GET(request: NextRequest) {
@@ -51,10 +59,14 @@ export async function GET(request: NextRequest) {
 
   const raw = allQuotes[Math.floor(Math.random() * allQuotes.length)]
 
-  // برای شعر نو: متن بلند را در مرز کلمه کوتاه می‌کنیم
+  // متن از لایهٔ نمایش می‌آید تا شکست خط‌های شعر نو حفظ شود.
+  const presented = presentQuote(raw, "auto")
+  const presentedText = String(presented.text_persian ?? "")
+
+  // برای شعر نو: متن بلند را در مرز سطر و کلمه کوتاه می‌کنیم
   const displayText = raw.kind === "shereno"
-    ? trimPoem(raw.text_persian, 200)
-    : raw.text_persian
+    ? trimPoem(presentedText, 6, 220)
+    : presentedText
 
   const quote = {
     text_persian: displayText,

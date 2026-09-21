@@ -102,7 +102,7 @@ print(r.json()["data"][0]["text_persian"])
 \`\`\`json
 {
   "id": 1,
-  "text_persian": "متن فارسی شعر",
+  "text_persian": "سطر اول\\nسطر دوم",
   "text_english": "English translation",
   "poet": "نام شاعر به فارسی",
   "poet_english": "Poet name in English",
@@ -111,6 +111,8 @@ print(r.json()["data"][0]["text_persian"])
   "tags": ["تگ۱", "تگ۲"]
 }
 \`\`\`
+
+متن شعر سطر‌بندی‌شده است و سطرها با نویسهٔ خط جدید از هم جدا شده‌اند. در شعر نو، فیلد line_origin منبع سطرها را اعلام می‌کند: separators نشانه‌های موجود در منبع، reconstructed سطرهای بازسازی‌شده، flat متن تک‌سطری و raw متن خام. پارامتر lines در اندپوینت‌های نقل‌قول مقدار auto، separators یا raw می‌پذیرد.
 
 ### ساختار غزل حافظ
 
