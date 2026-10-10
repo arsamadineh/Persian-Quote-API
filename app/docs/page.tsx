@@ -1712,6 +1712,7 @@ bun run start`}
                 <p className="text-xs md:text-[13px] text-muted-foreground leading-relaxed">
                   فایل‌های JSON در <InlineCode>lib/data/</InlineCode> منبع حقیقتی هستند. برای افزودن شعر جدید،
                   یا فایل JSON را ویرایش کنید، یا از فرم /contribute استفاده کنید تا یک PR خودکار ساخته شود.
+                  با زیاد شدن حجم متن‌ها، بهتر است این داده‌ها به SQLite یا مخزن دیگری منتقل شوند که حجم زیاد را تحمل کند.
                 </p>
               </Card>
             </section>

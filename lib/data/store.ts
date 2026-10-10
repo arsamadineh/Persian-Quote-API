@@ -257,16 +257,22 @@ for (const q of nonPoetryRaw as any[]) {
   }
   seenBodies.add(key);
   const tags: string[] = Array.isArray(q.tags) ? q.tags : [];
+  const textEnglish = typeof q.body_english === "string" && q.body_english.trim()
+    ? q.body_english.trim()
+    : typeof q.text_english === "string"
+      ? q.text_english.trim()
+      : undefined;
   nonPoetry.push({
     id: `np-${q.id}`,
     kind: "non-poetry",
     text_persian: body.trim(),
+    text_english: textEnglish,
     author,
     author_english: q.author_english,
     source: q.source,
     category: q.category,
     tags,
-    search: buildSearch(body, author, q.author_english, q.source, q.category, ...tags),
+    search: buildSearch(body, textEnglish, author, q.author_english, q.source, q.category, ...tags),
   });
 }
 

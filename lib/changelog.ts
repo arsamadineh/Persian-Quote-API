@@ -25,6 +25,25 @@ export const CHANGE_TYPES: Record<ChangeType, { label: string; order: number }> 
 
 export const CHANGELOG: ChangelogVersion[] = [
   {
+    version: "۳.۷.۰",
+    isoDate: "2026-09-30",
+    date: "۸ مهر ۱۴۰۵",
+    changes: [
+      {
+        type: "added",
+        description: "۸۹۷۲ جمله منثور از آثار حوزه عمومی، با متن فارسی و انگلیسی و نام اثر، به سخنان غیرشعری افزوده شد.",
+      },
+      {
+        type: "changed",
+        description: "پاسخ سخنان غیرشعری اکنون متن انگلیسی جمله را هم برمی‌گرداند.",
+      },
+      {
+        type: "added",
+        description: "در توضیحات داده نوشته شد که با افزایش حجم متن‌ها، انتقال از فایل JSON به SQLite یا مخزنی که حجم زیاد را تحمل کند بهتر است.",
+      },
+    ],
+  },
+  {
     version: "۳.۶.۱",
     isoDate: "2026-09-04",
     date: "۱۴ شهریور ۱۴۰۵",
