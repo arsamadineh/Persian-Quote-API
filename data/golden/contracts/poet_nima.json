@@ -1,0 +1,21 @@
+{
+  "slug": "poet_nima",
+  "requestPath": "/api/quotes/%D9%86%DB%8C%D9%85%D8%A7%20%DB%8C%D9%88%D8%B4%DB%8C%D8%AC?limit=3",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [],
+    "count": 0,
+    "total": 0,
+    "page": 1,
+    "limit": 3,
+    "line_mode": "auto",
+    "poet": "%D9%86%DB%8C%D9%85%D8%A7%20%DB%8C%D9%88%D8%B4%DB%8C%D8%AC"
+  },
+  "recordedAt": "2026-10-16T02:05:25.825Z"
+}

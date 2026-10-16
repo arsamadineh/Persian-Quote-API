@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@persian-quote/persian": ["../persian/src/index.ts"],
+      "@persian-quote/schema": ["../schema/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "tests/**/*"]
+}

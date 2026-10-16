@@ -1,0 +1,57 @@
+{
+  "slug": "categories_catalog",
+  "requestPath": "/api/categories",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [
+      {
+        "id": 1,
+        "name_persian": "عشق",
+        "name_english": null,
+        "description_persian": "اشعار در مورد عشق",
+        "description_english": "Poems about عشق",
+        "quote_count": 2
+      },
+      {
+        "id": 2,
+        "name_persian": "عرفان",
+        "name_english": null,
+        "description_persian": "اشعار در مورد عرفان",
+        "description_english": "Poems about عرفان",
+        "quote_count": 2
+      },
+      {
+        "id": 3,
+        "name_persian": "محبت",
+        "name_english": null,
+        "description_persian": "اشعار در مورد محبت",
+        "description_english": "Poems about محبت",
+        "quote_count": 1
+      },
+      {
+        "id": 4,
+        "name_persian": "طبیعت",
+        "name_english": null,
+        "description_persian": "اشعار در مورد طبیعت",
+        "description_english": "Poems about طبیعت",
+        "quote_count": 1
+      },
+      {
+        "id": 5,
+        "name_persian": "اخلاق",
+        "name_english": null,
+        "description_persian": "اشعار در مورد اخلاق",
+        "description_english": "Poems about اخلاق",
+        "quote_count": 1
+      }
+    ],
+    "count": 5
+  },
+  "recordedAt": "2026-10-16T02:05:25.896Z"
+}

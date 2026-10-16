@@ -1,8 +1,8 @@
 # Project Progress & State Log
 
 **Project**: Persian Quote API Complete Rebuild (`pq.arsamadineh.ir`)  
-**Current Phase**: Milestone M2 (Phase 2: Data Pipeline) Complete -> Entering M3  
-**Last Updated**: 2026-10-16T21:15:00Z  
+**Current Phase**: Milestone M3 (Phase 3: Tigh v1 Engine, Storage Build, API v1) Complete -> Entering M4  
+**Last Updated**: 2026-10-17T00:00:00Z  
 **Branch**: `rebuild/v1`  
 
 ---
@@ -14,8 +14,8 @@
 | **M0** | Phase 0: Recon & Safety Net | **COMPLETE** | 2026-10-16 | `docs/reports/phase-0.md`, `docs/audit/00-recon.md` |
 | **M1** | Phase 1: Foundations (Monorepo, Schema, Persian NLP) | **COMPLETE** | 2026-10-16 | `docs/reports/phase-1.md` |
 | **M2** | Phase 2: Data Pipeline, Poem Structure, Rights Audit | **COMPLETE** | 2026-10-16 | `docs/reports/phase-2.md`, `docs/evidence/phase-2/` |
-| **M3** | Phase 3: Tigh v1 Engine, Storage Build, API v1 | NEXT | — | — |
-| **M4** | Phase 4: Hybrid Search Engine & Evaluation | PLANNED | — | — |
+| **M3** | Phase 3: Tigh v1 Engine, Storage Build, API v1 | **COMPLETE** | 2026-10-17 | `docs/reports/phase-3.md`, `docs/adr/0004-tigh-v1-engine.md` |
+| **M4** | Phase 4: Hybrid Search Engine & Evaluation | NEXT | — | — |
 | **M5** | Phase 5: Delivery, Edge Caching, Multi-Origin | PLANNED | — | — |
 | **M6** | Phase 6: Experience, Web Component, SDKs, MCP | PLANNED | — | — |
 | **M7** | Phase 7: Academic Hardening, Governance, Final Audit | PLANNED | — | — |
@@ -126,8 +126,8 @@ All metrics measured on Linux x86_64, Bun 1.4.3:
 - **ADR-0001**: Canonical JSONL storage with stable hierarchical IDs and `legacy_index` disambiguation (`docs/adr/0001-canonical-jsonl-stable-ids.md`).
 - **ADR-0002**: Structure signals (`□■`), digits-only filtering, 2-digit year mapping, NFC (`docs/adr/0002-structure-signals-colophon.md`).
 - **ADR-0003**: Partial beyt allowlist for three Hafez fragments (`docs/adr/0003-partial-beyt-allowlist.md`).
-- **ADR-0001 (Planned)**: Data storage format and retrieval strategy benchmark (SQLite FTS5 vs JSON shards vs DuckDB).
-- **ADR-0002 (Planned)**: Production hosting infrastructure evaluation (Cloudflare Workers vs Vercel Serverless vs Standalone VPS).
+- **ADR-0001 (Superseded)**: Data storage format benchmark — resolved by ADR-0001 canonical JSONL.
+- **ADR-0002 (Superseded)**: Production hosting evaluation — resolved by ADR-0004 engine + WS9 planned.
 
 ---
 
@@ -143,6 +143,26 @@ All metrics measured on Linux x86_64, Bun 1.4.3:
 
 ---
 
+## 6. Phase 3 Detailed Checklist
+
+- [x] Scaffolded `packages/core` (`@persian-quote/core`) with zero runtime dependencies
+- [x] Implemented `TighRadixRouter` — compiled radix trie per method, `[param]`/`*` support, mid-segment split handling
+- [x] Implemented `PrebuiltCache` — S3-FIFO + W-TinyLFU admission, `Uint8Array` fragments, single-flight coalescing
+- [x] Implemented `TighGcraRateLimiter` — GCRA with IETF `RateLimit`/`RateLimit-Policy` + legacy `X-RateLimit-*`
+- [x] Implemented `TighCircuitBreaker` — closed/open/half-open, `CircuitOpenError`, `Retry-After`
+- [x] Implemented `DDSketch` + `TighMetrics` — bounded P50–P99 telemetry
+- [x] Implemented `TighEngine.fetch(Request): Promise<Response>` Web-standard boundary
+- [x] Implemented canonical JSONL storage (`loadCanonicalStore`, `poemOfTheDay`, `falHafez`)
+- [x] Registered all 13 `/v1` routes + legacy `/api/**` handlers in `createAppEngine`
+- [x] Wired Next.js `app/v1/**/route.ts` adapters delegating to `createNextHandler(engine)`
+- [x] Added `@persian-quote/core` to `transpilePackages` and tsconfig path aliases
+- [x] Wrote `packages/core/test/engine.test.ts` (24 tests): all /v1 endpoints, legacy compat, cache HIT, rate headers, OPTIONS/HEAD, 404
+- [x] Verified `bun test` 240 pass, `bun x tsc --noEmit` 0 errors
+- [x] Wrote `docs/reports/phase-3.md` and ADR-0004
+- [x] Updated `lib/changelog.ts` to `۳.۱۱.۰`
+
+---
+
 ## 7. Owner Questions & Blockers
 
-- Currently zero blocking questions. Phase 2 is complete. Ready to proceed to Phase 3 (Tigh v1 Engine, Storage Build, API v1).
+- Currently zero blocking questions. Phase 3 is complete. Ready to proceed to Phase 4 (Hybrid Search Engine & Evaluation).

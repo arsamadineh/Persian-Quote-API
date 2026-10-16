@@ -1,0 +1,15 @@
+{
+  "name": "@persian-quote/web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@persian-quote/schema": "workspace:*",
+    "@persian-quote/persian": "workspace:*"
+  }
+}

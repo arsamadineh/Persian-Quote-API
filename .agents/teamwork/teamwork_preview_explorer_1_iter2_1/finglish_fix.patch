@@ -1,0 +1,77 @@
+--- a/packages/persian/src/finglish.ts
++++ b/packages/persian/src/finglish.ts
+@@ -1,4 +1,4 @@
+-const POET_DICTIONARY: Record<string, string[]> = {
++const POET_DICTIONARY: Record<string, string[]> = Object.assign(Object.create(null), {
+   hafez: ['حافظ'],
+   hafiz: ['حافظ'],
+   saadi: ['سعدی'],
+@@ -28,9 +28,9 @@
+   sayeh: ['سایه'],
+   simin: ['سیمین'],
+   behbahani: ['بهبهانی'],
+-};
++});
+ 
+-const COMMON_WORDS: Record<string, string> = {
++const COMMON_WORDS: Record<string, string> = Object.assign(Object.create(null), {
+   eshgh: 'عشق',
+   eshq: 'عشق',
+   shab: 'شب',
+@@ -52,7 +52,7 @@
+   khanom: 'خانم',
+   zendegi: 'زندگی',
+   bahar: 'بهار',
+-};
++});
+ 
+ const DIGRAPHS: Array<[string, string]> = [
+   ['kh', 'خ'],
+@@ -69,19 +69,23 @@
+   ['ck', 'ک'],
+ ];
+ 
+-const SINGLE_MAP: Record<string, string> = {
++const SINGLE_MAP: Record<string, string> = Object.assign(Object.create(null), {
+   b: 'ب', p: 'پ', t: 'ت', s: 'س', j: 'ج', c: 'ک',
+   h: 'ه', d: 'د', r: 'ر', z: 'ز', f: 'ف', k: 'ک',
+   g: 'گ', l: 'ل', m: 'م', n: 'ن', v: 'و', w: 'و',
+   y: 'ی', q: 'ق', x: 'کس',
+-};
++});
++
++function hasOwn<T extends object>(obj: T, prop: string): boolean {
++  return Object.prototype.hasOwnProperty.call(obj, prop);
++}
+ 
+ export function transliterateWord(word: string): string {
+   const lower = word.toLowerCase();
+-  if (POET_DICTIONARY[lower]) {
++  if (hasOwn(POET_DICTIONARY, lower)) {
+     return POET_DICTIONARY[lower]![0]!;
+   }
+-  if (COMMON_WORDS[lower]) {
++  if (hasOwn(COMMON_WORDS, lower)) {
+     return COMMON_WORDS[lower]!;
+   }
+ 
+@@ -111,8 +115,8 @@
+       result += (i === 0) ? 'او' : 'و';
+     } else if (char === 'i') {
+       result += (i === 0) ? 'ای' : 'ی';
+-    } else if (SINGLE_MAP[char]) {
+-      result += SINGLE_MAP[char];
++    } else if (hasOwn(SINGLE_MAP, char)) {
++      result += SINGLE_MAP[char]!;
+     } else {
+       result += char;
+     }
+@@ -138,7 +142,7 @@
+     return [trimmed];
+   }
+ 
+-  if (POET_DICTIONARY[normalized]) {
++  if (hasOwn(POET_DICTIONARY, normalized)) {
+     return [...POET_DICTIONARY[normalized]!];
+   }
+ 

@@ -1,0 +1,17 @@
+--- packages/persian/src/cleaner.ts	2026-10-16 07:06:03.080496158 +0330
++++ .agents/teamwork/teamwork_preview_explorer_1_iter2_3/proposed_cleaner.ts	2026-10-16 07:45:30.345141475 +0330
+@@ -23,3 +23,14 @@
+     throw new Error(`Persian typography violation: Directional marks found in "${text}"`);
+   }
+ }
++
++/**
++ * Computes the canonical letter fingerprint of a Persian string per Rule R4.
++ * Strips whitespace, ZWNJ, structural delimiters (*, /), Tatweel (U+0640),
++ * and invisible directional/control characters (\u200e, \u200f, \u200b, \ufeff, \u202a-\u202e)
++ * to verify that no letters or words were added, removed, or altered during restructuring.
++ */
++export function letterFingerprint(s: string): string {
++  if (!s) return '';
++  return s.replace(/[\s\u200c\u200e\u200f\u200b\ufeff\u202a-\u202e\u0640*\/]+/g, '');
++}

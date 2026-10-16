@@ -1,0 +1,73 @@
+{
+  "snapshotTimestamp": "2026-10-16T02:00:00Z",
+  "files": [
+    {
+      "filename": "hafez.json",
+      "path": "data/legacy/hafez.json",
+      "sizeBytes": 694755,
+      "lineCount": 20221,
+      "recordCount": 497,
+      "sha256": "d1bba4d76fc191150da6114cabd6b6eb94338ea08ce61e31b72fba1510064572",
+      "keys": [
+        "id",
+        "title",
+        "poet",
+        "verses"
+      ]
+    },
+    {
+      "filename": "non-poetry-quotes.json",
+      "path": "data/legacy/non-poetry-quotes.json",
+      "sizeBytes": 214737,
+      "lineCount": 2472,
+      "recordCount": 494,
+      "sha256": "e8649722cec2a8cc3dbb9da035989643973d5922e406e6b7f3e60fd3a746dd25",
+      "keys": [
+        "id",
+        "body",
+        "author"
+      ],
+      "activeStoreCount": 492,
+      "droppedRecords": 2
+    },
+    {
+      "filename": "poetry-quotes.json",
+      "path": "data/legacy/poetry-quotes.json",
+      "sizeBytes": 3110,
+      "lineCount": 73,
+      "recordCount": 7,
+      "sha256": "90e007c504cf94f18bb153a79416ac9fd8cb0db492ad3d437d62b0e72083c7f9",
+      "keys": [
+        "id",
+        "text_persian",
+        "text_english",
+        "poet",
+        "poet_english",
+        "source",
+        "category",
+        "tags"
+      ]
+    },
+    {
+      "filename": "shereno.json",
+      "path": "data/legacy/shereno.json",
+      "sizeBytes": 5981895,
+      "lineCount": 1,
+      "recordCount": 4400,
+      "sha256": "fe0818cd5ea807c39e131bdca3780828bee3da7827b3eed8a185d512f4ce606b",
+      "keys": [
+        "id",
+        "poem",
+        "poet",
+        "title",
+        "book"
+      ]
+    }
+  ],
+  "totals": {
+    "fileCount": 4,
+    "totalSizeBytes": 6894497,
+    "totalRawRecords": 5398,
+    "totalActiveRecords": 5396
+  }
+}

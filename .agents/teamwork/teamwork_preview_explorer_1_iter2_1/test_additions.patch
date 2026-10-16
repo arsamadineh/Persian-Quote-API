@@ -1,0 +1,67 @@
+--- a/packages/persian/test/finglish.test.ts
++++ b/packages/persian/test/finglish.test.ts
+@@ -32,3 +32,38 @@
+   });
++
++  it('handles Object.prototype property names safely without throwing or returning undefined', () => {
++    const prototypeKeys = [
++      '__proto__',
++      'constructor',
++      'toString',
++      'valueOf',
++      'hasOwnProperty',
++      'isPrototypeOf',
++      'propertyIsEnumerable',
++      'toLocaleString',
++    ];
++
++    for (const key of prototypeKeys) {
++      // finglishQuery must not throw
++      expect(() => finglishQuery(key)).not.toThrow();
++      const q = finglishQuery(key);
++      expect(Array.isArray(q)).toBe(true);
++      expect(q.length).toBeGreaterThan(0);
++      expect(typeof q[0]).toBe('string');
++      expect(q[0]).not.toBe('[object Object]');
++      expect(q[0]).not.toBe('undefined');
++
++      // transliterateFinglish must not throw
++      expect(() => transliterateFinglish(key)).not.toThrow();
++      const t = transliterateFinglish(key);
++      expect(typeof t).toBe('string');
++      expect(t.length).toBeGreaterThan(0);
++    }
++  });
++
++  it('correctly transliterates prototype property names phonetically', () => {
++    expect(finglishQuery('__proto__')).toEqual(['__پروتو__']);
++    expect(finglishQuery('constructor')[0]).toContain('ک');
++  });
+ });
+--- a/packages/persian/test/property.test.ts
++++ b/packages/persian/test/property.test.ts
+@@ -130,3 +130,23 @@
+   });
++
++  it('Property 8b: Prototype and Magic Key Crash Resistance', () => {
++    fc.assert(
++      fc.property(
++        fc.constantFrom(
++          '__proto__',
++          'constructor',
++          'prototype',
++          'toString',
++          'valueOf',
++          'hasOwnProperty',
++          'isPrototypeOf',
++          'propertyIsEnumerable',
++          'toLocaleString'
++        ),
++        (s) => {
++          finglishQuery(s);
++          return true;
++        }
++      ),
++      { numRuns: 100 }
++    );
++  });

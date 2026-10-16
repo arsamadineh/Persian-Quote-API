@@ -19,9 +19,24 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@persian-quote/schema": ["./packages/schema/src/index.ts"],
+      "@persian-quote/schema/*": ["./packages/schema/src/*"],
+      "@persian-quote/persian": ["./packages/persian/src/index.ts"],
+      "@persian-quote/persian/*": ["./packages/persian/src/*"],
+      "@persian-quote/poem": ["./packages/poem/src/index.ts"],
+      "@persian-quote/poem/*": ["./packages/poem/src/*"],
+      "@persian-quote/core": ["./packages/core/src/index.ts"],
+      "@persian-quote/core/*": ["./packages/core/src/*"],
+      "@/*": ["./*", "./apps/web/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "packages/**/*.ts",
+    "apps/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

@@ -134,6 +134,10 @@ export class Tigh {
     return this.route({ method: 'DELETE', path, handler, ...options });
   }
 
+  options(path: string, handler: EngineRoute['handler'], options?: Partial<EngineRoute>): Tigh {
+    return this.route({ method: 'OPTIONS', path, handler, ...options });
+  }
+
   private createCacheMiddleware(definition: EngineRoute): MiddlewareFn {
     return async (req: Request, next: NextFn) => {
       const cacheKey = definition.cache?.key
@@ -177,6 +181,19 @@ export class Tigh {
           body: { error: 'Too Many Requests', message: 'Rate limit exceeded' },
         };
       }
+    }
+
+    // پاسخ مستقیم به درخواست‌های پیش‌پرواز OPTIONS پیش از جستجوی مسیر
+    if (method === 'OPTIONS') {
+      const response = await this.middleware.execute(req, async () => ({
+        status: 204,
+        headers: {},
+        body: null,
+      }));
+      if (this.config.enableMetrics) {
+        this.metrics.recordRequest(method, path, response.status, performance.now() - requestStarted);
+      }
+      return response;
     }
 
     const match = this.router.match(method, path);

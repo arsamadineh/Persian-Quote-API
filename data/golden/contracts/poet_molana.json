@@ -1,0 +1,52 @@
+{
+  "slug": "poet_molana",
+  "requestPath": "/api/quotes/%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7?limit=3",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [
+      {
+        "id": "p-1",
+        "kind": "poetry",
+        "text_persian": "عاشقان مرده‌اند در عشق زنده / تا ابد در دل جانان پاینده",
+        "text_english": "Lovers are dead in love, yet alive / Forever enduring in the beloved's heart",
+        "poet": "مولانا جلال‌الدین رومی",
+        "poet_english": "Rumi",
+        "source": "دیوان شمس",
+        "category": "عشق",
+        "tags": [
+          "عشق",
+          "زندگی",
+          "معنویت"
+        ]
+      },
+      {
+        "id": "p-6",
+        "kind": "poetry",
+        "text_persian": "خوشا آن روز که از خود بروم / وز سر عشق به جان آن شوم",
+        "text_english": "Blessed is the day I leave myself behind / And become the soul of that beloved through love",
+        "poet": "مولانا جلال‌الدین رومی",
+        "poet_english": "Rumi",
+        "source": "مثنوی معنوی",
+        "category": "عرفان",
+        "tags": [
+          "عرفان",
+          "عشق",
+          "فنا"
+        ]
+      }
+    ],
+    "count": 2,
+    "total": 2,
+    "page": 1,
+    "limit": 3,
+    "line_mode": "auto",
+    "poet": "%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7"
+  },
+  "recordedAt": "2026-10-16T02:05:25.799Z"
+}

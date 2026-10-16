@@ -1,0 +1,43 @@
+{
+  "slug": "stats",
+  "requestPath": "/api/stats",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "no-store",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": {
+      "poetry": 7,
+      "hafez": 497,
+      "nonPoetry": 492,
+      "nonPoetryRaw": 494,
+      "nonPoetryDropped": 2,
+      "shereno": 4400,
+      "total": 5396
+    },
+    "engine": {
+      "name": "تیغ",
+      "version": "0.0.1-beta",
+      "cache": {
+        "size": 26,
+        "hitRate": 0,
+        "hits": 0,
+        "misses": 26
+      },
+      "requests": 27,
+      "uptimeMs": 5046,
+      "instanceId": "mvabsb5b-kjnghtxx",
+      "collectionScope": "process-instance"
+    },
+    "dataIntegrity": {
+      "nonPoetryRaw": 494,
+      "nonPoetryClean": 492,
+      "nonPoetryDropped": 2,
+      "status": "تمیزسازی خودکار اعمال شد"
+    }
+  },
+  "recordedAt": "2026-10-16T02:05:25.937Z"
+}

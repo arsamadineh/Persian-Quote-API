@@ -1,0 +1,36 @@
+{
+  "slug": "health",
+  "requestPath": "/api/health",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "no-store",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": {
+      "status": "ok",
+      "engine": "تیغ/0.0.1-beta",
+      "instanceId": "mvabsb5b-kjnghtxx",
+      "collectionScope": "process-instance",
+      "uptimeMs": 5073,
+      "datasets": {
+        "poetry": 7,
+        "hafez": 497,
+        "nonPoetry": 492,
+        "shereno": 4400,
+        "total": 5396
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 26,
+        "hitRate": 0,
+        "size": 26,
+        "memoryBytes": 188766
+      },
+      "timestamp": 1792116325953
+    }
+  },
+  "recordedAt": "2026-10-16T02:05:25.959Z"
+}

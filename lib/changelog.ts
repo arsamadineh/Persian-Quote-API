@@ -25,6 +25,37 @@ export const CHANGE_TYPES: Record<ChangeType, { label: string; order: number }> 
 
 export const CHANGELOG: ChangelogVersion[] = [
   {
+    version: "۳.۱۱.۰",
+    isoDate: "2026-10-17",
+    date: "۲۵ مهر ۱۴۰۵",
+    changes: [
+      {
+        type: "added",
+        description: "موتور تیغ نسخه یک (Tigh v1) با روتر رדیکس و کش پاسخ‌های前に‌ساخته‌شده بدون وابستگی خارجی اجرا شد.",
+      },
+      {
+        type: "added",
+        description: "کیش پیش‌ساختهٔ تکه‌های باینری (Uint8Array) با الگوریتم S3-FIFO و فیلتر ورودی W-TinyLFU و تجمیع درخواست‌های تک‌باره پیاده شد.",
+      },
+      {
+        type: "added",
+        description: "محدودکننده نرخ بر پایه الگوریتم GCRA با سرآیندهای استاندارد IETF (RateLimit، RateLimit-Policy) و legado X-RateLimit-* اجرا شد.",
+      },
+      {
+        type: "added",
+        description: "مدار شکن (circuit breaker) و متریک DDSketch bounded برای درصدک P50 تا P99 بدون رشد نامحدود حافظه افزوده شد.",
+      },
+      {
+        type: "added",
+        description: "اندپوینت‌های_API v1 (۱۳ مسیر) و مسیرهای قدیمی (/api) بر روی موتور تیغ اجرا شده و سازگاری قبلی حفظ شد.",
+      },
+      {
+        type: "added",
+        description: "مدارهای تبدیل-next، کلود فلور، 번 و n-جی‌اس برای اجرای یکسان موتور در محیط‌های مختلف.",
+      },
+    ],
+  },
+  {
     version: "۳.۱۰.۰",
     isoDate: "2026-10-16",
     date: "۲۵ مهر ۱۴۰۵",
@@ -39,7 +70,7 @@ export const CHANGELOG: ChangelogVersion[] = [
       },
       {
         type: "added",
-        description: "ابزار سنجش دقت مرز مصرع و بند با گزارش امتیاز اف‌وان و وضعیت نمونه‌های پذیرش به مخزن اضافه شد.",
+        description: "ابزار سنجش دقت مرز مصرع و بند با گزارش امتیاز اف‌وان و وضعیت نمونه‌های پذیرش به مخزن افزوده شد.",
       },
       {
         type: "added",
@@ -78,7 +109,7 @@ export const CHANGELOG: ChangelogVersion[] = [
       {
         type: "added",
         description:
-          "مجموعه آزمون‌های مبتنی بر ویژگی برای اثبات پایایی و عدم شکست توابع پردازش متن به مخزن اضافه شد.",
+          "مجموعه آزمون‌های مبتنی بر ویژگی برای اثبات پایایی و عدم شکست توابع پردازش متن به مخزن افزوده شد.",
       },
     ],
   },
@@ -100,7 +131,7 @@ export const CHANGELOG: ChangelogVersion[] = [
       {
         type: "added",
         description:
-          "ارزیابی انطباق ساختار ۴۱۸۵ بیت دیوان حافظ با قاعده دو مصرع برای هر بیت در مجموعه آزمون‌های پذیرش اضافه شد.",
+          "ارزیابی انطباق ساختار ۴۱۸۵ بیت دیوان حافظ با قاعده دو مصرع برای هر بیت در مجموعه آزمون‌های پذیرش افزوده شد.",
       },
     ],
   },
@@ -410,7 +441,7 @@ export const CHANGELOG: ChangelogVersion[] = [
       },
       {
         type: "added",
-        description: "بنر SVG اصلی پروژه، تصویر Open Graph، و تصویر Twitter Card برای نمایش بهینه در شبکه‌های اجتماعی اضافه شد.",
+        description: "بنر SVG اصلی پروژه، تصویر Open Graph، و تصویر Twitter Card برای نمایش بهینه در شبکه‌های اجتماعی افزوده شد.",
       },
       {
         type: "changed",
@@ -418,7 +449,7 @@ export const CHANGELOG: ChangelogVersion[] = [
       },
       {
         type: "added",
-        description: "تگ‌های Open Graph و Twitter Card در layout.tsx برای نمایش تصویر هنگام اشتراک‌گذاری لینک در شبکه‌های اجتماعی اضافه شد.",
+        description: "تگ‌های Open Graph و Twitter Card در layout.tsx برای نمایش تصویر هنگام اشتراک‌گذاری لینک در شبکه‌های اجتماعی افزوده شد.",
       },
     ],
   },

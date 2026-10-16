@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: [
+    "@persian-quote/schema",
+    "@persian-quote/persian",
+    "@persian-quote/poem",
+    "@persian-quote/core",
+  ],
   eslint: {
     ignoreDuringBuilds: true,
   },
