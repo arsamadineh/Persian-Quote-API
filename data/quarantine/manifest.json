@@ -1,0 +1,48 @@
+{
+  "audit_date": "2026-10-16",
+  "quarantined_records_count": 4,
+  "reasons": [
+    {
+      "code": "empty_hemistich_filtered",
+      "count": 3
+    },
+    {
+      "code": "missing_author_attributed_to_unknown",
+      "count": 1
+    }
+  ],
+  "records": [
+    {
+      "legacy_source": "hafez",
+      "legacy_id": 3,
+      "legacy_index": 2,
+      "reason_code": "empty_hemistich_filtered",
+      "detail": "filtered 1 empty hemistich(s); kept 1/1 couplets",
+      "raw_excerpt": "[\"که بر نظم تو افشاند فلک عقد ثريا را\",\"\"]"
+    },
+    {
+      "legacy_source": "hafez",
+      "legacy_id": 139,
+      "legacy_index": 138,
+      "reason_code": "empty_hemistich_filtered",
+      "detail": "filtered 1 empty hemistich(s); kept 1/1 couplets",
+      "raw_excerpt": "[\"که شنيد اين ره دلسوز که فرياد نکرد\",\"\"]"
+    },
+    {
+      "legacy_source": "hafez",
+      "legacy_id": 260,
+      "legacy_index": 259,
+      "reason_code": "empty_hemistich_filtered",
+      "detail": "filtered 1 empty hemistich(s); kept 1/1 couplets",
+      "raw_excerpt": "[\"در آن مقام که حافظ برآورد آواز\",\"\"]"
+    },
+    {
+      "legacy_source": "non-poetry-quotes",
+      "legacy_id": 487,
+      "legacy_index": 486,
+      "reason_code": "missing_author_attributed_to_unknown",
+      "detail": "empty author; attributed to نامشخص/general",
+      "raw_excerpt": "ولی چه کسی می توانست درمانگر نیچه باشد؟ پس از جستجوی فراوان در تاریخ، روشن شد که در سال 1882، یعنی فقط 120 سال پیش، چنین مخلوقی روی زمین نبوده است. اگر نیچه برای کمک به طبیبی روی می آورد، به او می گفت"
+    }
+  ]
+}

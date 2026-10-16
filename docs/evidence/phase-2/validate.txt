@@ -1,0 +1,18 @@
+$ bun pipeline/validate-data.ts
+Validating canonical data (WS1)...
+- works: 5398
+- poets: 45
+- collections: 59
+- id-map: 5398
+
+Invariant summary:
+- empty lines: 0
+- whitespace edges: 0
+- punct-only: 0
+- slash leaks: 0
+- couplet violations: 0
+- colophon leaks: 0
+- fingerprint mismatches: 0
+- warnings: 0
+
+DATA VALIDATION PASSED: 5398 works, 45 poets, 59 collections.

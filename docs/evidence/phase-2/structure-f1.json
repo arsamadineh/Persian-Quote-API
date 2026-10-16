@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-10-16T17:43:51.224Z",
+  "corpus": {
+    "works_evaluated": 5398,
+    "round_trip_sample": 995
+  },
+  "line_boundary": {
+    "precision": 1,
+    "recall": 1,
+    "f1": 1,
+    "tp": 24377,
+    "fp": 0,
+    "fn": 0
+  },
+  "stanza_boundary": {
+    "precision": 1,
+    "recall": 1,
+    "f1": 1,
+    "tp": 4839,
+    "fp": 0,
+    "fn": 0
+  },
+  "fingerprint_preservation_rate": 1,
+  "appendix_a": {
+    "A1_colophon_place": "تنکابن",
+    "A1_colophon_date_raw": "12/2/1364",
+    "A1_pass": true,
+    "A1_excerpt_words": 21,
+    "A2_cleaned": "همواره، در امتداد شب، سکوت جاری بود.",
+    "A2_pass": true,
+    "A3_whitespace_violations": 0,
+    "A3_punct_only_violations": 0,
+    "A3_slash_violations": 0,
+    "A3_classical_beyts_ok": 4184,
+    "A3_classical_beyts_total": 4184,
+    "A3_pass": true
+  }
+}
