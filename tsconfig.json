@@ -27,6 +27,8 @@
       "@persian-quote/poem/*": ["./packages/poem/src/*"],
       "@persian-quote/core": ["./packages/core/src/index.ts"],
       "@persian-quote/core/*": ["./packages/core/src/*"],
+      "@persian-quote/search": ["./packages/search/src/index.ts"],
+      "@persian-quote/search/*": ["./packages/search/src/*"],
       "@/*": ["./*", "./apps/web/*"]
     }
   },

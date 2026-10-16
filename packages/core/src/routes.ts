@@ -1,4 +1,5 @@
 import { loadCanonicalStore, poemOfTheDay, falHafez } from './storage';
+export { searchHandler } from './search-index';
 import {
   jsonBody,
   textBody,

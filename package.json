@@ -16,7 +16,8 @@
     "typecheck": "tsc --noEmit",
     "build:data": "bun pipeline/migrate-legacy.ts",
     "data:validate": "bun pipeline/validate-data.ts",
-    "eval:structure": "bun pipeline/eval-structure.ts"
+    "eval:structure": "bun pipeline/eval-structure.ts",
+    "eval:search": "bun pipeline/eval-search.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -78,6 +79,8 @@
     "@persian-quote/persian": "workspace:*",
     "@persian-quote/poem": "workspace:*",
     "@persian-quote/schema": "workspace:*",
+    "@persian-quote/core": "workspace:*",
+    "@persian-quote/search": "workspace:*",
     "@tailwindcss/postcss": "^4.1.9",
     "@types/bun": "^1.4.0",
     "@types/node": "^22",

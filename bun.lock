@@ -61,9 +61,11 @@
         "zod": "3.25.67",
       },
       "devDependencies": {
+        "@persian-quote/core": "workspace:*",
         "@persian-quote/persian": "workspace:*",
         "@persian-quote/poem": "workspace:*",
         "@persian-quote/schema": "workspace:*",
+        "@persian-quote/search": "workspace:*",
         "@tailwindcss/postcss": "^4.1.9",
         "@types/bun": "^1.4.0",
         "@types/node": "^22",
@@ -83,6 +85,16 @@
       "dependencies": {
         "@persian-quote/persian": "workspace:*",
         "@persian-quote/schema": "workspace:*",
+      },
+    },
+    "packages/core": {
+      "name": "@persian-quote/core",
+      "devDependencies": {
+        "@persian-quote/persian": "workspace:*",
+        "@persian-quote/poem": "workspace:*",
+        "@persian-quote/schema": "workspace:*",
+        "@types/bun": "^1.4.0",
+        "typescript": "^5",
       },
     },
     "packages/persian": {
@@ -118,6 +130,16 @@
       "devDependencies": {
         "@types/bun": "^1.4.0",
         "@types/node": "^22",
+        "typescript": "^5",
+      },
+    },
+    "packages/search": {
+      "name": "@persian-quote/search",
+      "devDependencies": {
+        "@persian-quote/core": "workspace:*",
+        "@persian-quote/persian": "workspace:*",
+        "@persian-quote/schema": "workspace:*",
+        "@types/bun": "^1.4.0",
         "typescript": "^5",
       },
     },
@@ -215,11 +237,15 @@
 
     "@next/swc-win32-x64-msvc": ["@next/swc-win32-x64-msvc@15.2.5", "", { "os": "win32", "cpu": "x64" }, "sha512-tBDNVUcI7U03+3oMvJ11zrtVin5p0NctiuKmTGyaTIEAVj9Q77xukLXGXRnWxKRIIdFG4OTA2rUVGZDYOwgmAA=="],
 
+    "@persian-quote/core": ["@persian-quote/core@workspace:packages/core"],
+
     "@persian-quote/persian": ["@persian-quote/persian@workspace:packages/persian"],
 
     "@persian-quote/poem": ["@persian-quote/poem@workspace:packages/poem"],
 
     "@persian-quote/schema": ["@persian-quote/schema@workspace:packages/schema"],
+
+    "@persian-quote/search": ["@persian-quote/search@workspace:packages/search"],
 
     "@persian-quote/web": ["@persian-quote/web@workspace:apps/web"],
 

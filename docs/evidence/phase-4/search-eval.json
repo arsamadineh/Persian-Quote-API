@@ -1,0 +1,909 @@
+{
+  "generated_at": "2026-10-16T22:43:39.699Z",
+  "corpus_works": 5398,
+  "queries_evaluated": 150,
+  "nDCG10": 0.9575,
+  "MRR10": 0.01,
+  "per_query": [
+    {
+      "query": "عشق",
+      "ndcg10": 0,
+      "mrr": 0,
+      "total": 1419
+    },
+    {
+      "query": "حافظ",
+      "ndcg10": 0,
+      "mrr": 0,
+      "total": 551
+    },
+    {
+      "query": "سعدی",
+      "ndcg10": 1,
+      "mrr": 1,
+      "total": 13
+    },
+    {
+      "query": "رومی",
+      "ndcg10": 0.6309,
+      "mrr": 0.5,
+      "total": 4
+    },
+    {
+      "query": "natural",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 0
+    },
+    {
+      "query": "سبز",
+      "ndcg10": 0,
+      "mrr": 0,
+      "total": 652
+    },
+    {
+      "query": "آب",
+      "ndcg10": 0,
+      "mrr": 0,
+      "total": 913
+    },
+    {
+      "query": "باران",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 613
+    },
+    {
+      "query": "\\u0628هار",
+      "ndcg10": 0,
+      "mrr": 0,
+      "total": 0
+    },
+    {
+      "query": "\\u063aزال",
+      "ndcg10": 0,
+      "mrr": 0,
+      "total": 0
+    },
+    {
+      "query": "\\u062fوست",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 0
+    },
+    {
+      "query": "\\u062fونيا",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 0
+    },
+    {
+      "query": "\\u0632ندهی",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 0
+    },
+    {
+      "query": "\\u0647نوز",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 0
+    },
+    {
+      "query": "\\u0632یده",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 0
+    },
+    {
+      "query": "غزل",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 713
+    },
+    {
+      "query": "۱۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 10
+    },
+    {
+      "query": "۱۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۱۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۱۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 9
+    },
+    {
+      "query": "۱۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۱۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۱۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۱۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 6
+    },
+    {
+      "query": "۱۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۱۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۲۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 8
+    },
+    {
+      "query": "۲۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 6
+    },
+    {
+      "query": "۲۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 6
+    },
+    {
+      "query": "۲۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 6
+    },
+    {
+      "query": "۲۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 5
+    },
+    {
+      "query": "۲۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 6
+    },
+    {
+      "query": "۲۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 5
+    },
+    {
+      "query": "۲۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 6
+    },
+    {
+      "query": "۲۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۲۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۳۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 7
+    },
+    {
+      "query": "۳۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 6
+    },
+    {
+      "query": "۳۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 5
+    },
+    {
+      "query": "۳۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۳۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۳۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 5
+    },
+    {
+      "query": "۳۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۳۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۳۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۳۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۴۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۴۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۴۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۴۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۴۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۴۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۴۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۴۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۴۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۴۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۵۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۵۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۵۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۵۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 5
+    },
+    {
+      "query": "۵۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۵۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۵۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۵۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۵۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۵۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۶۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 5
+    },
+    {
+      "query": "۶۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۶۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۶۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۶۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 6
+    },
+    {
+      "query": "۶۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 10
+    },
+    {
+      "query": "۶۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۶۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۶۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۶۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۷۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۷۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۷۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۷۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۷۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۷۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۷۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۷۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 5
+    },
+    {
+      "query": "۷۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۷۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۸۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 5
+    },
+    {
+      "query": "۸۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۸۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۸۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۸۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۸۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۸۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۸۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۸۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۸۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۹۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۹۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۱۰۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۰۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۱۰۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۱۰۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۱۰۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۱۰۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 4
+    },
+    {
+      "query": "۱۰۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۰۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۰۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۰۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۱۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۱۱۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۱۲۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۲۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۴",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۵",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 3
+    },
+    {
+      "query": "۱۳۶",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۷",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۸",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۳۹",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۴۰",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۴۱",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۴۲",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    },
+    {
+      "query": "۱۴۳",
+      "ndcg10": 1,
+      "mrr": 0,
+      "total": 2
+    }
+  ]
+}

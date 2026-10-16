@@ -25,13 +25,35 @@ export const CHANGE_TYPES: Record<ChangeType, { label: string; order: number }> 
 
 export const CHANGELOG: ChangelogVersion[] = [
   {
+    version: "۳.۱۲.۰",
+    isoDate: "2026-10-17",
+    date: "۲۵ مهر ۱۴۰۵",
+    changes: [
+      {
+        type: "added",
+        description:
+          "موتور جستجوی هیبردی فارسی با یکربعاد معکوس BM25F، تصحیح فازی SymSpell، تبدیل انگلیسی-فاری و یافتن قافیهٔ اشعار اجرا شد.",
+      },
+      {
+        type: "added",
+        description:
+          "اندپوینت‌های /v1/search، /v1/suggest و /v1/rhymes به موتور تیغ اضافه شدند و فیلتر شاعر، مجموعه، وزن، تگ و صفحه‌بندی پشتیبانی می‌شوند.",
+      },
+      {
+        type: "added",
+        description:
+          "ارزیابی جستجوی ۱۵۰ پرس‌وجو با nDCG@10 و MRR@10 در docs/evidence/phase-4/search-eval.json ثبت شد.",
+      },
+    ],
+  },
+  {
     version: "۳.۱۱.۰",
     isoDate: "2026-10-17",
     date: "۲۵ مهر ۱۴۰۵",
     changes: [
       {
         type: "added",
-        description: "موتور تیغ نسخه یک (Tigh v1) با روتر رדیکس و کش پاسخ‌های前に‌ساخته‌شده بدون وابستگی خارجی اجرا شد.",
+        description: "موتور تیغ نسخه یک (Tigh v1) با روتر رادیکس و کش پاسخ‌های قبلاً ساخته‌شده و بدون وابستگی خارجی اجرا شد.",
       },
       {
         type: "added",

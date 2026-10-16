@@ -1,7 +1,7 @@
 # Project Progress & State Log
 
 **Project**: Persian Quote API Complete Rebuild (`pq.arsamadineh.ir`)  
-**Current Phase**: Milestone M3 (Phase 3: Tigh v1 Engine, Storage Build, API v1) Complete -> Entering M4  
+**Current Phase**: Milestone M4 (Phase 4: Hybrid Search Engine & Evaluation) Complete -> Entering M5  
 **Last Updated**: 2026-10-17T00:00:00Z  
 **Branch**: `rebuild/v1`  
 
@@ -15,8 +15,8 @@
 | **M1** | Phase 1: Foundations (Monorepo, Schema, Persian NLP) | **COMPLETE** | 2026-10-16 | `docs/reports/phase-1.md` |
 | **M2** | Phase 2: Data Pipeline, Poem Structure, Rights Audit | **COMPLETE** | 2026-10-16 | `docs/reports/phase-2.md`, `docs/evidence/phase-2/` |
 | **M3** | Phase 3: Tigh v1 Engine, Storage Build, API v1 | **COMPLETE** | 2026-10-17 | `docs/reports/phase-3.md`, `docs/adr/0004-tigh-v1-engine.md` |
-| **M4** | Phase 4: Hybrid Search Engine & Evaluation | NEXT | — | — |
-| **M5** | Phase 5: Delivery, Edge Caching, Multi-Origin | PLANNED | — | — |
+| **M4** | Phase 4: Hybrid Search Engine & Evaluation | **COMPLETE** | 2026-10-17 | `docs/reports/phase-4.md`, `docs/evidence/phase-4/search-eval.json` |
+| **M5** | Phase 5: Delivery, Edge Caching, Multi-Origin | NEXT | — | — |
 | **M6** | Phase 6: Experience, Web Component, SDKs, MCP | PLANNED | — | — |
 | **M7** | Phase 7: Academic Hardening, Governance, Final Audit | PLANNED | — | — |
 | **E2E** | Independent E2E Testing Track | ACTIVE | 2026-10-16 | `TEST_INFRA.md` (86 tests passing) |
@@ -163,6 +163,24 @@ All metrics measured on Linux x86_64, Bun 1.4.3:
 
 ---
 
-## 7. Owner Questions & Blockers
+## 7. Phase 4 Detailed Checklist
 
-- Currently zero blocking questions. Phase 3 is complete. Ready to proceed to Phase 4 (Hybrid Search Engine & Evaluation).
+- [x] Scaffolded `packages/search` (`@persian-quote/search`) with zero runtime dependencies
+- [x] Implemented `InvertedIndex` — BM25F across weighted fields (poet 4.0, title 3.0, tags 2.0, text 1.0)
+- [x] Implemented `SearchEngine` — BM25F ranking, document filters, fuzzy fallback, autocomplete
+- [x] Implemented `SymSpellCorrector` — edit distance 1/2 with Persian confusion weights
+- [x] Implemented `transliterateFinglish` — dictionary + digraph phonetic (`eshgh` → `عشق`)
+- [x] Implemented `RhymeFinder` + `extractQafiyeh` — qafiyeh-based word/verse lookup
+- [x] Registered `GET /v1/search`, `GET /v1/suggest`, `GET /v1/rhymes`
+- [x] Added `@persian-quote/search` to root devDependencies, transpilePackages, tsconfig aliases
+- [x] Wrote `packages/search/test/search.test.ts` (11 tests)
+- [x] Created `pipeline/eval-search.ts` — 150 queries, nDCG@10 0.9575, MRR@10 measured (`docs/evidence/phase-4/search-eval.json`, `eval.log`)
+- [x] Verified `bun test` 251 pass, `bun x tsc --noEmit` 0 errors
+- [x] Wrote `docs/reports/phase-4.md` and ADR-0005
+- [x] Updated `lib/changelog.ts` to `۳.۱۲.۰`
+
+---
+
+## 8. Owner Questions & Blockers
+
+- Currently zero blocking questions. Phase 4 is complete. Ready to proceed to Phase 5 (Delivery, Edge Caching, Multi-Origin).

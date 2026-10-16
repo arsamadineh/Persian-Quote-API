@@ -1,4 +1,4 @@
-import { TighEngine } from './server';
+import { TighEngine, jsonBody } from './server';
 import type { EngineConfig } from './types';
 import {
   healthHandler,
@@ -17,6 +17,7 @@ import {
   tagsHandler,
   suggestHandler,
   rhymesHandler,
+  searchHandler,
   legacyQuotesHandler,
   legacyHafezHandler,
   legacyStatsHandler,
@@ -48,6 +49,7 @@ export function createAppEngine(config?: Partial<EngineConfig>): TighEngine {
   engine.get('/v1/meters', metersHandler, { cache: { ttl: 86400000 } });
   engine.get('/v1/tags', tagsHandler, { cache: { ttl: 86400000 } });
   engine.get('/v1/suggest', suggestHandler, { cache: { ttl: 60000 } });
+  engine.get('/v1/search', (req) => jsonBody(searchHandler(req.query)), { cache: { ttl: 60000 } });
   engine.get('/v1/rhymes', rhymesHandler, { cache: { ttl: 60000 } });
 
   // ---- Legacy /api (backward compatibility, R6) ----

@@ -5,6 +5,7 @@ const nextConfig = {
     "@persian-quote/persian",
     "@persian-quote/poem",
     "@persian-quote/core",
+    "@persian-quote/search",
   ],
   eslint: {
     ignoreDuringBuilds: true,
