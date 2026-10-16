@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+title: "Persian Quote API (pq.arsamadineh.ir)"
+message: "If you use this software, please cite it as below."
+authors:
+  - given-names: "Arsam"
+    family-names: "Adamineh"
+    email: "arsam@arsamadineh.ir"
+title-short: "Persian Quote API"
+version: "۳.۱۳.۰"
+date-released: "2026-10-17"
+url: "https://pq.arsamadineh.ir"
+repository-code: "https://github.com/arsamadineh/Persian-Quote-API"
+repository-artifact: "https://github.com/arsamadineh/Persian-Quote-API"
+keywords:
+  - "Persian literature"
+  - "Persian poetry"
+  - "classical Persian"
+  - "Hafez"
+  - "Saadi"
+  "Ferdowsi"
+  - "Rumi"
+  - "Nima Yushij"
+  - "literary API"
+  - "digital humanities"
+license: MIT
+abstract: |
+  Persian Quote API is an open, academic-grade platform for Persian literature.
+  It provides a canonical corpus of more than 5,000 works (classical Divan-e
+  Hafez, modern poetry, aphorisms) with stable hierarchical identifiers,
+  poem-structure analysis (colophon, stanza/line splitting, letter-fingerprint
+  verification), a zero-dependency high-performance API engine (Tigh v1), hybrid
+  Persian-aware search (BM25F, SymSpell fuzzy, Finglish transliteration, qafiyeh
+  rhyme finding), and a programmable web component. Designed for researchers,
+  students, and developers working with Persian literary texts.
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.placeholder

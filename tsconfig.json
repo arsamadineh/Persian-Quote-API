@@ -27,9 +27,15 @@
       "@persian-quote/poem/*": ["./packages/poem/src/*"],
       "@persian-quote/core": ["./packages/core/src/index.ts"],
       "@persian-quote/core/*": ["./packages/core/src/*"],
+      "@persian-quote/sdk-ts": ["./packages/sdk-ts/src/index.ts"],
+      "@persian-quote/sdk-ts/*": ["./packages/sdk-ts/src/*"],
+      "@persian-quote/widget": ["./packages/widget/src/index.ts"],
+      "@persian-quote/widget/*": ["./packages/widget/src/*"],
+      "@persian-quote/mcp": ["./packages/mcp/src/index.ts"],
+      "@persian-quote/mcp/*": ["./packages/mcp/src/*"],
       "@persian-quote/search": ["./packages/search/src/index.ts"],
       "@persian-quote/search/*": ["./packages/search/src/*"],
-      "@/*": ["./*", "./apps/web/*"]
+      "@/*": ["./*", "./apps/web/*", "./app/*"]
     }
   },
   "include": [

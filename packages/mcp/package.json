@@ -1,0 +1,16 @@
+{
+  "name": "@persian-quote/mcp",
+  "version": "۱.۰.۰",
+  "private": true,
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "bun test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@persian-quote/core": "workspace:*",
+    "@types/bun": "^1.4.0",
+    "typescript": "^5"
+  }
+}

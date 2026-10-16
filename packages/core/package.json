@@ -4,7 +4,12 @@
   "private": true,
   "main": "src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./storage": "./src/storage.ts",
+    "./server": "./src/server.ts",
+    "./routes": "./src/routes.ts",
+    "./app": "./src/app.ts",
+    "./search-index": "./src/search-index.ts"
   },
   "type": "module",
   "scripts": {

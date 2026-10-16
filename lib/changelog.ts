@@ -25,6 +25,38 @@ export const CHANGE_TYPES: Record<ChangeType, { label: string; order: number }> 
 
 export const CHANGELOG: ChangelogVersion[] = [
   {
+    version: "۳.۱۴.۰",
+    isoDate: "2026-10-17",
+    date: "۲۵ مهر ۱۴۰۵",
+    changes: [
+      {
+        type: "added",
+        description:
+          "کامپوننت وب `<persian-quote>` با سایه DOM، متغیرهای CSS، و معنای دسترسی (blockquote lang=\"fa\" dir=\"rtl\") افزوده شد.",
+      },
+      {
+        type: "added",
+        description:
+          "SDK تایپ‌اسکریپت با خط‌.failover و دسترسی آفلاین، و سرور MCP (HTTP قابل جریانی و stdio) با ۸ ابزار اجرا شد.",
+      },
+      {
+        type: "added",
+        description:
+          "صفحات خواندن (/p/{id})، شاعر (/poets/{id})، و جستجو (/search) در برنامه وب اضافه شد.",
+      },
+      {
+        type: "added",
+        description:
+          "CITATION.cff، دیتاشیت، متدها، implied، و مستندات مشارکت، امنیت، و politika API اضافه شد.",
+      },
+      {
+        type: "added",
+        description:
+          "گزارش نهایی با شاخص‌های قبل/بعد، فهرست تکمیل، و راهنمای استقرار در docs/reports/FINAL.md ثبت شد.",
+      },
+    ],
+  },
+  {
     version: "۳.۱۳.۰",
     isoDate: "2026-10-17",
     date: "۲۵ مهر ۱۴۰۵",

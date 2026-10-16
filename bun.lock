@@ -62,10 +62,13 @@
       },
       "devDependencies": {
         "@persian-quote/core": "workspace:*",
+        "@persian-quote/mcp": "workspace:*",
         "@persian-quote/persian": "workspace:*",
         "@persian-quote/poem": "workspace:*",
         "@persian-quote/schema": "workspace:*",
+        "@persian-quote/sdk-ts": "workspace:*",
         "@persian-quote/search": "workspace:*",
+        "@persian-quote/widget": "workspace:*",
         "@tailwindcss/postcss": "^4.1.9",
         "@types/bun": "^1.4.0",
         "@types/node": "^22",
@@ -93,6 +96,14 @@
         "@persian-quote/persian": "workspace:*",
         "@persian-quote/poem": "workspace:*",
         "@persian-quote/schema": "workspace:*",
+        "@types/bun": "^1.4.0",
+        "typescript": "^5",
+      },
+    },
+    "packages/mcp": {
+      "name": "@persian-quote/mcp",
+      "devDependencies": {
+        "@persian-quote/core": "workspace:*",
         "@types/bun": "^1.4.0",
         "typescript": "^5",
       },
@@ -133,12 +144,29 @@
         "typescript": "^5",
       },
     },
+    "packages/sdk-ts": {
+      "name": "@persian-quote/sdk-ts",
+      "devDependencies": {
+        "@persian-quote/core": "workspace:*",
+        "@types/bun": "^1.4.0",
+        "typescript": "^5",
+      },
+    },
     "packages/search": {
       "name": "@persian-quote/search",
       "devDependencies": {
         "@persian-quote/core": "workspace:*",
         "@persian-quote/persian": "workspace:*",
         "@persian-quote/schema": "workspace:*",
+        "@types/bun": "^1.4.0",
+        "typescript": "^5",
+      },
+    },
+    "packages/widget": {
+      "name": "@persian-quote/widget",
+      "devDependencies": {
+        "@persian-quote/core": "workspace:*",
+        "@persian-quote/persian": "workspace:*",
         "@types/bun": "^1.4.0",
         "typescript": "^5",
       },
@@ -239,15 +267,21 @@
 
     "@persian-quote/core": ["@persian-quote/core@workspace:packages/core"],
 
+    "@persian-quote/mcp": ["@persian-quote/mcp@workspace:packages/mcp"],
+
     "@persian-quote/persian": ["@persian-quote/persian@workspace:packages/persian"],
 
     "@persian-quote/poem": ["@persian-quote/poem@workspace:packages/poem"],
 
     "@persian-quote/schema": ["@persian-quote/schema@workspace:packages/schema"],
 
+    "@persian-quote/sdk-ts": ["@persian-quote/sdk-ts@workspace:packages/sdk-ts"],
+
     "@persian-quote/search": ["@persian-quote/search@workspace:packages/search"],
 
     "@persian-quote/web": ["@persian-quote/web@workspace:apps/web"],
+
+    "@persian-quote/widget": ["@persian-quote/widget@workspace:packages/widget"],
 
     "@radix-ui/number": ["@radix-ui/number@1.1.0", "", {}, "sha512-V3gRzhVNU1ldS5XhAPTom1fOIo4ccrjjJgmE+LI2h/WaFpHmx0MQApT+KZHnx8abG6Avtfcz4WoEciMnpFT3HQ=="],
 

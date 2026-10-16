@@ -1,0 +1,18 @@
+{
+  "name": "@persian-quote/widget",
+  "version": "۱.۰.۰",
+  "private": true,
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "build:size": "cat src/index.ts | gzip -9 | wc -c"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@persian-quote/core": "workspace:*",
+    "@persian-quote/persian": "workspace:*",
+    "@types/bun": "^1.4.0",
+    "typescript": "^5"
+  }
+}
