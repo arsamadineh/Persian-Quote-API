@@ -25,6 +25,33 @@ export const CHANGE_TYPES: Record<ChangeType, { label: string; order: number }> 
 
 export const CHANGELOG: ChangelogVersion[] = [
   {
+    version: "۳.۱۳.۰",
+    isoDate: "2026-10-17",
+    date: "۲۵ مهر ۱۴۰۵",
+    changes: [
+      {
+        type: "added",
+        description:
+          "ساختار استORAGE و تحویل: Docker چندمرحله‌ای (Dockerfile)، docker-compose، و پیکربندی nginx با کش proxy و اعتبارسنجی ۳۰۴.",
+      },
+      {
+        type: "added",
+        description:
+          "ارزیابی میزبانی (ADR-0006): منبع اصلی سرور Bun VPS پشت شبکه توزیع محتوا، با فهرست چندمنبعی در /.well-known/pq-endpoints.json.",
+      },
+      {
+        type: "added",
+        description:
+          "سرآیندهای ETag و conditional revalidation و سرآیندهای محدودیت نرخ (RateLimit، X-RateLimit-*) در موتور تیغ اضافه شد.",
+      },
+      {
+        type: "added",
+        description:
+          "مستندات کِش CDN با نوشٹ‌هایshireیusk MISS، HIT، ۳۰۴ در docs/caching.md ثبت شد.",
+      },
+    ],
+  },
+  {
     version: "۳.۱۲.۰",
     isoDate: "2026-10-17",
     date: "۲۵ مهر ۱۴۰۵",

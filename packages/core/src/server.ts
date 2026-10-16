@@ -60,24 +60,37 @@ export function jsonBody(
 ): TighResponse {
   const body = typeof value === 'string' ? value : JSON.stringify(value);
   const bytes = new TextEncoder().encode(body);
+  const etag = `W/"${simpleHash(body)}"`;
   return {
     status,
     headers: {
       'content-type': 'application/json; charset=utf-8',
       'cache-control': 'private, max-age=0',
+      etag,
       ...extraHeaders,
     },
     body: bytes,
   };
 }
 
+/** Simple djb2 hash for ETag generation (deterministic, no dependencies). */
+function simpleHash(s: string): string {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h).toString(16);
+}
+
 export function textBody(value: string, status = 200): TighResponse {
   const bytes = new TextEncoder().encode(value);
+  const etag = `W/"${simpleHash(value)}"`;
   return {
     status,
     headers: {
       'content-type': 'text/plain; charset=utf-8',
       'cache-control': 'private, max-age=0',
+      etag,
     },
     body: bytes,
   };
@@ -360,6 +373,20 @@ export class TighEngine implements Engine {
         headers: { ...response.headers, 'cache-control': 'no-store' },
       };
     }
+
+    // Conditional revalidation: 304 Not Modified when If-None-Match matches.
+    const inm = req.headers['if-none-match'];
+    if (inm && inm === response.headers.etag) {
+      response = {
+        status: 304,
+        headers: {
+          etag: response.headers.etag,
+          'cache-control': response.headers['cache-control'] ?? 'private, max-age=0',
+        },
+        body: null,
+      };
+    }
+
     return { ...response, headers: { ...response.headers, ...rateHeaders } };
   }
 

@@ -1,7 +1,7 @@
 # Project Progress & State Log
 
 **Project**: Persian Quote API Complete Rebuild (`pq.arsamadineh.ir`)  
-**Current Phase**: Milestone M4 (Phase 4: Hybrid Search Engine & Evaluation) Complete -> Entering M5  
+**Current Phase**: Milestone M5 (Phase 5: Delivery, Edge Caching, Multi-Origin) Complete -> Entering M6  
 **Last Updated**: 2026-10-17T00:00:00Z  
 **Branch**: `rebuild/v1`  
 
@@ -16,8 +16,8 @@
 | **M2** | Phase 2: Data Pipeline, Poem Structure, Rights Audit | **COMPLETE** | 2026-10-16 | `docs/reports/phase-2.md`, `docs/evidence/phase-2/` |
 | **M3** | Phase 3: Tigh v1 Engine, Storage Build, API v1 | **COMPLETE** | 2026-10-17 | `docs/reports/phase-3.md`, `docs/adr/0004-tigh-v1-engine.md` |
 | **M4** | Phase 4: Hybrid Search Engine & Evaluation | **COMPLETE** | 2026-10-17 | `docs/reports/phase-4.md`, `docs/evidence/phase-4/search-eval.json` |
-| **M5** | Phase 5: Delivery, Edge Caching, Multi-Origin | NEXT | — | — |
-| **M6** | Phase 6: Experience, Web Component, SDKs, MCP | PLANNED | — | — |
+| **M5** | Phase 5: Delivery, Edge Caching, Multi-Origin | **COMPLETE** | 2026-10-17 | `docs/adr/0006-hosting-evaluation.md`, `docs/caching.md`, `Dockerfile`, `docker-compose.yml` |
+| **M6** | Phase 6: Experience, Web Component, SDKs, MCP | NEXT | — | — |
 | **M7** | Phase 7: Academic Hardening, Governance, Final Audit | PLANNED | — | — |
 | **E2E** | Independent E2E Testing Track | ACTIVE | 2026-10-16 | `TEST_INFRA.md` (86 tests passing) |
 
@@ -181,6 +181,20 @@ All metrics measured on Linux x86_64, Bun 1.4.3:
 
 ---
 
-## 8. Owner Questions & Blockers
+## 9. Phase 5 Detailed Checklist
 
-- Currently zero blocking questions. Phase 4 is complete. Ready to proceed to Phase 5 (Delivery, Edge Caching, Multi-Origin).
+- [x] ADR-0006: hosting evaluation (Cloudflare Workers vs Vercel vs Bun VPS) → Bun VPS + CDN
+- [x] Docker multi-stage build (`Dockerfile`) with build:data + data:validate + next build
+- [x] `docker-compose.yml` (app + nginx reverse proxy with cache zone)
+- [x] nginx caching config (`nginx.conf`): proxy_cache, ETag, 304, X-Cache
+- [x] `/.well-known/pq-endpoints.json` multi-origin fallback manifest
+- [x] `docs/caching.md` with measured MISS → HIT → 304 transcripts
+- [x] ETag generation + conditional revalidation (304) in Tigh engine
+- [x] Rate-limit headers (IETF `RateLimit`/`RateLimit-Policy` + legacy `X-RateLimit-*`)
+- [x] Verified `bun test` 251 pass, `bun x tsc --noEmit` 0 errors
+
+---
+
+## 10. Owner Questions & Blockers
+
+- Currently zero blocking questions. Phase 5 is complete. Ready to proceed to Phase 6 (Experience, Web Component, SDKs, MCP).
