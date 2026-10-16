@@ -25,6 +25,18 @@ export const CHANGE_TYPES: Record<ChangeType, { label: string; order: number }> 
 
 export const CHANGELOG: ChangelogVersion[] = [
   {
+    version: "۳.۷.۱",
+    isoDate: "2026-10-16",
+    date: "۲۵ مهر ۱۴۰۵",
+    changes: [
+      {
+        type: "added",
+        description:
+          "مستندات جامع معماری سیستم، چرخه حیات داده‌ها و موتور پردازش سطر شعر در فایل ARCHITECTURE.md ثبت شد.",
+      },
+    ],
+  },
+  {
     version: "۳.۷.۰",
     isoDate: "2026-09-21",
     date: "۳۰ شهریور ۱۴۰۵",
