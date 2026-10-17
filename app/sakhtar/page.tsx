@@ -58,41 +58,47 @@ interface BenchmarkData {
 }
 
 const MODULES = [
-  { name: "TighRouter", fa: "مسیریاب", Icon: Zap, desc: "پیاده‌سازی Trie برای مسیریابی. در بهترین حالت O(1) و بدون جستجوی خطی.", tags: ["O(1) lookup", "پارامتر داینامیک", "Wildcard"] },
-  { name: "TighCache", fa: "کش", Icon: Database, desc: "کش LRU با انقضای زمانی. ردیابی مصرف حافظه و پاکسازی خودکار.", tags: ["LRU", "TTL", "Invalidation"] },
-  { name: "TighRateLimiter", fa: "محدودساز", Icon: Shield, desc: "سه الگوریتم محدودسازی نرخ. ردیابی per-IP و حذف خودکار رکوردهای منقضی.", tags: ["Token Bucket", "Sliding Window", "Fixed Window"] },
-  { name: "TighCircuitBreaker", fa: "مدار شکن", Icon: RotateCcw, desc: "StateMachine سه‌حالته با بهبود خودکار. جلوگیری از cascading failure.", tags: ["Closed/Open/Half", "Auto recovery", "Events"] },
-  { name: "TighMetrics", fa: "متریک", Icon: BarChart3, desc: "Percentile latency، شمارنده درخواست‌ها، نسبت کش، و snapshot لحظه‌ای.", tags: ["P50-P99", "Counters", "Snapshot"] },
-  { name: "TighMiddleware", fa: "پایپلاین", Icon: Layers, desc: "اجرای زنجیره‌ای middleware. CORS، اندازه‌گیری زمان، و فشرده‌سازی.", tags: ["CORS", "Timing", "Gzip"] },
+  { name: "RadixRouter", fa: "مسیریاب Radix", Icon: Zap, desc: "مسیریاب Radix Tree کامپایل‌شده برای نگاشت دقیق با استخراج پارامتر پویا بدون تخصیص حافظه و پشتیبانی کامل از کاراکترهای فارسی با استاندارد NFC.", tags: ["Radix Tree", "O(1) Static", "Zero-alloc Params"] },
+  { name: "PrebuiltCache", fa: "حافظه پنهان پیش‌ساخته", Icon: Database, desc: "کش پیشرفته مبتنی بر S3-FIFO و W-TinyLFU با ذخیره بافر بایت‌های پاسخ. بدون نیاز به تبدیل مکرر JSON در مسیرهای پرترافیک و همراه با ادغام همزمان درخواست‌ها.", tags: ["S3-FIFO", "W-TinyLFU", "Single-Flight", "Stale-While-Revalidate"] },
+  { name: "GcraLimiter", fa: "محدودساز نرخ GCRA", Icon: Shield, desc: "پیاده‌سازی الگوریتم سلول عمومی (GCRA) بر اساس پنجره پیوسته با سربار ثابت و پشتیبانی از هدرهای استاندارد IETF RateLimit و سازگاری با کلاینت‌های پیشین.", tags: ["GCRA", "IETF RateLimit", "Per-Client Bounded"] },
+  { name: "CircuitBreaker", fa: "مدار شکن خودترمیم", Icon: RotateCcw, desc: "ماشین حالت سه‌گانه برای وابستگی‌های خارجی با ردیابی نرخ خطا در پنجره لغزان و بازگشت خودکار به محتوای پایدار کش هنگام قطعی سرویس‌های خارجی.", tags: ["Closed/Open/Half", "Stale Fallback", "Error-rate Trip"] },
+  { name: "DDSketchMetrics", fa: "متریک DDSketch", Icon: BarChart3, desc: "موتور تله‌متری با ساختار DDSketch با مصرف حافظه محدود و قابلیت ترکیب، برای محاسبه دقیق صدک‌های P50 تا P99 بدون رشد نامحدود حافظه.", tags: ["DDSketch", "P50-P99", "Bounded Memory"] },
+  { name: "HttpPipeline", fa: "پایپلاین پردازش HTTP", Icon: Layers, desc: "زنجیره پردازش سبک با شناسه درخواست یکتا، ردیابی استاندارد، تنظیم خودکار CORS، هدر Server-Timing، و مدیریت خطای استاندارد RFC 9457.", tags: ["RFC 9457", "Server-Timing", "CORS"] },
 ]
 
 const STEPS = [
-  { n: 1, title: "درخواست ورودی", desc: "کلاینت درخواست HTTP ارسال می‌کند" },
-  { n: 2, title: "بررسی نرخ", desc: "محدودساز بر اساس IP بررسی می‌شود" },
-  { n: 3, title: "CORS + زمان", desc: "هدرها تزریق و زمان پاسخ ثبت می‌شود" },
-  { n: 4, title: "جستجوی کش", desc: "در صورت Hit پاسخ فوری برمی‌گردد" },
-  { n: 5, title: "مسیریاب Trie", desc: "مسیر مورد نظر O(1) پیدا می‌شود" },
-  { n: 6, title: "مدار شکن", desc: "وضعیت Circuit بررسی می‌شود" },
-  { n: 7, title: "اجرا", desc: "Handler اجرا و نتیجه برگردانده می‌شود" },
-  { n: 8, title: "ذخیره کش", desc: "نتیجه برای درخواست‌های بعدی ذخیره می‌شود" },
+  { n: 1, title: "درخواست ورودی", desc: "کلاینت درخواست HTTP استاندارد ارسال می‌کند" },
+  { n: 2, title: "بررسی هویت و محدودسازی نرخ", desc: "بررسی نرخ با الگوریتم GCRA و تزریق هدرهای استاندارد RateLimit" },
+  { n: 3, title: "پایپلاین و ردیابی", desc: "تولید شناسه درخواست، بررسی CORS و ثبت Server-Timing" },
+  { n: 4, title: "جستجوی حافظه پنهان", desc: "بررسی بافر پیش‌ساخته پاسخ و ادغام درخواست‌های همزمان (Single-flight)" },
+  { n: 5, title: "مسیریاب Radix", desc: "شناسایی مسیر و استخراج پارامترهای پویا با نرمال‌سازی NFC" },
+  { n: 6, title: "مدار شکن", desc: "پایش وضعیت سلامت سرویس‌های جانبی و فعال‌سازی بازگشت به کش پایدار در صورت بروز خطا" },
+  { n: 7, title: "اجرا و بازیابی", desc: "اجرای هندلر و بازیابی داده‌های ساختاریافته ادبیات فارسی" },
+  { n: 8, title: "ذخیره در کش و ارسال", desc: "ذخیره پاسخ در حافظه پنهان و ارسال پاسخ بهینه همراه با هدر ETag" },
 ]
 
 const FILES = [
-  { name: "lib/engine/", dir: true },
-  { name: "index.ts", dir: false, desc: "نقطه صادرات" },
-  { name: "types.ts", dir: false, desc: "۲۵+ نوع TypeScript" },
-  { name: "engine.ts", dir: false, desc: "هسته اصلی — class Tigh" },
-  { name: "router.ts", dir: false, desc: "مسیریاب Trie" },
-  { name: "cache.ts", dir: false, desc: "کش LRU + TTL" },
-  { name: "middleware.ts", dir: false, desc: "پایپلاین + CORS + Timing" },
-  { name: "rate-limiter.ts", dir: false, desc: "محدودساز نرخ" },
-  { name: "circuit-breaker.ts", dir: false, desc: "مدار شکن" },
-  { name: "metrics.ts", dir: false, desc: "متریک و percentile" },
-  { name: "adapter-next.ts", dir: false, desc: "اداپتور Next.js" },
-  { name: "instance.ts", dir: false, desc: "Singleton موتور" },
-  { name: "app/api/engine/", dir: true },
-  { name: "stats/route.ts", dir: false, desc: "متریک زنده" },
-  { name: "benchmark/route.ts", dir: false, desc: "بنچمارک عملکرد" },
+  { name: "packages/core/src/", dir: true },
+  { name: "router/radix-router.ts", dir: false, desc: "مسیریاب Radix Tree" },
+  { name: "cache/prebuilt-cache.ts", dir: false, desc: "کش S3-FIFO و W-TinyLFU" },
+  { name: "rate-limiter/gcra.ts", dir: false, desc: "محدودساز نرخ GCRA" },
+  { name: "circuit-breaker/circuit-breaker.ts", dir: false, desc: "مدار شکن خودترمیم" },
+  { name: "telemetry/ddsketch.ts", dir: false, desc: "محاسبه صدک با DDSketch" },
+  { name: "server.ts", dir: false, desc: "هسته سرور HTTP استاندارد" },
+  { name: "routes.ts", dir: false, desc: "تعریف مسیرهای REST v1 و سازگاری" },
+  { name: "packages/schema/src/", dir: true },
+  { name: "models/poem.ts", dir: false, desc: "طرح داده ساختاریافته شعر" },
+  { name: "generators/openapi.ts", dir: false, desc: "سازنده خودکار OpenAPI 3.1" },
+  { name: "packages/persian/src/", dir: true },
+  { name: "normalizer.ts", dir: false, desc: "نرمال‌سازی نمایش و جستجو" },
+  { name: "calendar.ts", dir: false, desc: "تبدیل تقویم جلالی و میلادی" },
+  { name: "packages/poem/src/", dir: true },
+  { name: "colophon.ts", dir: false, desc: "استخراج شناسنامه و ترقیمه شعر" },
+  { name: "excerpt.ts", dir: false, desc: "انتخاب هوشمند برش‌های شعر" },
+  { name: "packages/search/src/", dir: true },
+  { name: "search/search-engine.ts", dir: false, desc: "موتور جستجوی هیبریدی BM25F" },
+  { name: "packages/widget/src/", dir: true },
+  { name: "index.ts", dir: false, desc: "کامپوننت وب persian-quote" },
 ]
 
 function Bar({ value, max, label, color, delay }: { value: number; max: number; label: string; color: string; delay: number }) {
@@ -168,14 +174,14 @@ export default function SakhtarPage() {
           }`}
         >
           <Badge variant="outline" className="border-border text-muted-foreground mb-6 text-xs bg-card/60">
-            نسخه ۰.۰.۱-beta
+            نسخه ۱.۰.۰
           </Badge>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 leading-tight tracking-tight">
             معماری فنی موتور <span className="text-foreground">تیغ</span>
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed mb-6">
-            موتور مستقل مبتنی بر حافظه برای پردازش و بازیابی سریع داده‌های متنی فارسی با ساختار داده ترای، حافظه پنهان LRU و کنترل جریان داده.
+            موتور مستقل، فوق‌سریع و بدون وابستگی خارجی برای پردازش و بازیابی داده‌های ادبیات فارسی با ساختار داده Radix Tree، حافظه پنهان پیش‌ساخته، محدودکننده نرخ GCRA و استانداردهای نوین وب.
           </p>
 
           <div className="flex flex-wrap justify-center gap-2">
@@ -211,10 +217,10 @@ export default function SakhtarPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-5">
             {[
-              { l: "هسته", v: "۶ ماژول" },
-              { l: "اداپتور", v: "۱ فعال" },
-              { l: "Middleware", v: "۲ فعال" },
-              { l: "وابستگی", v: "۰" },
+              { l: "پکیج‌های مونورپو", v: "۸ پکیج" },
+              { l: "اداپتورها", v: "۴ محیط" },
+              { l: "تست‌های گذرانده", v: "۲۱۶+" },
+              { l: "وابستگی هسته", v: "۰" },
             ].map(i => (
               <div key={i.l} className="text-center p-2.5 rounded-lg bg-card border border-border">
                 <div className="text-sm font-bold text-foreground">{i.v}</div>
@@ -558,19 +564,15 @@ export default function SakhtarPage() {
                 </CardHeader>
                 <CardContent className="min-w-0">
                   <pre className="text-[11px] font-mono text-muted-foreground bg-muted/60 rounded-lg p-3 overflow-x-auto w-full leading-relaxed ltr text-left border border-border/50">
-{`import { Tigh } from "@/lib/engine"
+{`import { createTighApp } from "@persian-quote/core"
 
-const engine = new Tigh({
+const app = createTighApp({
   enableCache: true,
   enableRateLimit: true,
-  cache: { maxSize: 5000, defaultTTL: 30000 },
-  rateLimit: { maxRequests: 120, strategy: "token-bucket" },
+  rateLimit: { requestsPerMinute: 120 },
 })
 
-engine.get("/api/quotes", async (req) => {
-  const quotes = await fetchQuotes(req.query)
-  return { status: 200, headers: {}, body: quotes }
-})`}
+export const GET = (req: Request) => app.fetch(req)`}
                   </pre>
                 </CardContent>
               </Card>
@@ -585,12 +587,12 @@ engine.get("/api/quotes", async (req) => {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {[
-                      ["فایل‌ها", toFa(FILES.filter(f => !f.dir).length)],
-                      ["انواع TS", "۲۵+"],
-                      ["وابستگی", "۰"],
+                      ["پکیج‌های مونورپو", "۸ پکیج"],
+                      ["انواع داده Zod", "۳۰+"],
+                      ["وابستگی هسته", "۰"],
                       ["License", "MIT"],
-                      ["اداپتور", "Next.js"],
-                      ["نسخه", "۰.۰.۱-beta"],
+                      ["اداپتورها", "Next.js, Bun, Node, Workers"],
+                      ["نسخه موتور", "۱.۰.۰"],
                     ].map(([l, v]) => (
                       <div key={l} className="flex justify-between p-1.5 rounded bg-muted/50 border border-border/40 min-w-0">
                         <span className="text-muted-foreground truncate">{l}</span>
@@ -615,10 +617,9 @@ engine.get("/api/quotes", async (req) => {
 
           <div className="space-y-2">
             {[
-              { v: "۰.۰.۱-beta", status: "انجام شد", items: ["مسیریاب Trie", "کش LRU", "محدودساز نرخ", "مدار شکن", "متریک", "اداپتور Next.js"], done: true },
-              { v: "۰.۱.۰", status: "آینده", items: ["اداپتور Express", "اداپتور Bun", "اداپتور Deno", "فشرده‌سازی بهتر"], done: false },
-              { v: "۰.۲.۰", status: "آینده", items: ["Worker Threads برای CPU-bound", "پشتیبانی WebSocket", "Middleware marketplace"], done: false },
-              { v: "۱.۰.۰", status: "آینده", items: ["پکیج npm مستقل", "مستندات کامل", "Test suite", "CLI tool"], done: false },
+              { v: "۰.۰.۱-beta", status: "انجام شد", items: ["مسیریاب Trie پایه", "کش LRU اولیه", "محدودساز نرخ اولیه", "مدار شکن"], done: true },
+              { v: "۱.۰.۰", status: "نسخه پایدار جاری", items: ["مسیریاب Radix", "کش پیش‌ساخته S3-FIFO", "محدودساز GCRA", "موتور جستجوی BM25F", "کامپوننت وب", "سرور MCP", "طرح داده ساختاریافته"], done: true },
+              { v: "۱.۱.۰", status: "برنامه آتی", items: ["پوشش بیشتر قالب‌های سنتی", "بهینه‌سازی نمایه برداری بر خط"], done: false },
             ].map((r, i) => (
               <Card key={i} className={`border-border bg-card ${r.done ? "border-border shadow-sm" : "border-dashed"}`}>
                 <CardContent className="p-3 sm:p-4">

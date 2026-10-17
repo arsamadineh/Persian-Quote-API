@@ -25,6 +25,23 @@ export const CHANGE_TYPES: Record<ChangeType, { label: string; order: number }> 
 
 export const CHANGELOG: ChangelogVersion[] = [
   {
+    version: "۳.۱۵.۰",
+    isoDate: "2026-10-17",
+    date: "۲۶ مهر ۱۴۰۵",
+    changes: [
+      {
+        type: "changed",
+        description:
+          "صفحه ساختار موتور (/sakhtar) متناسب با معماری تیغ نسخه ۱، مسیریاب Radix، کش پیش‌ساخته، و بسته جدید مونورپو به‌روزرسانی شد.",
+      },
+      {
+        type: "changed",
+        description:
+          "فایل راهنمای اصلی (README.md) با متنی روان برای پوشش قابلیت‌های نوین نسخه ۱، معماری بسته‌ها، و نمونه‌های شروع سریع بازنویسی شد.",
+      },
+    ],
+  },
+  {
     version: "۳.۱۴.۰",
     isoDate: "2026-10-17",
     date: "۲۵ مهر ۱۴۰۵",
