@@ -1,0 +1,22 @@
+{
+  "name": "@persian-quote/workbench",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@persian-quote/persian": "workspace:*",
+    "@persian-quote/poem": "workspace:*",
+    "@persian-quote/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.0",
+    "typescript": "^5",
+    "vite": "^5.0.0",
+    "preact": "^10.0.0"
+  }
+}

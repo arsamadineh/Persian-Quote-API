@@ -1,0 +1,47 @@
+{
+  "slug": "non_poetry_deterministic",
+  "requestPath": "/api/quotes/non-poetry?random=false&limit=3",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [
+      {
+        "id": "np-1",
+        "kind": "non-poetry",
+        "text_persian": "چالش ها برای سرگرم کننده کردن زندگی هستند و غلبه بر آن باعث معنا دار شدن زندگی.",
+        "author": "جاشوه جی مارین",
+        "tags": []
+      },
+      {
+        "id": "np-2",
+        "kind": "non-poetry",
+        "text_persian": "راه حل صحیح موفقیت این است که اشتیاق شما به پیروزی بیشتر از ترس شما از شکست باشد.",
+        "author": "آلبرت انیشتین",
+        "tags": []
+      },
+      {
+        "id": "np-3",
+        "kind": "non-poetry",
+        "text_persian": "هیچوقت از داشتن عقاید متفاوت با توافق جمع نترسید،حتی وقتی که تنها فرد موجود با همچین اعتقادی باشید.",
+        "author": "رابین شارما",
+        "tags": []
+      }
+    ],
+    "count": 3,
+    "total": 492,
+    "page": 1,
+    "limit": 3,
+    "line_mode": "auto",
+    "meta": {
+      "raw": 494,
+      "dropped": 2,
+      "note": "ورودی‌های تکراری و بدون منتسب در هنگام بارگذاری به‌طور خودکار حذف شدند."
+    }
+  },
+  "recordedAt": "2026-10-16T02:05:25.527Z"
+}

@@ -104,7 +104,7 @@ export default function PrivacyPage() {
                   <p>
                     فلسفه ما ساده است: <strong>یک سرویس رایگان نباید بهایی از حریم خصوصی شما
                     بگیرد</strong>. این سیاست در مورد وب‌سایت
-                    <code className="px-1.5 py-0.5 bg-muted rounded text-xs mx-1" dir="ltr">pq.arsamadineh.ir</code>
+                    <code className="px-1.5 py-0.5 bg-muted rounded text-xs mx-1" dir="ltr">pq.adicon.ir</code>
                     و کلیه نقاط پایانی (endpoints) API عمومی ما اعمال می‌شود. با استفاده از خدمات
                     ما، شما مفاد این سند را مطالعه و پذیرفته‌اید.
                   </p>
@@ -300,7 +300,7 @@ export default function PrivacyPage() {
                       },
                       {
                         name: "سرویس میزبانی (CDN/Hoster)",
-                        desc: "برای ارائه API در آدرس pq.arsamadineh.ir. لاگ‌های شبکه استاندارد توسط هاست نگهداری می‌شود.",
+                        desc: "برای ارائه API در آدرس pq.adicon.ir. لاگ‌های شبکه استاندارد توسط هاست نگهداری می‌شود.",
                         policy: "بسته به سرویس‌دهنده متغیر است",
                       },
                     ].map((svc, i) => (

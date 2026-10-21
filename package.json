@@ -17,7 +17,13 @@
     "build:data": "bun pipeline/migrate-legacy.ts",
     "data:validate": "bun pipeline/validate-data.ts",
     "eval:structure": "bun pipeline/eval-structure.ts",
-    "eval:search": "bun pipeline/eval-search.ts"
+    "eval:search": "bun pipeline/eval-search.ts",
+    "structure:rebuild": "bun pipeline/rebuild-structure.ts",
+    "structure:gate": "bun pipeline/eval-structure.ts",
+    "structure:review-queue": "bun pipeline/review-queue.ts",
+    "structure:contracts": "bun pipeline/check-legacy-contracts.ts",
+    "learn": "bun scripts/learn.ts",
+    "paper:facts": "bun scripts/paper-facts.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

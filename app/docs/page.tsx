@@ -414,7 +414,7 @@ export default function DocsPage() {
         <div className="hero-pattern" />
         <div className="container mx-auto max-w-5xl relative z-10 text-center">
           <Badge variant="secondary" className="mb-4 text-xs font-mono">
-            موتور تیغ ۰.۰.۱-beta • متریک‌های این صفحه زنده هستند
+            موتور تیغ ۰.۰.۱-beta • ۶۹۹۶ اثر • ۴۶ شاعر • متریک‌های این صفحه زنده هستند
           </Badge>
           <h1 className="text-3xl md:text-5xl font-extrabold text-foreground mb-4 leading-tight">
             مستندات <span className="text-primary">API اشعار فارسی</span>
@@ -570,16 +570,16 @@ export default function DocsPage() {
                 <TabsContent value="curl">
                   <CodeBlock
                     code={`# دریافت یک شعر تصادفی
-curl "https://pq.arsamadineh.ir/api/quotes?random=true&limit=1"
+curl "https://pq.adicon.ir/api/quotes?random=true&limit=1"
 
 # دریافت ۵ شعر از حافظ
-curl "https://pq.arsamadineh.ir/api/quotes/hafez?limit=5"
+curl "https://pq.adicon.ir/api/quotes/hafez?limit=5"
 
 # فال حافظ (یک غزل تصادفی)
-curl "https://pq.arsamadineh.ir/api/quotes/hafez?random=true&limit=1"
+curl "https://pq.adicon.ir/api/quotes/hafez?random=true&limit=1"
 
 # جستجوی کلمه «عشق»
-curl "https://pq.arsamadineh.ir/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5"`}
+curl "https://pq.adicon.ir/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5"`}
                     language="bash"
                     label="TERMINAL"
                     liveUrl="/api/quotes?random=true&limit=1"
@@ -590,7 +590,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5"`
                   <CodeBlock
                     code={`// با fetch در جاوااسکریپت مدرن
 async function getRandomQuote() {
-  const res = await fetch('https://pq.arsamadineh.ir/api/quotes?random=true&limit=1')
+  const res = await fetch('https://pq.adicon.ir/api/quotes?random=true&limit=1')
   if (!res.ok) throw new Error('خطا در دریافت')
   const { data } = await res.json()
   return data[0]
@@ -598,7 +598,7 @@ async function getRandomQuote() {
 
 // یا در Node.js با ابزارهای قدیمی‌تر
 const https = require('https')
-https.get('https://pq.arsamadineh.ir/api/quotes?random=true&limit=1', (res) => {
+https.get('https://pq.adicon.ir/api/quotes?random=true&limit=1', (res) => {
   let body = ''
   res.on('data', (chunk) => (body += chunk))
   res.on('end', () => console.log(JSON.parse(body)))
@@ -614,7 +614,7 @@ https.get('https://pq.arsamadineh.ir/api/quotes?random=true&limit=1', (res) => {
 
 def get_random_quote():
     r = requests.get(
-        "https://pq.arsamadineh.ir/api/quotes",
+        "https://pq.adicon.ir/api/quotes",
         params={"random": "true", "limit": 1},
         timeout=5,
     )
@@ -634,7 +634,7 @@ print(f"{quote['text_persian']}\\n  — {quote['poet']}")`}
                     code={`<?php
 // با cURL داخلی
 function getRandomQuote(): ?array {
-    $ch = curl_init('https://pq.arsamadineh.ir/api/quotes?random=true&limit=1');
+    $ch = curl_init('https://pq.adicon.ir/api/quotes?random=true&limit=1');
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT => 5,
@@ -670,7 +670,7 @@ type Quote struct {
 }
 
 func main() {
-    res, err := http.Get("https://pq.arsamadineh.ir/api/quotes?random=true&limit=1")
+    res, err := http.Get("https://pq.adicon.ir/api/quotes?random=true&limit=1")
     if err != nil { panic(err) }
     defer res.Body.Close()
 
@@ -780,13 +780,13 @@ func main() {
                   { name: "lines", type: "string", default: "auto", desc: "شکست خط متن: auto | separators | raw" },
                 ]}
                 example={`# پنج شعر تصادفی
-curl "https://pq.arsamadineh.ir/api/quotes?random=true&limit=5"
+curl "https://pq.adicon.ir/api/quotes?random=true&limit=5"
 
 # تمام اشعار حافظ
-curl "https://pq.arsamadineh.ir/api/quotes/%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7"
+curl "https://pq.adicon.ir/api/quotes/%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7"
 
 # اشعار عاشقانه
-curl "https://pq.arsamadineh.ir/api/quotes/category/%D8%B9%D8%B4%D9%82"`}
+curl "https://pq.adicon.ir/api/quotes/category/%D8%B9%D8%B4%D9%82"`}
                 liveUrl="/api/quotes?random=true&limit=1"
                 responsePreview={`{
   "success": true,
@@ -820,13 +820,13 @@ curl "https://pq.arsamadineh.ir/api/quotes/category/%D8%B9%D8%B4%D9%82"`}
                   { name: "random", type: "boolean", default: "false", desc: "دریافت تصادفی (فال حافظ)" },
                 ]}
                 example={`# فال حافظ — یک غزل تصادفی
-curl "https://pq.arsamadineh.ir/api/quotes/hafez?random=true&limit=1"
+curl "https://pq.adicon.ir/api/quotes/hafez?random=true&limit=1"
 
 # غزل شماره ۱
-curl "https://pq.arsamadineh.ir/api/quotes/hafez?id=1"
+curl "https://pq.adicon.ir/api/quotes/hafez?id=1"
 
 # جستجوی کلمه «رند»
-curl "https://pq.arsamadineh.ir/api/quotes/hafez?q=%D8%B1%D9%86%D8%AF"`}
+curl "https://pq.adicon.ir/api/quotes/hafez?q=%D8%B1%D9%86%D8%AF"`}
                 liveUrl="/api/quotes/hafez?random=true&limit=1"
                 responsePreview={`{
   "success": true,
@@ -866,10 +866,10 @@ curl "https://pq.arsamadineh.ir/api/quotes/hafez?q=%D8%B1%D9%86%D8%AF"`}
                   { name: "lines", type: "string", default: "auto", desc: "شکست خط متن: auto | separators | raw" },
                 ]}
                 example={`# یک شعر نو تصادفی
-curl "https://pq.arsamadineh.ir/api/quotes/shereno?random=true&limit=1"
+curl "https://pq.adicon.ir/api/quotes/shereno?random=true&limit=1"
 
 # فقط اشعار نیما یوشیج
-curl "https://pq.arsamadineh.ir/api/quotes/shereno?poet=%D9%86%DB%8C%D9%85%D8%A7"`}
+curl "https://pq.adicon.ir/api/quotes/shereno?poet=%D9%86%DB%8C%D9%85%D8%A7"`}
                 liveUrl="/api/quotes/shereno?random=true&limit=1"
                 responsePreview={`{
   "success": true,
@@ -902,10 +902,10 @@ curl "https://pq.arsamadineh.ir/api/quotes/shereno?poet=%D9%86%DB%8C%D9%85%D8%A7
                   { name: "random", type: "boolean", default: "false", desc: "انتخاب تصادفی" },
                 ]}
                 example={`# یک نقل‌قول تصادفی
-curl "https://pq.arsamadineh.ir/api/quotes/non-poetry?random=true&limit=1"
+curl "https://pq.adicon.ir/api/quotes/non-poetry?random=true&limit=1"
 
 # فقط سخنان ایلان ماسک
-curl "https://pq.arsamadineh.ir/api/quotes/non-poetry?author=%D8%A7%DB%8C%D9%84%D8%A7%D9%86"`}
+curl "https://pq.adicon.ir/api/quotes/non-poetry?author=%D8%A7%DB%8C%D9%84%D8%A7%D9%86"`}
                 liveUrl="/api/quotes/non-poetry?random=true&limit=1"
                 responsePreview={`{
   "success": true,
@@ -933,10 +933,10 @@ curl "https://pq.arsamadineh.ir/api/quotes/non-poetry?author=%D8%A7%DB%8C%D9%84%
                   { name: "lines", type: "string", default: "auto", desc: "شکست خط متن: auto | separators | raw" },
                 ]}
                 example={`# جستجوی کلمه عشق
-curl "https://pq.arsamadineh.ir/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5"
+curl "https://pq.adicon.ir/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5"
 
 # جستجو در متن انگلیسی
-curl "https://pq.arsamadineh.ir/api/quotes/search?q=love&lang=english&limit=3"`}
+curl "https://pq.adicon.ir/api/quotes/search?q=love&lang=english&limit=3"`}
                 liveUrl="/api/quotes/search?q=عشق&limit=5"
                 notes="جستجو بر اساس substring است — برای عبارات دقیق از کوتیشن در پارامتر q استفاده کنید."
               />
@@ -949,7 +949,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/search?q=love&lang=english&limit=3"`}
                 params={[
                   { name: "stats", type: "boolean", default: "false", desc: "افزودن فیلد quote_count به هر شاعر" },
                 ]}
-                example={`curl "https://pq.arsamadineh.ir/api/poets?stats=true"`}
+                example={`curl "https://pq.adicon.ir/api/poets?stats=true"`}
                 liveUrl="/api/poets?stats=true"
               />
 
@@ -961,7 +961,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/search?q=love&lang=english&limit=3"`}
                 params={[
                   { name: "stats", type: "boolean", default: "false", desc: "افزودن فیلد quote_count" },
                 ]}
-                example={`curl "https://pq.arsamadineh.ir/api/categories?stats=true"`}
+                example={`curl "https://pq.adicon.ir/api/categories?stats=true"`}
                 liveUrl="/api/categories?stats=true"
               />
 
@@ -970,7 +970,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/search?q=love&lang=english&limit=3"`}
                 title="آمار پایگاه داده"
                 description="تعداد کل اشعار، شاعران، و منابع داده."
                 paths={["/api/stats"]}
-                example={`curl "https://pq.arsamadineh.ir/api/stats"`}
+                example={`curl "https://pq.adicon.ir/api/stats"`}
                 liveUrl="/api/stats"
               />
 
@@ -988,7 +988,7 @@ curl "https://pq.arsamadineh.ir/api/quotes/search?q=love&lang=english&limit=3"`}
                   { name: "auto_refresh", type: "boolean", default: "false", desc: "تازه‌سازی خودکار هر ۳۰ ثانیه" },
                 ]}
                 example={`<iframe
-  src="https://pq.arsamadineh.ir/api/embed?theme=classic&poet=rumi"
+  src="https://pq.adicon.ir/api/embed?theme=classic&poet=rumi"
   width="100%"
   height="300"
   frameborder="0"
@@ -1558,7 +1558,7 @@ git push origin main   # در Vercel فعال باشد، خودکار deploy م�
                   <CodeBlock
                     code={`const today = new Date().toISOString().slice(0, 10)
 const res = await fetch(
-  \`https://pq.arsamadineh.ir/api/quotes?random=true&limit=1&cacheBust=\${today}\`
+  \`https://pq.adicon.ir/api/quotes?random=true&limit=1&cacheBust=\${today}\`
 )
 const { data } = await res.json()
 // data[0].text_persian`}
@@ -1574,7 +1574,7 @@ const { data } = await res.json()
                   </p>
                   <CodeBlock
                     code={`<iframe
-  src="https://pq.arsamadineh.ir/api/embed?theme=classic&poet=hafez&auto_refresh=true"
+  src="https://pq.adicon.ir/api/embed?theme=classic&poet=hafez&auto_refresh=true"
   width="400"
   height="280"
   style="border: 0; border-radius: 12px;"
@@ -1598,7 +1598,7 @@ async def hit(session, url):
         return r.status, await r.json()
 
 async def main():
-    url = "https://pq.arsamadineh.ir/api/quotes?random=true"
+    url = "https://pq.adicon.ir/api/quotes?random=true"
     async with aiohttp.ClientSession() as s:
         start = time.time()
         results = await asyncio.gather(*[hit(s, url) for _ in range(100)])

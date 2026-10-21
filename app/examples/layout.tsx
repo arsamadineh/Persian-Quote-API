@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-const SITE_URL = "https://pq.arsamadineh.ir"
+const SITE_URL = "https://pq.adicon.ir"
 const PAGE_URL = `${SITE_URL}/examples`
 
 export const metadata: Metadata = {

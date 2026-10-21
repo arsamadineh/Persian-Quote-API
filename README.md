@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://pq.arsamadineh.ir">
+  <a href="https://pq.adicon.ir">
     <img src="public/banner.svg" alt="API اشعار فارسی" width="100%" />
   </a>
 </p>
@@ -61,7 +61,7 @@
 ### دریافت تصادفی یک اثر (نسخه ۱)
 
 ```bash
-curl https://pq.arsamadineh.ir/v1/works/random
+curl https://pq.adicon.ir/v1/works/random
 ```
 
 نمونه خروجی ساختاریافته:
@@ -98,35 +98,35 @@ curl https://pq.arsamadineh.ir/v1/works/random
 ### شعر روز (به وقت تهران)
 
 ```bash
-curl https://pq.arsamadineh.ir/v1/daily
+curl https://pq.adicon.ir/v1/daily
 ```
 
 ### فال حافظ با پیوند ماندگار
 
 ```bash
-curl "https://pq.arsamadineh.ir/v1/fal?seed=my-intention"
+curl "https://pq.adicon.ir/v1/fal?seed=my-intention"
 ```
 
 ### جستجوی هوشمند در اشعار
 
 ```bash
-curl "https://pq.arsamadineh.ir/v1/search?q=عشق&limit=5"
+curl "https://pq.adicon.ir/v1/search?q=عشق&limit=5"
 ```
 
 همچنین جستجو با خط لاتین (فینگلیش) پشتیبانی می‌شود:
 
 ```bash
-curl "https://pq.arsamadineh.ir/v1/search?q=eshgh&limit=5"
+curl "https://pq.adicon.ir/v1/search?q=eshgh&limit=5"
 ```
 
 ### دریافت اثر با اندپوینت‌های سازگار نسخه پیشین
 
 ```bash
-curl https://pq.arsamadineh.ir/api/quotes?random=true&limit=1
+curl https://pq.adicon.ir/api/quotes?random=true&limit=1
 ```
 
 ```bash
-curl https://pq.arsamadineh.ir/api/quotes/hafez?random=true&limit=1
+curl https://pq.adicon.ir/api/quotes/hafez?random=true&limit=1
 ```
 
 ## فهرست اندپوینت‌ها
@@ -173,7 +173,7 @@ curl https://pq.arsamadineh.ir/api/quotes/hafez?random=true&limit=1
 برای نمایش اشعار در صفحات وب بدون بارگذاری فریم‌های سنگین، کامپوننت وب استاندارد در بسته `@persian-quote/widget` ارائه شده است:
 
 ```html
-<script type="module" src="https://pq.arsamadineh.ir/widget/persian-quote.js"></script>
+<script type="module" src="https://pq.adicon.ir/widget/persian-quote.js"></script>
 
 <persian-quote
   poet="hafez"
@@ -187,7 +187,7 @@ curl https://pq.arsamadineh.ir/api/quotes/hafez?random=true&limit=1
 
 ```html
 <iframe
-  src="https://pq.arsamadineh.ir/api/embed?theme=elegant&size=medium"
+  src="https://pq.adicon.ir/api/embed?theme=elegant&size=medium"
   width="100%"
   height="380"
   frameborder="0"

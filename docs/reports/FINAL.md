@@ -1,6 +1,6 @@
 # Persian Quote API — Final Report
 
-**Project:** Persian Quote API Complete Rebuild (`pq.arsamadineh.ir`)  
+**Project:** Persian Quote API Complete Rebuild (`pq.adicon.ir`)  
 **Version:** ۳.۱۳.۰  
 **Date:** 2026-10-17 (۲۵ مهر ۱۴۰۵)  
 **Branch:** `rebuild/v1`
@@ -151,4 +151,4 @@ curl -si http://localhost/v1/health
 
 ## 8. Contact
 
-arsam@arsamadineh.ir — https://pq.arsamadineh.ir
+arsam@arsamadineh.ir — https://pq.adicon.ir

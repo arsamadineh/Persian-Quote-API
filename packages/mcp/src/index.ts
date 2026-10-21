@@ -125,10 +125,24 @@ const TOOLS: Tool[] = [
       },
       required: ['id'],
     },
+  {
+    name: 'query_corpus',
+    description: 'Query the corpus with structured filters (poet, form, meter, radif, era, tag, text) and return matching poem ids + metadata.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        poet: { type: 'array', items: { type: 'string' }, description: 'Poet slugs' },
+        form: { type: 'array', items: { type: 'string' }, description: 'Forms (ghazal, robaee, ...)' },
+        meter: { type: 'array', items: { type: 'string' }, description: 'Meter names' },
+        radif: { type: 'string', description: 'Radif token' },
+        era: { type: 'object', description: '{ from, to } years' },
+        tag: { type: 'array', items: { type: 'string' } },
+        text: { type: 'string', description: 'Free-text filter' },
+        limit: { type: 'number' },
+      },
+    },
   },
 ];
-
-function toolList(): any[] {
   return TOOLS.map((t) => ({
     name: t.name,
     description: t.description,
@@ -218,14 +232,30 @@ async function callTool(name: string, args: any): Promise<any> {
       if (style === 'bibtex') {
         return {
           id: w.id,
-          bibtex: `@misc{pq-${w.id},\n  title = {${w.title}},\n  author = {${w.poet_name}},\n  year = {},\n  url = {https://pq.arsamadineh.ir/p/${w.id}}\n}`,
+          bibtex: `@misc{pq-${w.id},\n  title = {${w.title}},\n  author = {${w.poet_name}},\n  year = {},\n  url = {https://pq.adicon.ir/p/${w.id}}\n}`,
         };
       }
       // APA
       return {
         id: w.id,
-        apa: `${w.poet_name}. (n.d.). ${w.title} [Poem]. Persian Quote API. https://pq.arsamadineh.ir/p/${w.id}`,
+        apa: `${w.poet_name}. (n.d.). ${w.title} [Poem]. Persian Quote API. https://pq.adicon.ir/p/${w.id}`,
       };
+    }
+    case 'query_corpus': {
+      const filters = args ?? {};
+      const limit = filters.limit ?? 50;
+      const results: any[] = [];
+      for (const w of store.works.values()) {
+        if (filters.poet && !filters.poet.includes(w.poet_id)) continue;
+        if (filters.form && !filters.form.includes(w.form)) continue;
+        if (filters.text) {
+          const norm = (w.text_plain ?? "").toLowerCase();
+          if (!norm.includes(String(filters.text).toLowerCase())) continue;
+        }
+        results.push({ id: w.id, poet: w.poet_name, form: w.form, title: w.title });
+        if (results.length >= limit) break;
+      }
+      return { total: results.length, items: results };
     }
     default:
       throw new Error(`Unknown tool: ${name}`);

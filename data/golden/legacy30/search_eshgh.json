@@ -1,0 +1,98 @@
+{
+  "slug": "search_eshgh",
+  "requestPath": "/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [
+      {
+        "id": "p-1",
+        "kind": "poetry",
+        "text_persian": "عاشقان مرده‌اند در عشق زنده / تا ابد در دل جانان پاینده",
+        "text_english": "Lovers are dead in love, yet alive / Forever enduring in the beloved's heart",
+        "poet": "مولانا جلال‌الدین رومی",
+        "poet_english": "Rumi",
+        "source": "دیوان شمس",
+        "category": "عشق",
+        "tags": [
+          "عشق",
+          "زندگی",
+          "معنویت"
+        ]
+      },
+      {
+        "id": "p-5",
+        "kind": "poetry",
+        "text_persian": "گر همه کافران جهان گردند مؤمن / من ز عشق تو نگردم کافر ای جان",
+        "text_english": "If all the world's unbelievers become faithful / I will not become faithless to your love, O soul",
+        "poet": "حافظ شیرازی",
+        "poet_english": "Hafez",
+        "source": "دیوان حافظ",
+        "category": "عشق",
+        "tags": [
+          "عشق",
+          "وفاداری",
+          "عرفان"
+        ]
+      },
+      {
+        "id": "p-6",
+        "kind": "poetry",
+        "text_persian": "خوشا آن روز که از خود بروم / وز سر عشق به جان آن شوم",
+        "text_english": "Blessed is the day I leave myself behind / And become the soul of that beloved through love",
+        "poet": "مولانا جلال‌الدین رومی",
+        "poet_english": "Rumi",
+        "source": "مثنوی معنوی",
+        "category": "عرفان",
+        "tags": [
+          "عرفان",
+          "عشق",
+          "فنا"
+        ]
+      },
+      {
+        "id": "sn-365",
+        "kind": "shereno",
+        "text_persian": "آسمان همچو صفحه دل من روشن از\nجلوه های مهتابست امشب از\nخواب خوش گریزانم که خیال\nتو خوشتر از خوابست خیره بر\nسایه های وحشی بید می خزم در\nسکوت بستر خویش باز دنبال\nنغمه ای دلخواه می نهم سر\nبروی دفتر خویش تن صدها\nترانه میرقصد در بلور ظریف\nآوایم لذتی ناشناس و رویا\nرنگ می دود همچو خون به\nرگهایم آه ... گویی ز دخمه\nدل من روح شبگرد مه گذر\nکرده یا نسیمی در این ره\nمتروک دامن از عطر یاس تر\nکرده بر لبم شعله های بوسه\nتو میشکوفد چو لاله گرم\nنیاز در خیالم ستاره ای پر\nنور می درخشد میان هاله\nراز ناشناسی درون سینه من\nپنجه بر چنگ و رود می ساید\nهمره نغمه های موزونش گوییا\nبوی عود می آید آه...\nباور نمیکنم که مرا با تو\nپیوستنی چنین باشد نگه آن دو\nچشم شور افکن سوی من گرم و\nدلنشین باشد بیگمان زان جهان\nرویایی زهره بر من فکنده دیده\nعشق می نویسم بر وی دفتر خویش\nجاودان باشی ای سپیده عشق",
+        "poet": "فروغ فرخزاد",
+        "poet_english": "Forugh Farrokhzad",
+        "title": "سپیده عشق",
+        "book": "دیوار",
+        "source": "دیوار",
+        "tags": [
+          "شعر نو",
+          "فروغ فرخزاد"
+        ],
+        "line_origin": "reconstructed",
+        "line_count": 30
+      },
+      {
+        "id": "sn-636",
+        "kind": "shereno",
+        "text_persian": "زمان نمی گذرد عمر ره نمیسپرد\nصدای ساعت شماطه بانگ\nتکرار است نه شب هست و نه\nجمعه نه پار و پیرار است\nجوان و پیر کدام است زود و\nدیر کدام است اگر هنوز جوان\nمانده ای به آن معناست که\nعشق را به زوایای جان صلا\nزده ای ملال پیری اگر\nمیکشد تو را پیداست که زیر\nسیلی تکرار دست و پا زده\nای زمان نمی گذرد صدای\nساعت شماطه بانگ تکرار است\nخوشا به حال کسی که لحظه لحظه\nاشت از بانگ عشق سرشار است",
+        "poet": "فریدون مشیری",
+        "title": "از صدای سخن عشق",
+        "book": "لحظه ها و احساس",
+        "source": "لحظه ها و احساس",
+        "tags": [
+          "شعر نو",
+          "فریدون مشیری"
+        ],
+        "line_origin": "reconstructed",
+        "line_count": 15
+      }
+    ],
+    "count": 5,
+    "total": 1170,
+    "page": 1,
+    "limit": 5,
+    "line_mode": "auto",
+    "query": "عشق"
+  },
+  "recordedAt": "2026-10-16T02:05:25.703Z"
+}

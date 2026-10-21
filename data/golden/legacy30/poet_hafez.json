@@ -1,0 +1,52 @@
+{
+  "slug": "poet_hafez",
+  "requestPath": "/api/quotes/%D8%AD%D8%A7%D9%81%D8%B8?limit=3",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [
+      {
+        "id": "p-2",
+        "kind": "poetry",
+        "text_persian": "دوش از مسجد سوی میخانه آمد پیرِ ما / ای خدا این چه منزل است که پیر ما آمد",
+        "text_english": "Last night our elder came from mosque to tavern / O God, what a station this is, that our elder came",
+        "poet": "حافظ شیرازی",
+        "poet_english": "Hafez",
+        "source": "دیوان حافظ",
+        "category": "عرفان",
+        "tags": [
+          "عرفان",
+          "حکمت",
+          "زندگی"
+        ]
+      },
+      {
+        "id": "p-5",
+        "kind": "poetry",
+        "text_persian": "گر همه کافران جهان گردند مؤمن / من ز عشق تو نگردم کافر ای جان",
+        "text_english": "If all the world's unbelievers become faithful / I will not become faithless to your love, O soul",
+        "poet": "حافظ شیرازی",
+        "poet_english": "Hafez",
+        "source": "دیوان حافظ",
+        "category": "عشق",
+        "tags": [
+          "عشق",
+          "وفاداری",
+          "عرفان"
+        ]
+      }
+    ],
+    "count": 2,
+    "total": 2,
+    "page": 1,
+    "limit": 3,
+    "line_mode": "auto",
+    "poet": "%D8%AD%D8%A7%D9%81%D8%B8"
+  },
+  "recordedAt": "2026-10-16T02:05:25.785Z"
+}

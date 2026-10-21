@@ -57,3 +57,4 @@
 {"slug":"masnavi","poet_slug":"rumi","title_persian":"مثنوی معنوی","title_english":"Masnavi","form":"ghazal","work_count":1}
 {"slug":"golestan","poet_slug":"saadi","title_persian":"گلستان","title_english":"Golestan","form":"ghazal","work_count":1}
 {"slug":"aphorisms","poet_slug":"general","title_persian":"سخنان و اندیشه‌ها","title_english":"Aphorisms","form":"other","work_count":494}
+{"slug":"molavi","title_persian":"دیوان مولانا","title_english":"Divan of Rumi","poet_slug":"molavi","rights_summary":{"default_status":"public_domain","notes":"full"}}

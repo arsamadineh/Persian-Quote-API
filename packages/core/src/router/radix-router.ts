@@ -36,7 +36,7 @@ export class TighRadixRouter {
     status: 404,
     headers: { 'content-type': 'application/problem+json; charset=utf-8' },
     body: new TextEncoder().encode(
-      JSON.stringify({ type: 'https://pq.arsamadineh.ir/problems/not-found', title: 'Not Found', status: 404, detail: 'Route not found' })
+      JSON.stringify({ type: 'https://pq.adicon.ir/problems/not-found', title: 'Not Found', status: 404, detail: 'Route not found' })
     ),
   });
 

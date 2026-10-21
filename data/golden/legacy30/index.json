@@ -1,0 +1,182 @@
+[
+  {
+    "slug": "quotes_default",
+    "path": "/api/quotes",
+    "status": 200,
+    "file": "quotes_default.json"
+  },
+  {
+    "slug": "quotes_deterministic",
+    "path": "/api/quotes?random=false&limit=5&page=1",
+    "status": 200,
+    "file": "quotes_deterministic.json"
+  },
+  {
+    "slug": "quotes_lines_auto",
+    "path": "/api/quotes?lines=auto&limit=3&random=false",
+    "status": 200,
+    "file": "quotes_lines_auto.json"
+  },
+  {
+    "slug": "quotes_lines_separators",
+    "path": "/api/quotes?lines=separators&limit=3&random=false",
+    "status": 200,
+    "file": "quotes_lines_separators.json"
+  },
+  {
+    "slug": "quotes_lines_raw",
+    "path": "/api/quotes?lines=raw&limit=3&random=false",
+    "status": 200,
+    "file": "quotes_lines_raw.json"
+  },
+  {
+    "slug": "hafez_default",
+    "path": "/api/quotes/hafez",
+    "status": 200,
+    "file": "hafez_default.json"
+  },
+  {
+    "slug": "hafez_deterministic",
+    "path": "/api/quotes/hafez?random=false&limit=3",
+    "status": 200,
+    "file": "hafez_deterministic.json"
+  },
+  {
+    "slug": "hafez_lines_separators",
+    "path": "/api/quotes/hafez?lines=separators&random=false&limit=3",
+    "status": 200,
+    "file": "hafez_lines_separators.json"
+  },
+  {
+    "slug": "hafez_lines_raw",
+    "path": "/api/quotes/hafez?lines=raw&random=false&limit=3",
+    "status": 200,
+    "file": "hafez_lines_raw.json"
+  },
+  {
+    "slug": "non_poetry_default",
+    "path": "/api/quotes/non-poetry",
+    "status": 200,
+    "file": "non_poetry_default.json"
+  },
+  {
+    "slug": "non_poetry_deterministic",
+    "path": "/api/quotes/non-poetry?random=false&limit=3",
+    "status": 200,
+    "file": "non_poetry_deterministic.json"
+  },
+  {
+    "slug": "shereno_default",
+    "path": "/api/quotes/shereno",
+    "status": 200,
+    "file": "shereno_default.json"
+  },
+  {
+    "slug": "shereno_deterministic",
+    "path": "/api/quotes/shereno?random=false&limit=3",
+    "status": 200,
+    "file": "shereno_deterministic.json"
+  },
+  {
+    "slug": "shereno_lines_auto",
+    "path": "/api/quotes/shereno?lines=auto&random=false&limit=3",
+    "status": 200,
+    "file": "shereno_lines_auto.json"
+  },
+  {
+    "slug": "shereno_lines_separators",
+    "path": "/api/quotes/shereno?lines=separators&random=false&limit=3",
+    "status": 200,
+    "file": "shereno_lines_separators.json"
+  },
+  {
+    "slug": "shereno_lines_raw",
+    "path": "/api/quotes/shereno?lines=raw&random=false&limit=3",
+    "status": 200,
+    "file": "shereno_lines_raw.json"
+  },
+  {
+    "slug": "search_eshgh",
+    "path": "/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5",
+    "status": 200,
+    "file": "search_eshgh.json"
+  },
+  {
+    "slug": "search_hafez",
+    "path": "/api/quotes/search?q=%D8%AD%D8%A7%D9%81%D8%B8&limit=5",
+    "status": 200,
+    "file": "search_hafez.json"
+  },
+  {
+    "slug": "search_empty_match",
+    "path": "/api/quotes/search?q=nonexistentqueryxyz123",
+    "status": 200,
+    "file": "search_empty_match.json"
+  },
+  {
+    "slug": "category_arefaneh",
+    "path": "/api/quotes/category/%D8%B9%D8%A7%D8%B1%D9%81%D8%A7%D9%86%D9%87?limit=3",
+    "status": 200,
+    "file": "category_arefaneh.json"
+  },
+  {
+    "slug": "poet_hafez",
+    "path": "/api/quotes/%D8%AD%D8%A7%D9%81%D8%B8?limit=3",
+    "status": 200,
+    "file": "poet_hafez.json"
+  },
+  {
+    "slug": "poet_molana",
+    "path": "/api/quotes/%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7?limit=3",
+    "status": 200,
+    "file": "poet_molana.json"
+  },
+  {
+    "slug": "poet_sohrab",
+    "path": "/api/quotes/%D8%B3%D9%87%D8%B1%D8%A7%D8%A8%20%D8%B3%D9%BE%D9%87%D8%B1%DB%8C?limit=3",
+    "status": 200,
+    "file": "poet_sohrab.json"
+  },
+  {
+    "slug": "poet_nima",
+    "path": "/api/quotes/%D9%86%DB%8C%D9%85%D8%A7%20%DB%8C%D9%88%D8%B4%DB%8C%D8%AC?limit=3",
+    "status": 200,
+    "file": "poet_nima.json"
+  },
+  {
+    "slug": "poets_catalog",
+    "path": "/api/poets",
+    "status": 200,
+    "file": "poets_catalog.json"
+  },
+  {
+    "slug": "categories_catalog",
+    "path": "/api/categories",
+    "status": 200,
+    "file": "categories_catalog.json"
+  },
+  {
+    "slug": "stats",
+    "path": "/api/stats",
+    "status": 200,
+    "file": "stats.json"
+  },
+  {
+    "slug": "health",
+    "path": "/api/health",
+    "status": 200,
+    "file": "health.json"
+  },
+  {
+    "slug": "embed_default",
+    "path": "/api/embed?theme=default",
+    "status": 200,
+    "file": "embed_default.json"
+  },
+  {
+    "slug": "embed_dark_hafez",
+    "path": "/api/embed?theme=dark&poet=%D8%AD%D8%A7%D9%81%D8%B8",
+    "status": 200,
+    "file": "embed_dark_hafez.json"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "name": "@persian-quote/review",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": { "test": "bun test" },
+  "dependencies": { "@persian-quote/persian": "workspace:*", "@persian-quote/poem": "workspace:*" },
+  "devDependencies": { "@types/bun": "^1.4.0", "typescript": "^5" }
+}

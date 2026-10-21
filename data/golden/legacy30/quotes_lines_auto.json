@@ -1,0 +1,66 @@
+{
+  "slug": "quotes_lines_auto",
+  "requestPath": "/api/quotes?lines=auto&limit=3&random=false",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [
+      {
+        "id": "p-1",
+        "kind": "poetry",
+        "text_persian": "عاشقان مرده‌اند در عشق زنده / تا ابد در دل جانان پاینده",
+        "text_english": "Lovers are dead in love, yet alive / Forever enduring in the beloved's heart",
+        "poet": "مولانا جلال‌الدین رومی",
+        "poet_english": "Rumi",
+        "source": "دیوان شمس",
+        "category": "عشق",
+        "tags": [
+          "عشق",
+          "زندگی",
+          "معنویت"
+        ]
+      },
+      {
+        "id": "p-2",
+        "kind": "poetry",
+        "text_persian": "دوش از مسجد سوی میخانه آمد پیرِ ما / ای خدا این چه منزل است که پیر ما آمد",
+        "text_english": "Last night our elder came from mosque to tavern / O God, what a station this is, that our elder came",
+        "poet": "حافظ شیرازی",
+        "poet_english": "Hafez",
+        "source": "دیوان حافظ",
+        "category": "عرفان",
+        "tags": [
+          "عرفان",
+          "حکمت",
+          "زندگی"
+        ]
+      },
+      {
+        "id": "p-3",
+        "kind": "poetry",
+        "text_persian": "هر که را در دل محبت جای است / جان او را آرامش و صفای است",
+        "text_english": "Whoever has love's place in their heart / Their soul has peace and purity",
+        "poet": "سعدی شیرازی",
+        "poet_english": "Saadi",
+        "source": "بوستان",
+        "category": "محبت",
+        "tags": [
+          "محبت",
+          "آرامش",
+          "معنویت"
+        ]
+      }
+    ],
+    "count": 3,
+    "total": 7,
+    "page": 1,
+    "limit": 3,
+    "line_mode": "auto"
+  },
+  "recordedAt": "2026-10-16T02:05:25.393Z"
+}

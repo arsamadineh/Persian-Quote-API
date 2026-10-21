@@ -1,0 +1,21 @@
+{
+  "slug": "category_arefaneh",
+  "requestPath": "/api/quotes/category/%D8%B9%D8%A7%D8%B1%D9%81%D8%A7%D9%86%D9%87?limit=3",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [],
+    "count": 0,
+    "total": 0,
+    "page": 1,
+    "limit": 3,
+    "line_mode": "auto",
+    "category": "%D8%B9%D8%A7%D8%B1%D9%81%D8%A7%D9%86%D9%87"
+  },
+  "recordedAt": "2026-10-16T02:05:25.769Z"
+}

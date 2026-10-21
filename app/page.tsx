@@ -18,7 +18,7 @@ interface ApiTabItem {
 function ApiPlayground() {
   const [activeTab, setActiveTab] = useState(0)
   const [copied, setCopied] = useState(false)
-  const [origin, setOrigin] = useState("https://pq.arsamadineh.ir")
+  const [origin, setOrigin] = useState("https://pq.adicon.ir")
 
   useEffect(() => {
     setOrigin(window.location.origin)

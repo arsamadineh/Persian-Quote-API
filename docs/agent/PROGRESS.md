@@ -1,6 +1,6 @@
 # Project Progress & State Log
 
-**Project**: Persian Quote API Complete Rebuild (`pq.arsamadineh.ir`)  
+**Project**: Persian Quote API Complete Rebuild (`pq.adicon.ir`)  
 **Current Phase**: Milestone M7 (Phase 7: Academic Hardening, Governance, Final Audit) Complete  
 **Last Updated**: 2026-10-17T00:00:00Z  
 **Branch**: `rebuild/v1`  

@@ -1,0 +1,21 @@
+{
+  "slug": "poet_sohrab",
+  "requestPath": "/api/quotes/%D8%B3%D9%87%D8%B1%D8%A7%D8%A8%20%D8%B3%D9%BE%D9%87%D8%B1%DB%8C?limit=3",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [],
+    "count": 0,
+    "total": 0,
+    "page": 1,
+    "limit": 3,
+    "line_mode": "auto",
+    "poet": "%D8%B3%D9%87%D8%B1%D8%A7%D8%A8%20%D8%B3%D9%BE%D9%87%D8%B1%DB%8C"
+  },
+  "recordedAt": "2026-10-16T02:05:25.814Z"
+}

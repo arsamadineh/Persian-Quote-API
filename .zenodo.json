@@ -1,0 +1,7 @@
+{
+  "title": "Persian Quote API",
+  "upload_type": "software",
+  "creators": [{ "name": "Adineh, Arsam" }],
+  "description": "Persian poetry corpus, structure, search, and scholarly tools.",
+  "license": "MIT"
+}

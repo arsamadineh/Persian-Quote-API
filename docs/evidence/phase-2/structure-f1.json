@@ -1,25 +1,189 @@
 {
-  "generated_at": "2026-10-16T17:43:51.224Z",
+  "generated_at": "2026-10-17T16:32:09.937Z",
+  "evaluation_mode": "honest_flattened_leave_poet_out",
   "corpus": {
-    "works_evaluated": 5398,
-    "round_trip_sample": 995
+    "total_canonical_works": 5398,
+    "ground_truth_evaluated": 1437,
+    "folds_count": 5,
+    "poets_count": 36
   },
   "line_boundary": {
-    "precision": 1,
-    "recall": 1,
-    "f1": 1,
-    "tp": 24377,
-    "fp": 0,
-    "fn": 0
+    "precision": 0.1008,
+    "recall": 0.2422,
+    "f1": 0.1423,
+    "tp": 3988,
+    "fp": 35579,
+    "fn": 12479
   },
   "stanza_boundary": {
-    "precision": 1,
-    "recall": 1,
-    "f1": 1,
-    "tp": 4839,
+    "precision": 0,
+    "recall": 0,
+    "f1": 0,
+    "tp": 0,
     "fp": 0,
-    "fn": 0
+    "fn": 4022
   },
+  "per_form": {
+    "ghazal": {
+      "works": 563,
+      "line": {
+        "precision": 0.1609,
+        "recall": 0.2177,
+        "f1": 0.1851,
+        "tp": 1890,
+        "fp": 9853,
+        "fn": 6792
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 3688
+      }
+    },
+    "nimaee": {
+      "works": 798,
+      "line": {
+        "precision": 0.0773,
+        "recall": 0.2717,
+        "f1": 0.1203,
+        "tp": 1959,
+        "fp": 23394,
+        "fn": 5252
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 191
+      }
+    },
+    "sepid": {
+      "works": 76,
+      "line": {
+        "precision": 0.0563,
+        "recall": 0.2422,
+        "f1": 0.0913,
+        "tp": 139,
+        "fp": 2332,
+        "fn": 435
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 143
+      }
+    }
+  },
+  "leave_poet_out_folds": [
+    {
+      "fold": 1,
+      "works": 228,
+      "line": {
+        "precision": 0.0518,
+        "recall": 0.2416,
+        "f1": 0.0854,
+        "tp": 383,
+        "fp": 7005,
+        "fn": 1202
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 143
+      }
+    },
+    {
+      "fold": 2,
+      "works": 300,
+      "line": {
+        "precision": 0.0295,
+        "recall": 0.2486,
+        "f1": 0.0527,
+        "tp": 260,
+        "fp": 8564,
+        "fn": 786
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    {
+      "fold": 3,
+      "works": 147,
+      "line": {
+        "precision": 0.0939,
+        "recall": 0.2437,
+        "f1": 0.1356,
+        "tp": 357,
+        "fp": 3444,
+        "fn": 1108
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 69
+      }
+    },
+    {
+      "fold": 4,
+      "works": 555,
+      "line": {
+        "precision": 0.1326,
+        "recall": 0.2173,
+        "f1": 0.1647,
+        "tp": 1779,
+        "fp": 11635,
+        "fn": 6406
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 3701
+      }
+    },
+    {
+      "fold": 5,
+      "works": 207,
+      "line": {
+        "precision": 0.1969,
+        "recall": 0.2888,
+        "f1": 0.2342,
+        "tp": 1209,
+        "fp": 4931,
+        "fn": 2977
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 109
+      }
+    }
+  ],
   "fingerprint_preservation_rate": 1,
   "appendix_a": {
     "A1_colophon_place": "تنکابن",

@@ -48,10 +48,11 @@ export default function EmbedPage() {
 
     (async () => {
       const [poetsData, categoriesData] = await Promise.all([
-        safe("/api/poets"),
+        safe("/v1/poets"),
         safe("/api/categories"),
       ]);
-      if (poetsData?.success) setPoets(poetsData.data);
+      if (poetsData?.items) setPoets(poetsData.items.map((p: any) => ({ name_persian: p.name_persian, quote_count: p.stats?.works_count ?? 0 })));
+      else if (poetsData?.success) setPoets(poetsData.data);
       if (categoriesData?.success) setCategories(categoriesData.data);
     })();
   }, [])

@@ -84,9 +84,11 @@ for (const w of works) {
   seenIds.add(id);
 }
 
-// 3. id-map completeness
-if (idMap.length !== works.length) {
-  fail(`id-map length ${idMap.length} != works length ${works.length}`);
+// 3. id-map completeness (legacy sources only; poetry-corpus works are added without legacy id)
+const mappedIds = new Set(idMap.map((m: any) => m.canonical_id));
+const legacyWorksCount = works.filter((w) => mappedIds.has(String((w as { id: string }).id))).length;
+if (idMap.length !== legacyWorksCount) {
+  fail(`id-map length ${idMap.length} != legacy works ${legacyWorksCount}`);
 }
 const worksIds = new Set(works.map((w) => String((w as { id: string }).id)));
 for (const m of idMap) {

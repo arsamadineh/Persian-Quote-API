@@ -104,7 +104,7 @@ export function problemResponse(
   status: number,
   title: string,
   detail?: string,
-  type = 'https://pq.arsamadineh.ir/problems/generic'
+  type = 'https://pq.adicon.ir/problems/generic'
 ): TighResponse {
   const body = JSON.stringify({ type, title, status, detail });
   return {

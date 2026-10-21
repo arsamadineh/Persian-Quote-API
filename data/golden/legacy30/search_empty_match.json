@@ -1,0 +1,21 @@
+{
+  "slug": "search_empty_match",
+  "requestPath": "/api/quotes/search?q=nonexistentqueryxyz123",
+  "statusCode": 200,
+  "headers": {
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "public, s-maxage=60, stale-while-revalidate=300",
+    "accessControlAllowOrigin": "*"
+  },
+  "body": {
+    "success": true,
+    "data": [],
+    "count": 0,
+    "total": 0,
+    "page": 1,
+    "limit": 10,
+    "line_mode": "auto",
+    "query": "nonexistentqueryxyz123"
+  },
+  "recordedAt": "2026-10-16T02:05:25.753Z"
+}

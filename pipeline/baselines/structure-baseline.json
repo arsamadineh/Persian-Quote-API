@@ -1,0 +1,19 @@
+{
+  "corpus": "sample300",
+  "structure_version": "poem-1.0.0-de50403407b0",
+  "per_form": {
+    "ghazal": {
+      "line_f1": 0.6925
+    },
+    "nimaee": {
+      "line_f1": 0.1266
+    },
+    "other": {
+      "line_f1": 0
+    },
+    "sepid": {
+      "line_f1": 0.2454
+    }
+  },
+  "ece": 0.0622
+}

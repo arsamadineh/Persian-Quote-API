@@ -2,19 +2,19 @@
   "endpoints": [
     {
       "name": "origin",
-      "url": "https://pq.arsamadineh.ir",
+      "url": "https://pq.adicon.ir",
       "scheme": "https",
       "primary": true
     },
     {
       "name": "fallback-1",
-      "url": "https://pq-fallback.arsamadineh.ir",
+      "url": "https://pq-fallback.adicon.ir",
       "scheme": "https",
       "primary": false
     },
     {
       "name": "api-origin",
-      "url": "https://api.pq.arsamadineh.ir",
+      "url": "https://api.pq.adicon.ir",
       "scheme": "https",
       "primary": true
     }

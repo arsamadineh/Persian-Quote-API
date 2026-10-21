@@ -9,7 +9,7 @@ import nonPoetry from "@/lib/data/non-poetry-quotes.json"
 export const dynamic = "force-static"
 export const revalidate = 3600
 
-const SITE_URL = "https://pq.arsamadineh.ir"
+const SITE_URL = "https://pq.adicon.ir"
 
 export async function GET() {
   const sample = (sampleQuotes as any[]).slice(0, 3)

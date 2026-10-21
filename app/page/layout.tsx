@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-const SITE_URL = "https://pq.arsamadineh.ir"
+const SITE_URL = "https://pq.adicon.ir"
 
 // لایه مسیر / برای metadata و JSON-LD اختصاصی صفحه اصلی.
 // صفحه اصلی app/page.tsx یک client component است.

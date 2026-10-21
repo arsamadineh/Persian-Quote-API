@@ -1,0 +1,8 @@
+# L14 — Scholarly publishing kit (`papers/`, `benchmarks/`, `notebooks/`, citation files) · class S · mode: normal
+Read `_COMMON.md`. Turn the project into something academics can cite and reuse. Zero hand-copied numbers.
+1. **`bun run paper:facts`** → `papers/facts.json` pulling every number from the real eval outputs (structure F1 per form, ECE, arud consistency/coverage, identify-verse hit@k, echo counts, stylometry accuracy, atlas proxy scores, build time). All templates read this file; if a fact is missing the template prints «اندازه‌گیری نشده» (H4).
+2. **`benchmarks/PersianPoemSeg/`**: release the structure benchmark (flattened inputs, truth, split by poet), baseline script, README with the leaderboard row for the shipped model. Same for `benchmarks/PersianVerseSearch/` (identify-verse queries). Only include texts whose rights allow redistribution; otherwise ship ids + a fetch script.
+3. **`papers/data-paper.fa.md` and `.en.md`** (≤ 4 pages each): problem, data and provenance, methods, evaluation (from `facts.json`), limitations (be blunt: free-verse line breaks are artistic, derived features carry confidence), availability, how to cite.
+4. `CITATION.cff`, `.zenodo.json`, Hugging Face dataset card (`benchmarks/HF_CARD.md`), a one-page `docs/DATASHEET.md`.
+5. **Five notebooks** (`notebooks/*.ipynb`): word frequency by poet; radif/qafiyeh statistics; echo-graph analysis; stylometric comparison; structure-confidence audit. Each ≤ 40 lines of code, runnable offline against the SDK offline mode; executed once at Gate B.
+**Done (T1):** `paper:facts` runs; templates render with no missing facts; notebooks execute at Gate B (not per commit).

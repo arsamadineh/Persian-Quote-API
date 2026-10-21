@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary & Audit Scope
 
-This document establishes the empirical reconnaissance baseline and safety net for the comprehensive rebuild of Persian-Quote-API (`pq.arsamadineh.ir`). In accordance with rules R1 through R22 in `ORIGINAL_REQUEST.md`, no production engine or architecture code is modified prior to establishing verifiable baselines, immutable dataset snapshots, golden contract recordings, visual regression baselines, and performance benchmarks.
+This document establishes the empirical reconnaissance baseline and safety net for the comprehensive rebuild of Persian-Quote-API (`pq.adicon.ir`). In accordance with rules R1 through R22 in `ORIGINAL_REQUEST.md`, no production engine or architecture code is modified prior to establishing verifiable baselines, immutable dataset snapshots, golden contract recordings, visual regression baselines, and performance benchmarks.
 
 The project is transitioning from a single-process, in-memory Next.js prototype (`my-v0-project`, Tigh engine v0.0.1-beta) into an academic-grade, modular monorepo (Bun workspaces) featuring a zero-dependency core engine (Tigh v1), Persian linguistic normalization, structured poem modeling with letter-fingerprint immutability, BM25F and semantic hybrid search, and persistent data artifacts.
 
@@ -210,7 +210,7 @@ Every defect cataloged in Section 3 of `ORIGINAL_REQUEST.md` has been directly v
 
 ### D20: Single Origin Reachability Issues for Iranian Universities
 - **Location**: `next.config.mjs`, `app/layout.tsx:19`
-- **Evidence**: Sole deployment is `pq.arsamadineh.ir` hosted on Vercel Anycast edge. Vercel Anycast IPs frequently suffer DNS poisoning, severe throttling, or complete reachability drops inside Iranian university campus networks (.ac.ir) and NIN.
+- **Evidence**: Sole deployment is `pq.adicon.ir` hosted on Vercel Anycast edge. Vercel Anycast IPs frequently suffer DNS poisoning, severe throttling, or complete reachability drops inside Iranian university campus networks (.ac.ir) and NIN.
 - **Root Cause**: Lack of domestic secondary origin or mirror infrastructure.
 
 ---

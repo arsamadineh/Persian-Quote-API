@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "model_type": "logistic_regression_sgd",
+  "num_features": 12,
+  "feature_names": [
+    "bias",
+    "is_sentence_punct",
+    "is_clause_punct",
+    "is_finite_verb",
+    "is_colloquial_ender",
+    "is_discourse_starter_next",
+    "repeat_left_end",
+    "repeat_right_start",
+    "line_word_ratio",
+    "short_line_inhibitor",
+    "long_line_pressure",
+    "is_conj_prep_left"
+  ],
+  "weights": [
+    -5.0135,
+     4.1015,
+    -0.0326,
+     0.7460,
+    -0.0337,
+     0.2693,
+     0.4507,
+     0.1387,
+     6.9664,
+     0.2397,
+    -1.6443,
+    -2.8108
+  ],
+  "calibration": {
+    "method": "platt_scaling",
+    "A": 0.6447,
+    "B": -1.4419,
+    "ece": 0.0164,
+    "ece_threshold": 0.08
+  },
+  "metrics": {
+    "training_samples": 37036,
+    "num_poets": 38,
+    "validation": "leave_poet_out",
+    "ece": 0.0164,
+    "target_ece": 0.08,
+    "inference_latency_ms": 0.22
+  }
+}

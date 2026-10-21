@@ -6,6 +6,7 @@
  * Target: < 4 KB gzipped. Zero runtime dependencies.
  */
 
+import { excerptFor, capFor } from './excerpt';
 const TEMPLATE = document.createElement('template');
 TEMPLATE.innerHTML = `
   <style>
@@ -73,6 +74,37 @@ TEMPLATE.innerHTML = `
       text-align: center;
       opacity: 0.6;
     }
+    .root .pq-line {
+      display: block;
+      text-wrap: balance;
+      text-indent: 0;
+      padding-inline-start: 0;
+      hanging-punctuation: first;
+    }
+    .root .pq-line + .pq-line {
+      margin-top: 2px;
+    }
+    .root .pq-more {
+      display: block;
+      text-align: center;
+      opacity: 0.6;
+      margin-top: 4px;
+    }
+    .root .pq-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.06);
+      margin-inline-start: 6px;
+    }
+    @media (min-width: 480px) {
+      .root.beyt-cols .pq-beyt {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+    }
   </style>
   <div class="root" part="root">
     <figure part="figure">
@@ -88,7 +120,7 @@ TEMPLATE.innerHTML = `
 
 class PersianQuote extends HTMLElement {
   static get observedAttributes() {
-    return ['poem-id', 'poet', 'api-base'];
+    return ['poem-id', 'poet', 'api-base', 'size', 'seed'];
   }
 
   #shadow: ShadowRoot;
@@ -99,6 +131,8 @@ class PersianQuote extends HTMLElement {
   #apiBase: string;
   #poemId: string | null;
   #poet: string | null;
+  #size: string;
+  #seed: number | undefined;
   #abort: AbortController | null = null;
 
   constructor() {
@@ -112,6 +146,9 @@ class PersianQuote extends HTMLElement {
     this.#apiBase = this.getAttribute('api-base') || '';
     this.#poemId = this.getAttribute('poem-id') || null;
     this.#poet = this.getAttribute('poet') || null;
+    this.#size = this.getAttribute('size') || 'medium';
+    const seedAttr = this.getAttribute('seed');
+    this.#seed = seedAttr ? Number(seedAttr) : undefined;
     this.#refresh.addEventListener('click', () => this.#load());
   }
 
@@ -123,6 +160,8 @@ class PersianQuote extends HTMLElement {
     if (name === 'api-base') this.#apiBase = value;
     else if (name === 'poem-id') this.#poemId = value || null;
     else if (name === 'poet') this.#poet = value || null;
+    else if (name === 'size') this.#size = value || 'medium';
+    else if (name === 'seed') this.#seed = value ? Number(value) : undefined;
     if (name !== 'api-base') this.#load();
   }
 
@@ -134,18 +173,28 @@ class PersianQuote extends HTMLElement {
     this.#cite.textContent = '';
 
     try {
-      let url: string;
+      let poem: any;
       if (this.#poemId) {
-        url = `${this.#apiBase}/v1/works/${encodeURIComponent(this.#poemId)}`;
+        const res = await fetch(`${this.#apiBase}/v1/works/${encodeURIComponent(this.#poemId)}`, { signal: this.#abort.signal, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        poem = await res.json();
       } else if (this.#poet) {
-        url = `${this.#apiBase}/v1/works?poet=${encodeURIComponent(this.#poet)}&limit=1`;
+        // pick a uniformly random work for this poet across all pages
+        const first = await fetch(`${this.#apiBase}/v1/works?poet=${encodeURIComponent(this.#poet)}&limit=1`, { signal: this.#abort.signal, headers: { Accept: 'application/json' } });
+        if (!first.ok) throw new Error(`HTTP ${first.status}`);
+        const firstData = (await first.json()) as any;
+        const total = (firstData.total as number) || (firstData.items?.length ?? 0);
+        const offset = total > 1 ? Math.floor(Math.random() * total) : 0;
+        const cursor = btoa(`${offset}:1`);
+        const res = await fetch(`${this.#apiBase}/v1/works?poet=${encodeURIComponent(this.#poet)}&limit=1&cursor=${encodeURIComponent(cursor)}`, { signal: this.#abort.signal, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = (await res.json()) as any;
+        poem = (Array.isArray(data.items) && data.items.length > 0) ? data.items[0] : (firstData.items?.[0] ?? firstData);
       } else {
-        url = `${this.#apiBase}/v1/works/random`;
+        const res = await fetch(`${this.#apiBase}/v1/works/random`, { signal: this.#abort.signal, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        poem = await res.json();
       }
-      const res = await fetch(url, { signal: this.#abort.signal, headers: { Accept: 'application/json' } });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = (await res.json()) as any;
-      const poem = data.poem ?? data.items?.[0] ?? data;
       this.#render(poem);
     } catch (err) {
       this.#empty.style.display = 'block';
@@ -154,11 +203,38 @@ class PersianQuote extends HTMLElement {
   }
 
   #render(poem: any): void {
-    const lines = Array.isArray(poem.stanzas) ? poem.stanzas.flat() : [];
-    const text = lines.length ? lines.join('\n') : poem.text ?? poem.text_plain ?? '';
-    this.#blockquote.textContent = text;
-    this.#cite.innerHTML = `<span class="poet">${this.#escapeHtml(poem.poet_name ?? '')}</span>` +
-      (poem.collection_title ? ` — <span>${this.#escapeHtml(poem.collection_title)}</span>` : '');
+    const form = String(poem?.form ?? poem?.structure?.form ?? '');
+    const classical = form === 'classical_rhymed' || form.startsWith('classical');
+    const stanzas = Array.isArray(poem?.stanzas) ? poem.stanzas : [];
+    const seed = this.#seed ?? (poem?.id ? this.#hash(String(poem.id)) : undefined);
+    const ex = excerptFor({ stanzas, size: this.#size, seed, classical });
+    const lines = ex.lines ?? [];
+    const confidence = Number(poem?.structure?.confidence ?? poem?.structure_meta?.confidence ?? 1);
+    const lowConfidence = confidence < 0.7;
+
+    this.#blockquote.innerHTML = '';
+    for (const line of lines) {
+      const div = document.createElement('div');
+      div.className = 'pq-line';
+      div.textContent = line;
+      this.#blockquote.appendChild(div);
+    }
+    if (ex.cutEnd) {
+      const more = document.createElement('div');
+      more.className = 'pq-more';
+      more.textContent = '…';
+      this.#blockquote.appendChild(more);
+    }
+
+    this.#cite.innerHTML = `<span class="poet">${this.#escapeHtml(poem?.poet_name ?? '')}</span>` +
+      (poem?.collection_title ? ` — <span>${this.#escapeHtml(poem.collection_title)}</span>` : '') +
+      (lowConfidence ? ` <span class="pq-badge">ساختار تقریبی</span>` : '');
+  }
+
+  #hash(s: string): number {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+    return h;
   }
 
   #escapeHtml(s: string): string {

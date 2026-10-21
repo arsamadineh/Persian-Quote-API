@@ -14,7 +14,7 @@ import nonPoetry from "@/lib/data/non-poetry-quotes.json"
 export const dynamic = "force-static"
 export const revalidate = 3600 // ۱ ساعت
 
-const SITE_URL = "https://pq.arsamadineh.ir"
+const SITE_URL = "https://pq.adicon.ir"
 
 export async function GET() {
   const poets = Array.from(

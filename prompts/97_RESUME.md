@@ -1,0 +1,2 @@
+# 97 — RESUME (paste after a crash, a context reset, or a preview-feature failure)
+Read `prompts/_COMMON.md` and `STATUS.md`. For each lane marked partial or not started: read only its lane file, run `git status` and `git log --oneline -5` in its worktree, run T0 on its owned dir, and continue from the first unchecked task. Do not redo `[x]` tasks. Do not spawn extra agents. If the harness refuses to spawn subagents, run the remaining lanes sequentially in this order: L1, L2, L3, L4, L5, L6, L9, L7, L10, L11, L13, L8, L12, L14. Report ≤ 8 lines per lane.

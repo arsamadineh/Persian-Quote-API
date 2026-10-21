@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 import { LATEST_VERSION } from "@/lib/changelog"
 
-const SITE_URL = "https://pq.arsamadineh.ir"
+const SITE_URL = "https://pq.adicon.ir"
 
 // ── صفحات رابط کاربری ─────────────────────────────────
 const UI_PAGES: Array<{

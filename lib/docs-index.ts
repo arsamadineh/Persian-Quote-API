@@ -328,7 +328,7 @@ export const DOC_INDEX: DocItem[] = [
     category: "snippet",
     href: "/docs#quickstart",
     keywords: ["curl", "random", "تصادفی"],
-    payload: "curl \"https://pq.arsamadineh.ir/api/quotes?random=true&limit=1\"",
+    payload: "curl \"https://pq.adicon.ir/api/quotes?random=true&limit=1\"",
   },
   {
     id: "snip-curl-hafez",
@@ -338,7 +338,7 @@ export const DOC_INDEX: DocItem[] = [
     category: "snippet",
     href: "/docs#hafez",
     keywords: ["hafez", "فال", "curl", "ghazal"],
-    payload: "curl \"https://pq.arsamadineh.ir/api/quotes/hafez?random=true&limit=1\"",
+    payload: "curl \"https://pq.adicon.ir/api/quotes/hafez?random=true&limit=1\"",
   },
   {
     id: "snip-curl-search",
@@ -348,7 +348,7 @@ export const DOC_INDEX: DocItem[] = [
     category: "snippet",
     href: "/docs#search",
     keywords: ["search", "عشق", "love", "جستجو"],
-    payload: 'curl "https://pq.arsamadineh.ir/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5"',
+    payload: 'curl "https://pq.adicon.ir/api/quotes/search?q=%D8%B9%D8%B4%D9%82&limit=5"',
   },
   {
     id: "snip-js-fetch",

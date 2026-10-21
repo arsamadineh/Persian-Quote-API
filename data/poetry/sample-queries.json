@@ -1,0 +1,6 @@
+[
+  { "name": "all_poems", "description": "همهٔ اشعار یک شاعر", "path": "data/poetry/<slug>/poems.json -> poems" },
+  { "name": "random_beyt", "description": "بیت تصادفی", "method": "poems[Math.random()*n].beyts[Math.random()*m]" },
+  { "name": "search_text", "description": "جستجوی متن در verses[].text" },
+  { "name": "by_category", "description": "فیلتر category" }
+]

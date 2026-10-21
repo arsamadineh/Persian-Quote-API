@@ -16,7 +16,7 @@ const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
 })
 
-const SITE_URL = "https://pq.arsamadineh.ir"
+const SITE_URL = "https://pq.adicon.ir"
 const SITE_NAME = "API اشعار فارسی"
 const SITE_NAME_EN = "Persian Quotes API"
 const TWITTER_HANDLE = "@dev_arsam"

@@ -110,7 +110,7 @@ export default function TermsPage() {
                   </p>
                   <p>
                     با استفاده از وب‌سایت
-                    <code className="px-1.5 py-0.5 bg-muted rounded text-xs mx-1" dir="ltr">pq.arsamadineh.ir</code>
+                    <code className="px-1.5 py-0.5 bg-muted rounded text-xs mx-1" dir="ltr">pq.adicon.ir</code>
                     و کلیه نقاط پایانی (endpoints) آن، شما این شرایط را مطالعه، فهمیده و پذیرفته‌اید.
                     اگر با هر بخشی از شرایط موافق نیستید، لطفاً از سرویس استفاده نکنید.
                   </p>

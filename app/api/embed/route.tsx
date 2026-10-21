@@ -1,6 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { dataset, getQuotesForPoet, presentQuote, type NormalizedQuote } from "@/lib/data/store"
 import { formatVerse } from "@/lib/utils"
+import { pickExcerpt } from "@persian-quote/poem"
+import { loadCanonicalStore } from "@persian-quote/core/storage"
 
 export const dynamic = "force-dynamic"
 
@@ -19,6 +21,15 @@ function trimPoem(text: string, maxLines: number, maxChars: number): string {
   return kept.join("\n") + "…";
 }
 
+function esc(s: unknown): string {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
 
@@ -33,48 +44,66 @@ export async function GET(request: NextRequest) {
   const autoRefresh = searchParams.get("auto_refresh") === "true"
   const refreshInterval = Number.parseInt(searchParams.get("refresh_interval") || "30000")
 
-  // Gather quotes from the unified normalized store
-  let allQuotes: NormalizedQuote[] = []
-
-  if (poet) {
-    allQuotes = getQuotesForPoet(poet)
-  } else if (category) {
-    allQuotes = dataset.poetry.filter(q => q.category === category)
-  } else {
-    allQuotes = dataset.poetry
+  // Gather quotes from the canonical store (includes all integrated corpora)
+  let allQuotes: any[] = [];
+  try {
+    const store = loadCanonicalStore();
+    let works = Array.from(store.works.values());
+    if (poet) works = works.filter((w: any) => w.poet_id === poet || w.poet_name === poet);
+    if (category) works = works.filter((w: any) => (w.tags || []).includes(category));
+    allQuotes = works.map((w: any) => ({
+      id: w.id,
+      kind: "poetry",
+      text_persian: (w.stanzas || []).flat().join("\n"),
+      stanzas: w.stanzas,
+      poet: w.poet_name,
+      poet_english: undefined,
+      source: w.collection_title,
+      category: (w.tags || [])[0],
+      text_english: undefined,
+    }));
+  } catch {
+    if (poet) allQuotes = getQuotesForPoet(poet);
+    else if (category) allQuotes = dataset.poetry.filter((q: any) => q.category === category);
+    else allQuotes = dataset.poetry;
   }
 
   if (allQuotes.length === 0) {
     return new NextResponse(
       JSON.stringify({ error: "شاعر یا دسته‌بندی مورد نظر یافت نشد" }),
-      {
-        status: 404,
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
+      { status: 404, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } }
     )
   }
 
-  const raw = allQuotes[Math.floor(Math.random() * allQuotes.length)]
+  const seedParam = searchParams.get("seed")
+  const seed = seedParam ? Number(seedParam) : Math.floor(Math.random() * 1e9)
+  const rng = (() => {
+    let s = seed >>> 0 || 1;
+    return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 0x100000000; };
+  })();
 
-  // متن از لایهٔ نمایش می‌آید تا شکست خط‌های شعر نو حفظ شود.
-  const presented = presentQuote(raw, "auto")
-  const presentedText = String(presented.text_persian ?? "")
+  const raw = allQuotes[Math.floor(rng() * allQuotes.length)]
 
-  // برای شعر نو: متن بلند را در مرز سطر و کلمه کوتاه می‌کنیم
-  const displayText = raw.kind === "shereno"
-    ? trimPoem(presentedText, 6, 220)
-    : presentedText
+  const sizeCap = size === "small" ? 25 : size === "large" ? 70 : 45
+  const maxWords = Math.min(sizeCap, Number(searchParams.get("max_words") || sizeCap))
+
+  const stanzas = Array.isArray(raw.stanzas) ? raw.stanzas : [String(raw.text_persian).split("\n")]
+  const ex = pickExcerpt(stanzas, {
+    maxWords,
+    targetWords: Math.max(8, Math.floor(maxWords * 0.6)),
+    minWords: Math.max(4, Math.floor(maxWords * 0.3)),
+    topK: 3,
+    rng,
+  })
+  const displayText = ex.lines.join("\n") + (ex.cutEnd ? "\n…" : "")
 
   const quote = {
     text_persian: displayText,
-    text_english: raw.kind === "shereno" ? undefined : raw.text_english,
-    poet: raw.poet ?? raw.author,
-    poet_english: raw.poet_english ?? raw.author_english,
-    source: raw.source ?? raw.book,
-    category: raw.category ?? (raw.kind === "shereno" ? "شعر نو" : undefined),
+    text_english: raw.text_english,
+    poet: raw.poet,
+    poet_english: raw.poet_english,
+    source: raw.source,
+    category: raw.category,
   }
 
   // Generate CSS based on theme
@@ -242,13 +271,13 @@ export async function GET(request: NextRequest) {
 <body>
   <div class="persian-quote-widget" id="persian-quote-widget">
     <div class="quote-icon">❝</div>
-    <div class="quote-text">${formatVerse(quote.text_persian)}</div>
+    <div class="quote-text">${formatVerse(esc(quote.text_persian))}</div>
     ${showEnglish && quote.text_english ? `<div class="quote-english">"${quote.text_english}"</div>` : ""}
-    <div class="quote-poet">— ${quote.poet}</div>
-    ${showEnglish && quote.poet_english ? `<div class="quote-poet-english">— ${quote.poet_english}</div>` : ""}
+    <div class="quote-poet">— ${esc(quote.poet)}</div>
+    ${showEnglish && quote.poet_english ? `<div class="quote-poet-english">— ${esc(quote.poet_english)}</div>` : ""}
     <div class="quote-meta">
-      ${showSource && quote.source ? `<span class="quote-badge">${quote.source}</span>` : ""}
-      ${showCategory && quote.category ? `<span class="quote-badge">${quote.category}</span>` : ""}
+      ${showSource && quote.source ? `<span class="quote-badge">${esc(quote.source)}</span>` : ""}
+      ${showCategory && quote.category ? `<span class="quote-badge">${esc(quote.category)}</span>` : ""}
     </div>
     <div class="quote-attribution">
       از <a href="${request.nextUrl.origin}" target="_blank">API اشعار فارسی</a>
@@ -280,6 +309,7 @@ export async function GET(request: NextRequest) {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET",
       "Access-Control-Allow-Headers": "Content-Type",
+      "Content-Security-Policy": "frame-ancestors *",
     },
   })
 }

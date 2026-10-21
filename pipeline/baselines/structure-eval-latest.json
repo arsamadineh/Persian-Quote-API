@@ -1,0 +1,124 @@
+{
+  "corpus": "sample300",
+  "structure_version": "poem-1.0.0-de50403407b0",
+  "works": 300,
+  "poets": 43,
+  "per_form": {
+    "ghazal": {
+      "works": 80,
+      "line": {
+        "precision": 0.6513,
+        "recall": 0.7393,
+        "f1": 0.6925,
+        "tp": 831,
+        "fp": 445,
+        "fn": 293
+      },
+      "stanza": {
+        "precision": 0.8449,
+        "recall": 0.887,
+        "f1": 0.8654,
+        "tp": 463,
+        "fp": 85,
+        "fn": 59
+      }
+    },
+    "nimaee": {
+      "works": 163,
+      "line": {
+        "precision": 0.0903,
+        "recall": 0.212,
+        "f1": 0.1266,
+        "tp": 329,
+        "fp": 3315,
+        "fn": 1223
+      },
+      "stanza": {
+        "precision": 0.001,
+        "recall": 0.0417,
+        "f1": 0.0019,
+        "tp": 1,
+        "fp": 1014,
+        "fn": 23
+      }
+    },
+    "other": {
+      "works": 50,
+      "line": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 359,
+        "fn": 0
+      },
+      "stanza": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 69,
+        "fn": 0
+      }
+    },
+    "sepid": {
+      "works": 7,
+      "line": {
+        "precision": 0.1606,
+        "recall": 0.5195,
+        "f1": 0.2454,
+        "tp": 40,
+        "fp": 209,
+        "fn": 37
+      },
+      "stanza": {
+        "precision": 0.0333,
+        "recall": 0.3333,
+        "f1": 0.0606,
+        "tp": 2,
+        "fp": 58,
+        "fn": 4
+      }
+    }
+  },
+  "overall_line": {
+    "precision": 0.2171,
+    "recall": 0.4359,
+    "f1": 0.2898,
+    "tp": 1200,
+    "fp": 4328,
+    "fn": 1553
+  },
+  "overall_stanza": {
+    "precision": 0.2754,
+    "recall": 0.8442,
+    "f1": 0.4153,
+    "tp": 466,
+    "fp": 1226,
+    "fn": 86
+  },
+  "ece": 0.0622,
+  "ece_f1": 0.5454,
+  "fold_f1": [
+    0.5099,
+    0.119,
+    0.0476,
+    0.1597,
+    0.1792
+  ],
+  "fingerprint_preservation_rate": 1,
+  "confidence_bands": {
+    "gte_0_9": 74,
+    "between_0_7_and_0_9": 226,
+    "lt_0_7": 0
+  },
+  "appendix_a": {
+    "A1_pass": true,
+    "A1_excerpt_words": 21,
+    "A2_pass": true,
+    "A3_pass": true,
+    "A3_whitespace_violations": 0,
+    "A3_punct_only_violations": 0,
+    "A3_slash_violations": 0
+  }
+}

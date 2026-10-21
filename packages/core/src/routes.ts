@@ -1,5 +1,7 @@
 import { loadCanonicalStore, poemOfTheDay, falHafez } from './storage';
 export { searchHandler } from './search-index';
+import fs from 'node:fs';
+import path from 'node:path';
 import {
   jsonBody,
   textBody,
@@ -12,6 +14,65 @@ import { cleanLine as cleanPersianLine } from '@persian-quote/persian';
 import type { Poem } from '@persian-quote/schema';
 
 const store = loadCanonicalStore();
+
+interface DerivedStructure {
+  form: string;
+  origin: string;
+  confidence: number;
+  flags: string[];
+}
+
+// لایهٔ ساختار استنتاج‌شده از pipeline/rebuild-structure.ts.
+// در نبود فایل، پاسخ‌ها بدون این لایه برگردانده می‌شوند (سازگاری کامل).
+let derivedCache: Map<string, DerivedStructure> | null | undefined;
+
+function derivedStructure(): Map<string, DerivedStructure> {
+  if (derivedCache !== undefined) return derivedCache ?? new Map();
+  const file = path.join(process.cwd(), 'data', 'derived', 'structure.jsonl');
+  if (!fs.existsSync(file)) {
+    derivedCache = null;
+    return new Map();
+  }
+  const map = new Map<string, DerivedStructure>();
+  for (const line of fs.readFileSync(file, 'utf-8').split('\n')) {
+    if (!line.trim()) continue;
+    try {
+      const rec = JSON.parse(line) as { id: string; structure: DerivedStructure };
+      map.set(rec.id, rec.structure);
+    } catch {
+      // خط نامعتبر نادیده گرفته می‌شود.
+    }
+  }
+  derivedCache = map;
+  return map;
+}
+
+/** شاعر/اثر + لایهٔ ساختار: origin، confidence، form. */
+function withStructure(work: any): any {
+  const s = derivedStructure().get(work.id);
+  if (!s) return work;
+  return { ...work, structure: { origin: s.origin, confidence: Number(s.confidence.toFixed(4)), form: s.form } };
+}
+
+function confidenceBands(): Record<string, { count: number; share: number }> {
+  const derived = derivedStructure();
+  const bands = { gte_0_9: 0, between_0_7_and_0_9: 0, lt_0_7: 0 };
+  let total = 0;
+  for (const w of store.works.values()) {
+    const c = derived.get(w.id)?.confidence ?? w.structure_meta?.confidence;
+    if (c === undefined) continue;
+    total++;
+    if (c >= 0.9) bands.gte_0_9++;
+    else if (c >= 0.7) bands.between_0_7_and_0_9++;
+    else bands.lt_0_7++;
+  }
+  const share = (n: number) => (total === 0 ? 0 : Number((n / total).toFixed(4)));
+  return {
+    gte_0_9: { count: bands.gte_0_9, share: share(bands.gte_0_9) },
+    between_0_7_and_0_9: { count: bands.between_0_7_and_0_9, share: share(bands.between_0_7_and_0_9) },
+    lt_0_7: { count: bands.lt_0_7, share: share(bands.lt_0_7) },
+  };
+}
 
 function parseBool(v: string | undefined): boolean {
   return v === '1' || v === 'true' || v === 'yes';
@@ -46,7 +107,7 @@ function filterWorks(
 ): Poem[] {
   const result: Poem[] = [];
   for (const w of works) {
-    if (filters.poet && w.poet_id !== filters.poet) continue;
+    if (filters.poet && w.poet_id !== filters.poet && w.poet_name !== filters.poet) continue;
     if (filters.collection && w.collection_id !== filters.collection) continue;
     if (filters.form && w.form !== filters.form) continue;
     if (filters.meter && w.meter?.name !== filters.meter) continue;
@@ -72,6 +133,7 @@ export function metaHandler(_req: TighRequest): TighResponse {
     poets: store.counts.poets,
     collections: store.counts.collections,
     timezone: 'Asia/Tehran',
+    confidence_bands: confidenceBands(),
   });
 }
 
@@ -89,7 +151,7 @@ export function worksListHandler(req: TighRequest): TighResponse {
   const offset = cursor ? cursor.offset : 0;
 
   const all = filterWorks(store.works.values(), filters);
-  const page = all.slice(offset, offset + limit);
+  const page = all.slice(offset, offset + limit).map(withStructure);
   const nextOffset = offset + page.length;
   const hasNext = nextOffset < all.length;
 
@@ -136,7 +198,7 @@ export function worksGetHandler(req: TighRequest): TighResponse {
   let body: unknown;
   switch (view) {
     case 'excerpt':
-      body = { ...w, stanzas: [w.excerpt?.lines ?? [w.stanzas[0]?.[0] ?? '']] };
+      body = { ...withStructure(w), stanzas: [w.excerpt?.lines ?? [w.stanzas[0]?.[0] ?? '']] };
       break;
     case 'lines':
       body = { id: w.id, lines: w.stanzas.flat(), text_plain: w.text_plain };
@@ -146,7 +208,7 @@ export function worksGetHandler(req: TighRequest): TighResponse {
       break;
     case 'full':
     default:
-      body = w;
+      body = withStructure(w);
       break;
   }
 
@@ -159,7 +221,7 @@ export function worksGetHandler(req: TighRequest): TighResponse {
 export function worksRandomHandler(_req: TighRequest): TighResponse {
   const ids = Array.from(store.works.keys());
   const id = ids[Math.floor(Math.random() * ids.length)]!;
-  return jsonBody(store.works.get(id)!, 200, { 'cache-control': 'no-store' });
+  return jsonBody(withStructure(store.works.get(id)!), 200, { 'cache-control': 'no-store' });
 }
 
 export function dailyHandler(_req: TighRequest): TighResponse {
