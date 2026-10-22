@@ -6,7 +6,7 @@ Your working directory is /home/arsam/Documents/work/Website/Webdev/Persian-Quot
 The project root is /home/arsam/Documents/work/Website/Webdev/Persian-Quote-API.
 The authoritative user request is documented in /home/arsam/Documents/work/Website/Webdev/Persian-Quote-API/.agents/teamwork/ORIGINAL_REQUEST.md. Please read it thoroughly.
 
-Your objective is to orchestrate and execute the complete rebuild of "Persian Quote API" (pq.arsamadineh.ir) into the reference open, university-grade Persian literature platform across all 7 phases and 15 workstreams:
+Your objective is to orchestrate and execute the complete rebuild of "Persian Quote API" (pq.adicon.ir) into the reference open, university-grade Persian literature platform across all 7 phases and 15 workstreams:
 - Phase 0: Recon and safety net (repo audit, baseline performance measurements, legacy data snapshot with SHA-256 checksums to data/legacy/, golden legacy contract snapshots, Playwright screenshots, docs/audit/00-recon.md)
 - Phase 1: Foundations (monorepo setup with Bun workspaces, packages/schema, packages/persian with 90%+ branch coverage and property tests)
 - Phase 2: Data (WS1 canonical data model & migration, WS3 structure engine & eval harness, WS4 excerpt/radif/qafiyeh, rights audit, acceptance fixtures A1, A2, A3 pass)

@@ -49,7 +49,15 @@ export async function GET(request: NextRequest) {
   try {
     const store = loadCanonicalStore();
     let works = Array.from(store.works.values());
-    if (poet) works = works.filter((w: any) => w.poet_id === poet || w.poet_name === poet);
+    if (poet) {
+      const pNorm = poet.trim().toLowerCase();
+      works = works.filter((w: any) =>
+        w.poet_id?.toLowerCase() === pNorm ||
+        w.poet_name === poet ||
+        (w.poet_name && w.poet_name.includes(poet)) ||
+        (w.poet_english && w.poet_english.toLowerCase() === pNorm)
+      );
+    }
     if (category) works = works.filter((w: any) => (w.tags || []).includes(category));
     allQuotes = works.map((w: any) => ({
       id: w.id,
@@ -63,6 +71,10 @@ export async function GET(request: NextRequest) {
       text_english: undefined,
     }));
   } catch {
+    // fallback to legacy store below
+  }
+
+  if (allQuotes.length === 0) {
     if (poet) allQuotes = getQuotesForPoet(poet);
     else if (category) allQuotes = dataset.poetry.filter((q: any) => q.category === category);
     else allQuotes = dataset.poetry;

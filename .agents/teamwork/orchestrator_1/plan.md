@@ -1,7 +1,7 @@
 # Project Plan: Persian Quote API Complete Rebuild
 
 ## Executive Summary
-Rebuild `pq.arsamadineh.ir` from an in-memory JSON prototype into a reference open, university-grade Persian literature platform across 7 phases, 15 workstreams, R1-R22 non-negotiable operating rules, and AGENTS.md requirements.
+Rebuild `pq.adicon.ir` from an in-memory JSON prototype into a reference open, university-grade Persian literature platform across 7 phases, 15 workstreams, R1-R22 non-negotiable operating rules, and AGENTS.md requirements.
 
 ## Architecture & Tracks
 1. **Implementation Track**:

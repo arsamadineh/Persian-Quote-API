@@ -135,7 +135,7 @@ Every defect listed in Section 3 of `ORIGINAL_REQUEST.md` was investigated and v
 | **D17** | Inadequate pagination contract | `lib/data/store.ts:639-658, 835-893` | `paginate` returns `count` (current slice length) and `total`, but lacks `has_more`, `next_cursor`, or `total_pages`. Returns invalid `page` metadata during random sampling. `/api/poets` and `/api/categories` lack pagination entirely. | **Verified** |
 | **D18** | Ad hoc error format | `lib/engine/router.ts:23-27`, `lib/engine/engine.ts:100-103, 177`, `app/api/embed/route.tsx:48-57` | No RFC 9457 `application/problem+json`. Endpoints return conflicting error schemas (`{ error, message }` vs `{ error }`). | **Verified** |
 | **D19** | No ETag, Server-Timing, or precompression | `lib/engine/routes.ts`, `lib/engine/middleware.ts:99-155` | Search for `ETag` and `Server-Timing` yields 0 matches in the repository. `compressMiddleware` exists as unused dead code in `middleware.ts`. | **Verified** |
-| **D20** | Single origin reachability issues for Iranian universities | `next.config.mjs`, `app/layout.tsx:19` | Sole deployment target is `pq.arsamadineh.ir` on Vercel Anycast edge. Vercel IPs frequently experience DNS filtering and routing degradation in Iranian academic (.ac.ir) and NIN networks; no domestic or secondary origin mirrors exist. | **Verified** |
+| **D20** | Single origin reachability issues for Iranian universities | `next.config.mjs`, `app/layout.tsx:19` | Sole deployment target is `pq.adicon.ir` on Vercel Anycast edge. Vercel IPs frequently experience DNS filtering and routing degradation in Iranian academic (.ac.ir) and NIN networks; no domestic or secondary origin mirrors exist. | **Verified** |
 
 ---
 
@@ -153,7 +153,7 @@ Every defect listed in Section 3 of `ORIGINAL_REQUEST.md` was investigated and v
 
 ## 3. Caveats
 
-- **Vercel Serverless Production Logs**: Exploration was conducted within the local repository environment. Live production request logs, Vercel edge deployment metrics, and real-time traffic statistics from `pq.arsamadineh.ir` could not be inspected directly via shell.
+- **Vercel Serverless Production Logs**: Exploration was conducted within the local repository environment. Live production request logs, Vercel edge deployment metrics, and real-time traffic statistics from `pq.adicon.ir` could not be inspected directly via shell.
 - **Python Ingestion Scripts**: Scripts in `scripts/` (`convert-shereno.py`, `parse_hafez.py`, `extract_quotes.py`) reflect historical one-off data extraction and were not re-run against their original remote upstream data sources.
 - **Copyright Legal Audits**: The assessment of copyright expiration in D10 is based on Iranian statutory copyright law (50-year term post-mortem). Formal rights classification for all individual poets must be executed during the WS1 Rights Audit.
 

@@ -1,7 +1,7 @@
 # Orchestrator Soft Handoff — Generation 1 to Generation 2
 
 ## 1. Observation
-- **Mission**: Rebuild "Persian Quote API" (pq.arsamadineh.ir) into the reference open, university-grade Persian literature platform across 7 phases and 15 workstreams.
+- **Mission**: Rebuild "Persian Quote API" (pq.adicon.ir) into the reference open, university-grade Persian literature platform across 7 phases and 15 workstreams.
 - **Project Root**: `/home/arsam/Documents/work/Website/Webdev/Persian-Quote-API`
 - **Parent Conversation ID**: `c4a4606a-c3cf-4c73-941e-e0017e835212` (Sentinel)
 - **Cumulative Spawns**: 16 / 16 (Succession threshold reached).

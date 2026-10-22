@@ -2,7 +2,7 @@
 
 ## 2026-10-16T01:42:01Z
 
-Rebuild "Persian Quote API" (pq.arsamadineh.ir) from an in-memory JSON prototype into the reference open, university-grade Persian literature platform with canonical data modeling, a zero-dependency high-performance engine (Tigh v1), Persian-aware hybrid search, academic infrastructure, and modern web experience.
+Rebuild "Persian Quote API" (pq.adicon.ir) from an in-memory JSON prototype into the reference open, university-grade Persian literature platform with canonical data modeling, a zero-dependency high-performance engine (Tigh v1), Persian-aware hybrid search, academic infrastructure, and modern web experience.
 
 Working directory: /home/arsam/Documents/work/Website/Webdev/Persian-Quote-API
 Integrity mode: development
@@ -383,3 +383,63 @@ const fingerprint = (s: string) => s.replace(/[\s\u200c*\/]+/g, '');
 ---
 
 Begin with Phase 0. Do not write production code until the recon report, legacy snapshots, screenshots, and baselines exist. Then proceed through the phases without stopping until the final report is written. Be bold, be rigorous, and show your evidence.
+
+
+## 2026-10-17T12:10:18Z
+
+Implement Structure Engine v2 in packages/poem conforming to contracts/structure.ts (structurePoem), fixing line break leakage, detached prefixes/suffixes, and misaligned radif/rhymes across classical and modern Persian verse.
+
+Working directory: /home/arsam/Documents/work/Website/Webdev/Persian-Quote-API
+Integrity mode: development
+
+## Requirements
+
+### R1. Deterministic Multi-Stage Pipeline & S1 Glue Constraints
+Implement structurePoem(text, options) following stages S0 through S8. Stop at the first stage meeting confidence thresholds:
+- S0 (Signals & Colophon): Extract colophon via existing extraction, then split by real separators (*, blank line, \n, double-space, spaced / ) if looksStructured (median 2–12 words/line, max <= 22). Origin separators, confidence 0.95.
+- S1 (Hard Glue Constraints): Enforce across all downstream stages:
+  - Never START a line with: ی ها های تر ترین ام ات اش مان تان شان (standalone tokens), را است بود شد نیست هست.
+  - Never END a line (unless punctuation follows) with: ای می نمی بی همی و که تا یا از به در با بر چون اگر ولی اما.
+  - Keep whole: X به X compounds (در به در, لا به لا, سر به سر, روز به روز), تو در تو, immediate identical repeats X X, and ezafe chains up to 3 tokens.
+
+### R2. Form Classification (S2) & Classical Rhyme Grid (S3)
+- S2 (Form Classifier): Classify Form (classical_rhymed, free_verse, colloquial, prose) using n-gram periodicity, rhyme regularity, length coefficient of variation, punctuation density, and colloquial markers.
+- S3 (Rhyme Grid): For classical_rhymed:
+  - Detect radif candidates (inter-occurrence gap CV <= 0.35) and qafiyeh. Repeating end-tokens end hemistichs (breaks placed AFTER).
+  - Test hypotheses H1 (masnavi/rubai anchors every hemistich) vs H2 (ghazal/qasida anchors end beyts), snapping midpoints to glue-valid boundaries.
+  - Emit beyts and stanzas (one per beyt) with calibrated confidence.
+
+### R3. Modern Boundary Model (S4) & Heuristic Fallback (S5)
+- S4 (Colloquial / Free Verse): Tiny pure-TypeScript logistic regression trained via SGD with weights stored in weights.json (inference = dot product, zero runtime deps). Evaluate leave-poet-out only. Calibrate probabilities (Platt/isotonic) to produce meaningful confidence.
+- S5 (Heuristic Fallback): Dynamic programming with S1 glue constraints, no uniform-length target, and orphan penalties. Confidence <= 0.4, flag low_confidence.
+- S6 (LLM Pass): Optional, batched, cached, budget-capped, letter-fingerprint verified pass only if confidence < 0.7.
+
+### R4. Typo Flags (S7) & Typeset Layer (S8)
+- S7 (Typo Flags): Non-neural frequency lexicon flagging tokens (count <= 2) when edit-distance-1/2 neighbors have >= 50x count. Stored in typos as flags only (never auto-applied).
+- S8 (Typeset Layer): Derived separate layer attaching standalone suffixes (ی ها های تر ترین) to previous token with ZWNJ. Never touch می.
+
+## Verification Resources
+- data/golden/shots.jsonl: 4 golden shots with verified classical and modern behaviors.
+- data/golden/sample300.jsonl: Stratified evaluation benchmark (300 works).
+- data/golden/legacy30/: 30 legacy contract goldens.
+- Corpus defect scanner in test harness.
+
+## Acceptance Criteria
+
+### Behavioral Fixtures (data/golden/shots.jsonl)
+- [ ] Shot #1 (Mehdi Soheili): >= 90% of lines ending a hemistich end with «هنوز».
+- [ ] Shot #4 (Shahriar): Beyts have 2 hemistichs of near-equal length.
+- [ ] Shots #2 & #3 (Heydarzadeh & Ahmadi): Zero lines start with glue tokens or end dangling.
+- [ ] All four shots format to <= 10-word lines.
+
+### Corpus Invariants
+- [ ] 0 lines across the corpus starting with a standalone glue-suffix token.
+- [ ] 0 lines across the corpus ending on a dangling token without punctuation.
+- [ ] Letter-fingerprint preservation rate is 100% across all evaluated works.
+
+### Model & Performance Metrics
+- [ ] Leave-poet-out boundary F1 on classical flattened Hafez >= 0.97.
+- [ ] Leave-poet-out boundary F1 on free verse and colloquial reported honestly (target >= 0.80).
+- [ ] Expected Calibration Error (ECE) <= 0.08.
+- [ ] Median inference runtime <= 5 ms/poem.
+- [ ] All unit and property tests in packages/poem pass green (bun test packages/poem).

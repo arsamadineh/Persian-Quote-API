@@ -108,3 +108,10 @@ data/derived/.cache/
 
 # فایل‌های تولیدشده توسط سرویس‌های طراحی (در صورت استفاده) که نباید در مخزن باشند
 .v0/
+
+# ───- generated artifacts (rebuildable) ───-
+data/derived/
+docs/review-queue.jsonl
+docs/review-queue.csv
+data/poetry/*/poetry.db
+data/poetry/*/*_norm.txt

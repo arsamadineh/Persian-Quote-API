@@ -125,6 +125,7 @@ const TOOLS: Tool[] = [
       },
       required: ['id'],
     },
+  },
   {
     name: 'query_corpus',
     description: 'Query the corpus with structured filters (poet, form, meter, radif, era, tag, text) and return matching poem ids + metadata.',
@@ -143,6 +144,8 @@ const TOOLS: Tool[] = [
     },
   },
 ];
+
+function toolList(): any[] {
   return TOOLS.map((t) => ({
     name: t.name,
     description: t.description,

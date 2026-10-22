@@ -1,7 +1,7 @@
 # BRIEFING — 2026-10-16T01:45:00Z
 
 ## Mission
-Rebuild "Persian Quote API" (pq.arsamadineh.ir) into the reference open, university-grade Persian literature platform across all 7 phases and 15 workstreams.
+Rebuild "Persian Quote API" (pq.adicon.ir) into the reference open, university-grade Persian literature platform across all 7 phases and 15 workstreams.
 
 ## 🔒 My Identity
 - Archetype: teamwork_preview_orchestrator
