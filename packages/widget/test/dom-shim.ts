@@ -44,3 +44,6 @@ globalThis.HTMLElement = class {
   getAttribute() { return null; }
 } as any;
 globalThis.fetch = (async () => new Response('{}', { status: 200, headers: { 'content-type': 'application/json' } })) as any;
+
+export {};
+

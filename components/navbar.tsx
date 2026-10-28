@@ -33,10 +33,12 @@ export function Navbar() {
 
   const navLinks = [
     { name: "معرفی", href: "/" },
+    { name: "ابزارهای دانشگاهی", href: "/#academic-tools" },
+    { name: "گردونهٔ بحور", href: "/#metres" },
+    { name: "طرح درس", href: "/#syllabus" },
     { name: "مستندات", href: "/docs" },
     { name: "نمونه کدها", href: "/examples" },
     { name: "ویجت", href: "/embed" },
-    { name: "معماری موتور", href: "/sakhtar" },
     { name: "مشارکت", href: "/contribute" },
   ]
 

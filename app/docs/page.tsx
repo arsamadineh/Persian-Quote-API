@@ -40,7 +40,6 @@ import {
   Search,
   Settings,
   ShieldCheck,
-  Sparkles,
   Terminal,
   TestTube,
   Timer,
@@ -500,7 +499,7 @@ export default function DocsPage() {
               </div>
 
               <Alert>
-                <Sparkles className="h-4 w-4" />
+                <Zap className="h-4 w-4 text-primary" />
                 <AlertDescription className="text-sm md:text-base leading-relaxed">
                   بدون ثبت‌نام، بدون کلید، بدون محدودیت پرداخت. فقط یک درخواست HTTP ارسال کنید و پاسخ
                   JSON دریافت کنید.
@@ -822,20 +821,20 @@ curl "https://pq.adicon.ir/api/quotes/category/%D8%B9%D8%B4%D9%82"`}
                 example={`# فال حافظ — یک غزل تصادفی
 curl "https://pq.adicon.ir/api/quotes/hafez?random=true&limit=1"
 
-# غزل شماره ۱
-curl "https://pq.adicon.ir/api/quotes/hafez?id=1"
+# غزل شماره ۲۹۶
+curl "https://pq.adicon.ir/api/quotes/hafez?id=296"
 
 # جستجوی کلمه «رند»
 curl "https://pq.adicon.ir/api/quotes/hafez?q=%D8%B1%D9%86%D8%AF"`}
-                liveUrl="/api/quotes/hafez?random=true&limit=1"
+                liveUrl="/api/quotes/hafez?id=296"
                 responsePreview={`{
   "success": true,
   "data": [
     {
-      "id": 1,
+      "id": 296,
       "verses": [
-        ["الا یا ایها الساقی ادر کاسا و ناولها", "که عشق آسان نمود اول ولی افتاد مشکل‌ها"],
-        ["به بوی نافه کاخر صبا زان طره بگشاید", "ز تاب جعد مشکینش چه خون افتاد در دل‌ها"]
+        ["در وفای عشق تو مشهور خوبانم چو شمع", "شب‌نشین کوی سربازان و رندانم چو شمع"],
+        ["روز و شب خوابم نمی‌آید به چشم غم‌پرست", "بس که در بیماری هجر تو گریانم چو شمع"]
       ],
       "poet": "حافظ شیرازی",
       "source": "دیوان حافظ"
@@ -1845,7 +1844,7 @@ bun run start`}
             <Card className="p-6 md:p-8 border-primary/30 bg-gradient-to-br from-primary/5 via-card to-card">
               <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
                 <div className="flex-1">
-                  <Sparkles className="w-6 h-6 text-primary mb-2" />
+                  <Zap className="w-6 h-6 text-primary mb-2" />
                   <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
                     آماده‌اید موتور را امتحان کنید؟
                   </h3>

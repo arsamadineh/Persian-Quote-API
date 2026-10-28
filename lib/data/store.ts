@@ -90,8 +90,29 @@ const POET_BIOS: Record<
 > = {
   "مولانا": {
     english: "Rumi",
-    bioFa: "مولانا جلال‌الدین محمد بلخی معروف به رومی، شاعر و عارف بزرگ قرن هفتم هجری",
-    bioEn: "Jalal ad-Din Muhammad Rumi, a 13th-century Persian poet, Islamic scholar, theologian, and Sufi mystic",
+    bioFa: "مولانا جلال‌الدین محمد بلخی معروف به رومی، شاعر و عارف بزرگ قرن هفتم هجری و سراینده مثنوی معنوی و دیوان شمس.",
+    bioEn: "Jalal ad-Din Muhammad Rumi, a 13th-century Persian poet, Islamic scholar, theologian, and Sufi mystic, author of Masnavi and Divan-e Shams.",
+    birth: 1207,
+    death: 1273,
+  },
+  "مولانا جلال‌الدین رومی": {
+    english: "Rumi",
+    bioFa: "مولانا جلال‌الدین محمد بلخی معروف به رومی، شاعر و عارف بزرگ قرن هفتم هجری و سراینده مثنوی معنوی و دیوان شمس.",
+    bioEn: "Jalal ad-Din Muhammad Rumi, a 13th-century Persian poet, Islamic scholar, theologian, and Sufi mystic, author of Masnavi and Divan-e Shams.",
+    birth: 1207,
+    death: 1273,
+  },
+  "مولانا جلال‌الدین بلخی": {
+    english: "Rumi",
+    bioFa: "مولانا جلال‌الدین محمد بلخی معروف به رومی، شاعر و عارف بزرگ قرن هفتم هجری و سراینده مثنوی معنوی و دیوان شمس.",
+    bioEn: "Jalal ad-Din Muhammad Rumi, a 13th-century Persian poet, Islamic scholar, theologian, and Sufi mystic, author of Masnavi and Divan-e Shams.",
+    birth: 1207,
+    death: 1273,
+  },
+  "مولوی": {
+    english: "Rumi",
+    bioFa: "مولانا جلال‌الدین محمد بلخی معروف به رومی، شاعر و عارف بزرگ قرن هفتم هجری و سراینده مثنوی معنوی و دیوان شمس.",
+    bioEn: "Jalal ad-Din Muhammad Rumi, a 13th-century Persian poet, Islamic scholar, theologian, and Sufi mystic, author of Masnavi and Divan-e Shams.",
     birth: 1207,
     death: 1273,
   },

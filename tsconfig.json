@@ -35,6 +35,10 @@
       "@persian-quote/mcp/*": ["./packages/mcp/src/*"],
       "@persian-quote/search": ["./packages/search/src/index.ts"],
       "@persian-quote/search/*": ["./packages/search/src/*"],
+      "@persian-quote/arud": ["./packages/arud/src/index.ts"],
+      "@persian-quote/arud/*": ["./packages/arud/src/*"],
+      "@persian-quote/tools": ["./packages/tools/src/index.ts"],
+      "@persian-quote/tools/*": ["./packages/tools/src/*"],
       "@/*": ["./*", "./apps/web/*", "./app/*"]
     }
   },

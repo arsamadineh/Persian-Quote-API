@@ -106,8 +106,23 @@ function filterWorks(
   }
 ): Poem[] {
   const result: Poem[] = [];
+  const poetNeedle = filters.poet?.trim().toLowerCase();
+  const isMolana =
+    poetNeedle === 'rumi' ||
+    poetNeedle === 'molavi' ||
+    poetNeedle === 'molana' ||
+    filters.poet?.includes('مولا') ||
+    filters.poet?.includes('مولوی') ||
+    filters.poet?.includes('رومی');
+
   for (const w of works) {
-    if (filters.poet && w.poet_id !== filters.poet && w.poet_name !== filters.poet) continue;
+    if (filters.poet) {
+      if (isMolana) {
+        if (w.poet_id !== 'molavi' && w.poet_id !== 'rumi' && !w.poet_name?.includes('مولا') && !w.poet_name?.includes('مولوی')) continue;
+      } else {
+        if (w.poet_id !== filters.poet && w.poet_name !== filters.poet && !w.poet_name?.includes(filters.poet)) continue;
+      }
+    }
     if (filters.collection && w.collection_id !== filters.collection) continue;
     if (filters.form && w.form !== filters.form) continue;
     if (filters.meter && w.meter?.name !== filters.meter) continue;
@@ -186,8 +201,22 @@ export function worksListHandler(req: TighRequest): TighResponse {
 }
 
 export function worksGetHandler(req: TighRequest): TighResponse {
-  const id = req.params.id!;
-  const w = store.works.get(id);
+  const id = decodeURIComponent(req.params.id!);
+  let w = store.works.get(id);
+  if (!w) {
+    const hMatch = id.match(/^h-(\d+)$/i);
+    if (hMatch) {
+      w = store.works.get(`hafez.ghazaliat.${hMatch[1]}`);
+    }
+    if (!w) {
+      for (const candidate of store.works.values()) {
+        if (candidate.source?.legacy_id === id) {
+          w = candidate;
+          break;
+        }
+      }
+    }
+  }
   if (!w) {
     return problemResponse(404, 'Not Found', `Work ${id} not found`);
   }
@@ -235,7 +264,8 @@ export function falHandler(_req: TighRequest): TighResponse {
 }
 
 export function poetsListHandler(_req: TighRequest): TighResponse {
-  return jsonBody({ items: Array.from(store.poets.values()), count: store.poets.size });
+  const unique = Array.from(new Set(store.poets.values()));
+  return jsonBody({ items: unique, count: unique.length });
 }
 
 export function poetsGetHandler(req: TighRequest): TighResponse {

@@ -22,3 +22,6 @@ const doc: any = {
 globalThis.document = doc as any;
 globalThis.window = { print: () => {} } as any;
 globalThis.HTMLElement = class { style = {}; appendChild = () => {}; } as any;
+
+export {};
+

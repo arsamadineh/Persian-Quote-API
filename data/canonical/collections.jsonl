@@ -50,11 +50,11 @@
 {"slug":"general","poet_slug":"masoud-fardmanesh","title_persian":"برگ زردی در بهار","title_english":"General","form":"nimaee","work_count":18}
 {"slug":"general","poet_slug":"seyed-ali-salehi","title_persian":"سمفونی سپیده‌دم","title_english":"General","form":"nimaee","work_count":33}
 {"slug":"general","poet_slug":"tahereh-saffarzadeh","title_persian":"منتخب اشعار","title_english":"General","form":"nimaee","work_count":16}
-{"slug":"divan-e-shams","poet_slug":"rumi","title_persian":"دیوان شمس","title_english":"Divan E Shams","form":"ghazal","work_count":1}
+{"slug":"divan-e-shams","poet_slug":"molavi","title_persian":"دیوان شمس","title_english":"Divan E Shams","form":"ghazal","work_count":1}
 {"slug":"hafez","poet_slug":"hafez","title_persian":"دیوان حافظ","title_english":"Hafez","form":"ghazal","work_count":2}
 {"slug":"bustan","poet_slug":"saadi","title_persian":"بوستان","title_english":"Bustan","form":"ghazal","work_count":1}
 {"slug":"shahnameh","poet_slug":"ferdowsi","title_persian":"شاهنامه","title_english":"Shahnameh","form":"ghazal","work_count":1}
-{"slug":"masnavi","poet_slug":"rumi","title_persian":"مثنوی معنوی","title_english":"Masnavi","form":"ghazal","work_count":1}
+{"slug":"masnavi","poet_slug":"molavi","title_persian":"مثنوی معنوی","title_english":"Masnavi","form":"ghazal","work_count":1}
 {"slug":"golestan","poet_slug":"saadi","title_persian":"گلستان","title_english":"Golestan","form":"ghazal","work_count":1}
 {"slug":"aphorisms","poet_slug":"general","title_persian":"سخنان و اندیشه‌ها","title_english":"Aphorisms","form":"other","work_count":494}
 {"slug":"molavi","title_persian":"دیوان مولانا","title_english":"Divan of Rumi","poet_slug":"molavi","rights_summary":{"default_status":"public_domain","notes":"full"}}

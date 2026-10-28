@@ -90,6 +90,8 @@
     "@persian-quote/widget": "workspace:*",
     "@persian-quote/mcp": "workspace:*",
     "@persian-quote/sdk-ts": "workspace:*",
+    "@persian-quote/arud": "workspace:*",
+    "@persian-quote/tools": "workspace:*",
     "@tailwindcss/postcss": "^4.1.9",
     "@types/bun": "^1.4.0",
     "@types/node": "^22",

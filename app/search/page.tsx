@@ -84,39 +84,42 @@ export default function SearchPage() {
         )}
 
         <div className="space-y-4">
-          {results.map((poem: any) => (
-            <div
-              key={poem.id}
-              className="border border-border rounded-lg p-5 bg-card/40 group"
-            >
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-semibold text-foreground text-right">
-                  <Link href={`/p/${poem.id}`} className="hover:text-primary transition-colors">
-                    {poem.title}
-                  </Link>
-                </h3>
-                <span className="text-[10px] px-2 py-1 rounded border border-border/50 text-muted-foreground">
-                  {poem.form}
-                </span>
+          {results.map((poem: any) => {
+            const doc = poem.doc || poem
+            return (
+              <div
+                key={poem.id}
+                className="border border-border rounded-lg p-5 bg-card/40 group"
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-semibold text-foreground text-right">
+                    <Link href={`/p/${poem.id}`} className="hover:text-primary transition-colors">
+                      {doc.title || poem.title}
+                    </Link>
+                  </h3>
+                  <span className="text-[10px] px-2 py-1 rounded border border-border/50 text-muted-foreground">
+                    {doc.form || poem.form}
+                  </span>
+                </div>
+                <p className="text-sm text-foreground leading-relaxed mb-3 text-right" dir="rtl" lang="fa">
+                  {(doc.text_plain || poem.text_plain)?.slice(0, 200)}
+                  {(doc.text_plain || poem.text_plain)?.length! > 200 ? '…' : ''}
+                </p>
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <span>{doc.poet_name || poem.poet_name}</span>
+                  <span>/</span>
+                  <span>{doc.collection_title || poem.collection_title}</span>
+                  <button
+                    onClick={() => copy(poem.id)}
+                    title="کپی پیوند"
+                    className="hover:text-primary transition-colors"
+                  >
+                    {copied ? <Copy className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                  </button>
+                </div>
               </div>
-              <p className="text-sm text-foreground leading-relaxed mb-3 text-right" dir="rtl" lang="fa">
-                {poem.text_plain?.slice(0, 200)}
-                {poem.text_plain?.length! > 200 ? '…' : ''}
-              </p>
-              <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                <span>{poem.poet_name}</span>
-                <span>/</span>
-                <span>{poem.collection_title}</span>
-                <button
-                  onClick={() => copy(poem.id)}
-                  title="کپی پیوند"
-                  className="hover:text-primary transition-colors"
-                >
-                  {copied ? <Copy className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                </button>
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {total > 0 && (

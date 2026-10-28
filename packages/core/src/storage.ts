@@ -59,7 +59,14 @@ export function loadCanonicalStore(): CanonicalStore {
     worksBySlug.set(slug, w);
   }
   const poets = new Map<string, Poet>();
-  for (const p of poetsRaw) poets.set(p.slug, p);
+  for (const p of poetsRaw) {
+    poets.set(p.slug, p);
+    if (Array.isArray(p.aliases)) {
+      for (const a of p.aliases) {
+        if (!poets.has(a)) poets.set(a, p);
+      }
+    }
+  }
   const collections = new Map<string, Collection>();
   for (const c of collectionsRaw) collections.set(c.slug, c);
 

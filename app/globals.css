@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../app";
+@source "../components";
+@source "../packages";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -77,8 +80,9 @@
 }
 
 @theme inline {
-  /* Updated font configuration to use Vazirmatn as primary font */
+  /* Updated font configuration to use Vazirmatn as primary font and Noto Naskh as literary serif */
   --font-sans: var(--font-vazirmatn), "Vazirmatn", "Tahoma", sans-serif;
+  --font-serif: var(--font-naskh), var(--font-vazirmatn), serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -195,15 +199,57 @@
   }
 
   .persian-text {
-    /* Updated Persian text to use Vazirmatn font variable */
     font-family: var(--font-vazirmatn), "Vazirmatn", "Tahoma", sans-serif;
     line-height: 1.9;
     letter-spacing: 0.01em;
+    font-size-adjust: from-font;
   }
 
-  /* Added font-vazirmatn utility class */
+  /* Modern Web Guidance: typography & legibility */
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  p, blockquote, li, .pretty-text {
+    text-wrap: pretty;
+  }
+
+  .flex-balance {
+    display: flex;
+    flex-wrap: wrap;
+    flex-wrap: balance;
+  }
+
+  /* Added Persian typography utility classes */
   .font-vazirmatn {
     font-family: var(--font-vazirmatn), "Vazirmatn", "Tahoma", sans-serif;
+  }
+
+  .font-naskh {
+    font-family: var(--font-naskh), var(--font-vazirmatn), serif;
+    line-height: 2.15;
+    font-size-adjust: from-font;
+  }
+
+  .font-nastaliq {
+    font-family: var(--font-nastaliq), var(--font-naskh), serif;
+    line-height: 2.75;
+  }
+
+  .font-kufi {
+    font-family: var(--font-kufi), var(--font-vazirmatn), sans-serif;
+    letter-spacing: 0.015em;
+  }
+
+  @supports not (font-size-adjust: from-font) {
+    .persian-text {
+      line-height: 1.9;
+      font-size: 1rem;
+    }
+    .font-naskh {
+      line-height: 2.2;
+      font-size: 1.08em;
+    }
   }
 
   /* Enhanced quote card styling with Persian calligraphy inspiration */

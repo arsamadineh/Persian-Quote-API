@@ -13,7 +13,7 @@ export function createEngine(config?: Partial<EngineConfig>): TighEngine {
  *   export const GET = createNextHandler(engine);
  */
 export function createNextHandler(engine: Engine) {
-  return async (req: Request, ctx: { params?: Promise<Record<string, string>> } = {}): Promise<Response> => {
+  return async (req: Request, ctx: { params: Promise<Record<string, string>> }): Promise<Response> => {
     const response = await engine.fetch(req);
     return response;
   };

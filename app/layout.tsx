@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import Script from "next/script"
-import { Vazirmatn } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
@@ -9,11 +9,44 @@ import { UpdateModal } from "@/components/update-modal"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CommandBar } from "@/components/command-bar"
 
-const vazirmatn = Vazirmatn({
-  subsets: ["arabic"],
-  weight: ["300", "400", "500", "600", "700"],
+const vazirmatn = localFont({
+  src: [
+    { path: "./fonts/Vazirmatn-Light.ttf", weight: "300", style: "normal" },
+    { path: "./fonts/Vazirmatn-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/Vazirmatn-Medium.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/Vazirmatn-SemiBold.ttf", weight: "600", style: "normal" },
+    { path: "./fonts/Vazirmatn-Bold.ttf", weight: "700", style: "normal" },
+  ],
   display: "swap",
   variable: "--font-vazirmatn",
+})
+
+const naskh = localFont({
+  src: [
+    { path: "./fonts/NotoNaskhArabic-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/NotoNaskhArabic-Medium.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/NotoNaskhArabic-Bold.ttf", weight: "700", style: "normal" },
+  ],
+  display: "swap",
+  variable: "--font-naskh",
+})
+
+const nastaliq = localFont({
+  src: [
+    { path: "./fonts/NotoNastaliqUrdu-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/NotoNastaliqUrdu-Bold.ttf", weight: "700", style: "normal" },
+  ],
+  display: "swap",
+  variable: "--font-nastaliq",
+})
+
+const kufi = localFont({
+  src: [
+    { path: "./fonts/NotoKufiArabic-Medium.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/NotoKufiArabic-Bold.ttf", weight: "700", style: "normal" },
+  ],
+  display: "swap",
+  variable: "--font-kufi",
 })
 
 const SITE_URL = "https://pq.adicon.ir"
@@ -431,9 +464,6 @@ export default function RootLayout({
         <link rel="author" href="https://arsamadineh.ir" title="آرسام آدینه" />
         <link rel="me" href="https://github.com/arsamadineh" />
         <link rel="me" href="https://x.com/dev_arsam" />
-        {/* Preconnect برای عملکرد بهتر */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.github.com" />
         {/* فیلتر کنسول: پیام پیشنهاد نصب React DevTools را در محیط توسعه حذف می‌کند
             بدون تأثیر روی سایر لاگ‌ها (debug/warn/error دست‌نخورده باقی می‌مانند) */}
@@ -445,7 +475,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${vazirmatn.variable} font-vazirmatn persian-text antialiased`}>
+      <body className={`${vazirmatn.variable} ${naskh.variable} ${nastaliq.variable} ${kufi.variable} font-vazirmatn persian-text antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">
             <Navbar />

@@ -1,8 +1,32 @@
-import { engine } from '@/lib/core-engine'
-import { notFound } from 'next/navigation'
+import { engine } from "@/lib/core-engine"
+import { notFound } from "next/navigation"
+import type { Metadata } from "next"
+import { PoemReaderView } from "@/components/poem-reader-view"
 
-export const metadata = {
-  title: 'خواندن شعر',
+function toPersianDigits(num: number | string): string {
+  return String(num).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)] || d)
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+  const { id } = await params
+  const res = await engine.fetch(
+    new Request(`http://localhost/v1/works/${encodeURIComponent(id)}?view=full`)
+  )
+  if (!res.ok) {
+    return { title: "خوانش شعر" }
+  }
+  const poem = (await res.json()) as any
+  const firstLine = poem.stanzas?.[0]?.[0] || ""
+  return {
+    title: `${poem.title} — ${poem.poet_name}`,
+    description: firstLine
+      ? `${poem.title} از ${poem.poet_name}: «${firstLine}» — همراه با تقطیع عروضی، وزن، قافیه و استناد علمی.`
+      : `${poem.title} اثر ${poem.poet_name} در گنجینه اشعار فارسی.`,
+  }
 }
 
 export default async function ReaderPage({
@@ -17,64 +41,48 @@ export default async function ReaderPage({
   if (!res.ok) notFound()
   const poem = (await res.json()) as any
 
-  const lines = Array.isArray(poem.stanzas) ? poem.stanzas.flat() : []
+  // Compute adjacent works (prev / next) in the same collection if numbered
+  let prevWork: { id: string; title: string } | null = null
+  let nextWork: { id: string; title: string } | null = null
+
+  const idParts = String(poem.id || "").split(".")
+  if (idParts.length === 3) {
+    const prefix = `${idParts[0]}.${idParts[1]}`
+    const num = Number(idParts[2])
+    if (Number.isFinite(num)) {
+      if (num > 1) {
+        const prevId = `${prefix}.${num - 1}`
+        const pRes = await engine.fetch(new Request(`http://localhost/v1/works/${encodeURIComponent(prevId)}?view=full`))
+        if (pRes.ok) {
+          const pData = (await pRes.json()) as any
+          prevWork = { id: pData.id, title: pData.title || `شعر ${toPersianDigits(num - 1)}` }
+        }
+      }
+      const nextId = `${prefix}.${num + 1}`
+      const nRes = await engine.fetch(new Request(`http://localhost/v1/works/${encodeURIComponent(nextId)}?view=full`))
+      if (nRes.ok) {
+        const nData = (await nRes.json()) as any
+        nextWork = { id: nData.id, title: nData.title || `شعر ${toPersianDigits(num + 1)}` }
+      }
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-background text-foreground rtl">
-      <div className="container mx-auto px-4 py-12 max-w-3xl">
-        <nav className="mb-8 flex items-center gap-2 text-xs text-muted-foreground">
-          <a href="/" className="hover:text-foreground transition-colors">
-            صفحه اصلی
-          </a>
-          <span>/</span>
-          <a href={`/poets/${poem.poet_id}`} className="hover:text-foreground transition-colors">
-            {poem.poet_name}
-          </a>
-          <span>/</span>
-          <span>{poem.title}</span>
-        </nav>
-
-        <article className="prose prose-lg max-w-none border border-border rounded-lg p-8 bg-card/50">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-right">
-            {poem.title}
-          </h1>
-          <div
-            className="text-xl leading-relaxed text-justify text-right font-serif"
-            dir="rtl"
-            lang="fa"
-          >
-            {lines.map((line: string, i: number) => (
-              <p key={i} className="mb-4 last:mb-0 whitespace-pre-line">
-                {line}
-              </p>
-            ))}
-          </div>
-
-          {poem.meter && (
-            <div className="mt-8 pt-6 border-t border-border/50 text-xs text-muted-foreground">
-              <div className="font-semibold text-foreground mb-1">وزن و قافیه</div>
-              <div>{poem.meter.name}</div>
-              {poem.qafiyeh && <div>قافیه: {poem.qafiyeh}</div>}
-              {poem.radif && <div>ردیف: {poem.radif}</div>}
-            </div>
-          )}
-
-          <div className="mt-8 flex gap-3">
-            <a
-              href={`/v1/works/${id}?view=text&format=txt`}
-              className="px-4 py-2 rounded border border-border hover:bg-muted transition-colors text-xs"
-            >
-              متن خالی
-            </a>
-            <a
-              href={`/poets/${poem.poet_id}`}
-              className="px-4 py-2 rounded border border-border hover:bg-muted transition-colors text-xs"
-            >
-            تمام اشعار {poem.poet_name}
-            </a>
-          </div>
-        </article>
-      </div>
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Poem",
+            name: poem.title,
+            author: { "@type": "Person", name: poem.poet_name },
+            inLanguage: "fa",
+            text: poem.text_plain,
+          }),
+        }}
+      />
+      <PoemReaderView poem={poem} prevWork={prevWork} nextWork={nextWork} />
+    </>
   )
 }

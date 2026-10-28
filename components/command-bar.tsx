@@ -19,7 +19,7 @@ import {
   Hash as HashIcon,
   Lightbulb,
   Search,
-  Sparkles,
+  Terminal,
   X,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -31,7 +31,7 @@ const CATEGORY_ICON: Record<DocItemCategory, typeof Search> = {
   guide: BookOpen,
   concept: Lightbulb,
   snippet: Code,
-  prompt: Sparkles,
+  prompt: Terminal,
 }
 
 const SHORTCUT_LABEL = "Ctrl K" // نمایش فارسی: «Ctrl K» در سیستم‌های غیر Mac

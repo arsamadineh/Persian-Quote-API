@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { QuoteWidget } from "@/components/quote-cards/quote-widget"
-import { BookOpen, Code, Play, RefreshCw, Search, Users, Heart, Sparkles } from "lucide-react"
+import { BookOpen, Code, Play, RefreshCw, Search, Users, Heart, Layers } from "lucide-react"
 import Link from "next/link"
 
 export default function ExamplesPage() {
@@ -67,7 +67,7 @@ export default function ExamplesPage() {
         {/* Section 1: Widget Examples */}
         <section className="mb-12">
           <div className="flex items-center gap-2 mb-6">
-            <Sparkles className="w-6 h-6 text-primary" />
+            <Layers className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-bold text-foreground">ویجت‌های آماده</h2>
           </div>
           <Card>

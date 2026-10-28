@@ -6,7 +6,7 @@ export function determineAttribution(
   category?: string
 ): Attribution {
   // Classical masters with direct canon
-  const CANONICAL_POETS = new Set(["hafez", "saadi", "rumi", "ferdowsi", "nezami", "khayyam"]);
+  const CANONICAL_POETS = new Set(["hafez", "saadi", "rumi", "molavi", "ferdowsi", "nezami", "khayyam"]);
 
   if (CANONICAL_POETS.has(poetSlug)) {
     return {

@@ -6,7 +6,7 @@
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Check, Copy, Sparkles, Wand2, Wrench, Bug, Rocket, BookOpen } from "lucide-react"
+import { Check, Copy, Zap, Wand2, Wrench, Bug, Rocket, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type Tool = "Cursor" | "Claude Code" | "Codex" | "Any"
@@ -95,10 +95,10 @@ const CARDS: PromptCard[] = [
   },
 ]
 
-const CATEGORY_META: Record<PromptCard["category"], { label: string; icon: typeof Sparkles; color: string }> = {
+const CATEGORY_META: Record<PromptCard["category"], { label: string; icon: typeof Zap; color: string }> = {
   setup: { label: "راه‌اندازی", icon: Wand2, color: "text-blue-500 bg-blue-500/10 border-blue-500/20" },
   extend: { label: "توسعه", icon: BookOpen, color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" },
-  optimize: { label: "بهینه‌سازی", icon: Sparkles, color: "text-amber-500 bg-amber-500/10 border-amber-500/20" },
+  optimize: { label: "بهینه‌سازی", icon: Zap, color: "text-amber-500 bg-amber-500/10 border-amber-500/20" },
   debug: { label: "اشکال‌زدایی", icon: Bug, color: "text-rose-500 bg-rose-500/10 border-rose-500/20" },
   deploy: { label: "استقرار", icon: Rocket, color: "text-indigo-500 bg-indigo-500/10 border-indigo-500/20" },
   explore: { label: "شناخت", icon: Wrench, color: "text-stone-600 bg-stone-500/10 border-stone-500/20" },
